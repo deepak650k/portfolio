@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712"/>
+      <stop offset="50%" stop-color="#0b1329"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Filters for Glow -->
+    <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="70" result="blur"/>
+    </filter>
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="80" result="blur"/>
+    </filter>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Pattern -->
+    <pattern id="dotGrid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#334155" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#dotGrid)"/>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="200" cy="180" r="160" fill="#0284c7" opacity="0.25" filter="url(#glowBlue)"/>
+  <circle cx="1050" cy="450" r="180" fill="#7c3aed" opacity="0.25" filter="url(#glowPurple)"/>
+  <circle cx="600" cy="550" r="140" fill="#06b6d4" opacity="0.15" filter="url(#glowBlue)"/>
+
+  <!-- Left Column: Branding & Info -->
+  <g transform="translate(80, 110)">
+    
+    <!-- Top Pill: Status -->
+    <g>
+      <rect x="0" y="0" width="310" height="40" rx="20" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+      <circle cx="22" cy="20" r="5" fill="#10b981"/>
+      <circle cx="22" cy="20" r="8" fill="#10b981" opacity="0.4"/>
+      <text x="38" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#38bdf8" letter-spacing="0.5">
+        PERSONAL PORTFOLIO • LIVE
+      </text>
+    </g>
+
+    <!-- Name Heading -->
+    <text x="0" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-1">
+      Deepak Kumawat
+    </text>
+
+    <!-- Subtitle / Headline -->
+    <text x="0" y="178" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="700" fill="url(#textGrad)">
+      B.Tech Student | AI &amp; Technology Enthusiast
+    </text>
+
+    <!-- College & Location -->
+    <g transform="translate(0, 215)">
+      <!-- University Icon -->
+      <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm-7.05 9.09L12 14.22l7.05-3.13L12 7.78 4.95 11.09z" fill="#94a3b8" transform="scale(1.2)"/>
+      <text x="32" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="500" fill="#94a3b8">
+        JECRC University • Jaipur, Rajasthan
+      </text>
+    </g>
+
+    <!-- Tech Badges Bar -->
+    <g transform="translate(0, 290)">
+      <!-- Badge: AI & GenAI -->
+      <g>
+        <rect x="0" y="0" width="130" height="38" rx="10" fill="#1e1b4b" stroke="#4338ca" stroke-width="1.2"/>
+        <text x="65" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#a5b4fc">
+          🤖 GenAI &amp; AI
+        </text>
+      </g>
+
+      <!-- Badge: React & Vite -->
+      <g transform="translate(142, 0)">
+        <rect x="0" y="0" width="135" height="38" rx="10" fill="#082f49" stroke="#0284c7" stroke-width="1.2"/>
+        <text x="67" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#7dd3fc">
+          ⚛️ React + Vite
+        </text>
+      </g>
+
+      <!-- Badge: Python -->
+      <g transform="translate(289, 0)">
+        <rect x="0" y="0" width="115" height="38" rx="10" fill="#064e3b" stroke="#059669" stroke-width="1.2"/>
+        <text x="57" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#6ee7b7">
+          🐍 Python
+        </text>
+      </g>
+
+      <!-- Badge: Tailwind -->
+      <g transform="translate(416, 0)">
+        <rect x="0" y="0" width="125" height="38" rx="10" fill="#164e63" stroke="#0891b2" stroke-width="1.2"/>
+        <text x="62" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#67e8f9">
+          🎨 Tailwind
+        </text>
+      </g>
+    </g>
+
+    <!-- Bottom URL Callout -->
+    <g transform="translate(0, 375)">
+      <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#64748b">
+        github.com/deepak650k • linkedin.com/in/deepak-650k
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Column: Premium Floating Mockup Card -->
+  <g transform="translate(730, 85)" filter="url(#cardShadow)">
+    
+    <!-- Outer Card Glow Border -->
+    <rect x="-2" y="-2" width="414" height="454" rx="26" fill="none" stroke="url(#brandGrad)" stroke-width="2.5" opacity="0.8"/>
+
+    <!-- Main Card Body -->
+    <rect width="410" height="450" rx="24" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
+
+    <!-- Window Header -->
+    <g transform="translate(24, 24)">
+      <circle cx="6" cy="6" r="6" fill="#ef4444"/>
+      <circle cx="26" cy="6" r="6" fill="#f59e0b"/>
+      <circle cx="46" cy="6" r="6" fill="#10b981"/>
+      <text x="70" y="11" font-family="'JetBrains Mono', monospace" font-size="12" fill="#64748b">
+        deepak_portfolio.jsx
+      </text>
+    </g>
+
+    <line x1="0" y1="52" x2="410" y2="52" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Profile Monogram in Card -->
+    <g transform="translate(30, 75)">
+      <rect width="64" height="64" rx="18" fill="url(#brandGrad)"/>
+      <text x="32" y="42" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="900" fill="#ffffff">
+        DK
+      </text>
+
+      <text x="82" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="700" fill="#ffffff">
+        Deepak Kumawat
+      </text>
+      <text x="82" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#38bdf8">
+        JECRC University • Jaipur
+      </text>
+    </g>
+
+    <!-- Simulated Code Window Inside Card -->
+    <g transform="translate(30, 160)">
+      <rect width="350" height="175" rx="14" fill="#030712" stroke="#1e293b" stroke-width="1"/>
+      
+      <g transform="translate(18, 28)" font-family="'JetBrains Mono', monospace" font-size="12" line-height="20">
+        <text y="0" fill="#c084fc">const</text>
+        <text x="45" y="0" fill="#60a5fa">developer</text>
+        <text x="125" y="0" fill="#e2e8f0">= {</text>
+        
+        <text x="16" y="24" fill="#94a3b8">role:</text>
+        <text x="65" y="24" fill="#34d399">"B.Tech Student",</text>
+        
+        <text x="16" y="48" fill="#94a3b8">focus:</text>
+        <text x="75" y="48" fill="#38bdf8">["AI", "Web Dev"],</text>
+        
+        <text x="16" y="72" fill="#94a3b8">campus:</text>
+        <text x="80" y="72" fill="#fbbf24">"JECRC Jaipur",</text>
+
+        <text x="16" y="96" fill="#94a3b8">status:</text>
+        <text x="80" y="96" fill="#a78bfa">"Open to Projects"</text>
+
+        <text y="120" fill="#e2e8f0">};</text>
+      </g>
+    </g>
+
+    <!-- Card Bottom Feature Badges -->
+    <g transform="translate(30, 360)">
+      <!-- Pill 1 -->
+      <rect x="0" y="0" width="165" height="42" rx="12" fill="#0f172a" stroke="#1e293b"/>
+      <text x="82" y="26" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">
+        ⚡ 60 FPS Fast Load
+      </text>
+
+      <!-- Pill 2 -->
+      <rect x="180" y="0" width="170" height="42" rx="12" fill="#0f172a" stroke="#1e293b"/>
+      <text x="265" y="26" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">
+        🌙 Dark / Light Mode
+      </text>
+    </g>
+
+  </g>
+
+  <!-- Border Frame Accent -->
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#1e293b" stroke-width="2"/>
+</svg>

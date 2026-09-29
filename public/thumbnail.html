@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deepak Kumawat - Portfolio Thumbnail Preview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .header {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+      color: #38bdf8;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 15px;
+    }
+    .preview-container {
+      position: relative;
+      max-width: 1000px;
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(14, 165, 233, 0.2);
+      border: 1px solid #1e293b;
+      margin-bottom: 30px;
+      background: #020617;
+    }
+    .preview-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      color: #ffffff;
+      box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(14, 165, 233, 0.6);
+    }
+    .btn-secondary {
+      background: #0f172a;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+    }
+    .btn-secondary:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+    }
+    .instructions {
+      margin-top: 40px;
+      max-width: 700px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .instructions strong {
+      color: #f1f5f9;
+    }
+    .instructions ol {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+    .instructions li {
+      margin-bottom: 8px;
+    }
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">Official Social &amp; LinkedIn Preview</div>
+    <h1>Portfolio Thumbnail Ready</h1>
+    <p>High-resolution 1200 x 630px thumbnail designed for LinkedIn Featured cards and posts.</p>
+  </div>
+
+  <div class="preview-container">
+    <img id="thumbImg" src="/portfolio-thumbnail.svg" alt="Deepak Kumawat Portfolio Thumbnail">
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="downloadPNG()">
+      📥 Download as PNG (1200x630)
+    </button>
+    <a href="/portfolio-thumbnail.svg" download="deepak-portfolio-thumbnail.svg" class="btn btn-secondary">
+      📄 Download SVG
+    </a>
+    <a href="/" class="btn btn-secondary">
+      🌐 Back to Portfolio
+    </a>
+  </div>
+
+  <div class="instructions">
+    <strong>How to use this on LinkedIn:</strong>
+    <ol>
+      <li>Click <strong>"Download as PNG"</strong> above to save the image to your Mac.</li>
+      <li>On LinkedIn, go to your <strong>Featured</strong> section or create a <strong>New Post</strong>.</li>
+      <li>Upload this PNG image as the featured media or post banner.</li>
+      <li>Add your portfolio link: <code>https://portfolio-deepak650k.vercel.app</code> in the post text!</li>
+    </ol>
+  </div>
+
+  <canvas id="exportCanvas" width="1200" height="630"></canvas>
+
+  <script>
+    function downloadPNG() {
+      const img = document.getElementById('thumbImg');
+      const canvas = document.getElementById('exportCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      const newImg = new Image();
+      newImg.crossOrigin = 'anonymous';
+      newImg.onload = function() {
+        ctx.clearRect(0, 0, 1200, 630);
+        ctx.drawImage(newImg, 0, 0, 1200, 630);
+        
+        const a = document.createElement('a');
+        a.download = 'deepak-kumawat-portfolio-thumbnail.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      };
+      newImg.src = img.src;
+    }
+  </script>
+
+</body>
+</html>
