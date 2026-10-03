@@ -4,7 +4,7 @@ export const personalInfo = {
   headline: "B.Tech Student | AI & Technology Enthusiast",
   college: "JECRC University",
   location: "Jaipur, Rajasthan, India",
-  email: "deepakxx@gmail.com",
+  email: "deepak650k@gmail.com",
   linkedin: "deepak-650k",
   linkedinUrl: "https://www.linkedin.com/in/deepak-650k",
   github: "deepak650k",

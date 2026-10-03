@@ -67,7 +67,7 @@ The website is currently running locally at:
    - Quick filter tabs and an extensible placeholder card.
 
 7. **Contact Section**:
-   - **Email**: `deepakxx@gmail.com` with one-click copy and direct mailto
+   - **Email**: `deepak650k@gmail.com` with one-click copy and direct mailto
    - **LinkedIn**: `deepak-650k` ([linkedin.com/in/deepak-650k](https://www.linkedin.com/in/deepak-650k))
    - **GitHub**: `deepak650k` ([github.com/deepak650k](https://github.com/deepak650k))
    - Interactive contact form with real-time feedback and validation
