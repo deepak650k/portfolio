@@ -5,7 +5,6 @@ import { Sparkles, MapPin, GraduationCap, ArrowRight } from 'lucide-react';
 const greetings = [
   { text: "Hello", sub: "English" },
   { text: "नमस्ते", sub: "Hindi" },
-  { text: "Bonjour", sub: "French" },
   { text: "Welcome", sub: "Welcome" },
 ];
 
@@ -22,7 +21,7 @@ export default function WelcomeAnimation({ onComplete }) {
       return;
     }
 
-    // Cycle through multilingual greetings with increased duration
+    // Cycle through multilingual greetings with comfortable duration
     const greetingInterval = setInterval(() => {
       setGreetingIndex((prev) => {
         if (prev < greetings.length - 1) {
@@ -33,7 +32,7 @@ export default function WelcomeAnimation({ onComplete }) {
           return prev;
         }
       });
-    }, 650);
+    }, 750);
 
     // Auto-transition to portfolio after the expanded grand reveal (~5.2s total)
     const exitTimer = setTimeout(() => {
