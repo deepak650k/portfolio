@@ -11,7 +11,22 @@ import Footer from './components/Footer';
 import WelcomeAnimation from './components/WelcomeAnimation';
 
 export default function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    try {
+      // Only show on first visit in the session; do not show on refresh
+      return !sessionStorage.getItem('hasSeenWelcome');
+    } catch {
+      return false;
+    }
+  });
+
+  const handleWelcomeComplete = () => {
+    setShowWelcome(false);
+    try {
+      sessionStorage.setItem('hasSeenWelcome', 'true');
+    } catch {}
+  };
+
   const [darkMode, setDarkMode] = useState(() => {
     // Default to dark mode for premium developer aesthetic, check localStorage
     const savedTheme = localStorage.getItem('theme');
@@ -41,8 +56,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white">
-      {/* Cinematic Welcome Screen */}
-      {showWelcome && <WelcomeAnimation onComplete={() => setShowWelcome(false)} />}
+      {/* Cinematic Welcome Screen - Only shows on first visit, not on refresh */}
+      {showWelcome && <WelcomeAnimation onComplete={handleWelcomeComplete} />}
 
       {/* Top Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />

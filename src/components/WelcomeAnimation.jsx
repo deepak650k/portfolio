@@ -47,6 +47,11 @@ export default function WelcomeAnimation({ onComplete }) {
     };
     window.addEventListener('keydown', handleKeyDown);
 
+    // Mark welcome as seen immediately so refresh does not re-trigger it
+    try {
+      sessionStorage.setItem('hasSeenWelcome', 'true');
+    } catch {}
+
     return () => {
       clearInterval(greetingInterval);
       clearTimeout(exitTimer);
@@ -55,6 +60,9 @@ export default function WelcomeAnimation({ onComplete }) {
   }, []);
 
   const handleExit = () => {
+    try {
+      sessionStorage.setItem('hasSeenWelcome', 'true');
+    } catch {}
     setIsVisible(false);
     setTimeout(() => {
       onComplete?.();
