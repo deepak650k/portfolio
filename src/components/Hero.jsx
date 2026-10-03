@@ -75,8 +75,8 @@ export default function Hero() {
 
       {/* Ambient background glow orbs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-slow"></div>
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-indigo-500/15 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-float"></div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-96 h-64 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-rose-500/10 dark:bg-rose-500/15 rounded-full blur-3xl pointer-events-none -z-10 animate-float"></div>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-96 h-64 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -94,7 +94,7 @@ export default function Hero() {
               variants={itemVariants}
               className="relative inline-flex p-[1px] rounded-full overflow-hidden mb-6 group cursor-default shadow-sm"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/50 via-cyan-500/50 to-brand-500/50 animate-pulse-slow" />
+              <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/50 via-brand-500/50 to-amber-500/50 animate-pulse-slow" />
               <div className="relative inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50/90 dark:bg-slate-950/90 backdrop-blur-md text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold border border-brand-200/50 dark:border-brand-800/50">
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -111,7 +111,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4"
             >
               I'm{' '}
-              <span className="bg-gradient-to-r from-brand-500 via-indigo-400 via-cyan-400 to-brand-500 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-gradient-to-r from-brand-400 via-rose-300 via-amber-300 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-sm">
                 {personalInfo.name}
               </span>
             </motion.h1>
@@ -132,7 +132,7 @@ export default function Hero() {
                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     exit={{ y: -20, opacity: 0, filter: 'blur(3px)' }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-0 font-mono text-sm sm:text-base font-bold bg-gradient-to-r from-brand-600 via-indigo-500 to-cyan-500 dark:from-brand-400 dark:via-indigo-300 dark:to-cyan-300 bg-clip-text text-transparent whitespace-nowrap"
+                    className="absolute left-0 font-mono text-sm sm:text-base font-bold bg-gradient-to-r from-brand-600 via-rose-500 to-amber-500 dark:from-brand-400 dark:via-rose-300 dark:to-amber-300 bg-clip-text text-transparent whitespace-nowrap"
                   >
                     {roles[roleIndex]}
                   </motion.span>
@@ -157,7 +157,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo('projects')}
-                className="relative group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-semibold text-base text-white bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 shadow-xl shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-300 overflow-hidden cursor-pointer"
+                className="relative group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-semibold text-base text-white bg-gradient-to-r from-brand-600 via-rose-600 to-amber-500 hover:from-brand-500 hover:to-amber-400 shadow-xl shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-300 overflow-hidden cursor-pointer"
               >
                 {/* Subtle animated light gleam on hover */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>

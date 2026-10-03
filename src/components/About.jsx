@@ -89,8 +89,8 @@ export default function About() {
 
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative group shrink-0">
-                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-500 opacity-40 blur-sm group-hover:opacity-100 transition duration-500 animate-pulse-slow"></div>
-                  <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 via-rose-500 to-amber-500 opacity-40 blur-sm group-hover:opacity-100 transition duration-500 animate-pulse-slow"></div>
+                  <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-purple-600 to-rose-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
                     DK
                   </div>
                 </div>

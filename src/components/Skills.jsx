@@ -64,10 +64,10 @@ const skillStyles = {
     glow: "rgba(236, 72, 153, 0.15)"
   },
   "Web Development": {
-    accent: "from-cyan-500 to-blue-600",
-    border: "group-hover:border-cyan-500/50",
-    badge: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20",
-    glow: "rgba(6, 182, 212, 0.15)"
+    accent: "from-violet-500 to-rose-500",
+    border: "group-hover:border-violet-500/50",
+    badge: "bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/20",
+    glow: "rgba(139, 92, 246, 0.15)"
   },
   "Digital Productivity": {
     accent: "from-amber-500 to-orange-500",

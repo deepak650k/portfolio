@@ -159,7 +159,7 @@ export default function InteractiveTerminalCard() {
   return (
     <div className="relative mx-auto max-w-lg w-full">
       {/* Outer ambient glow backlight */}
-      <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400 opacity-35 blur-xl"></div>
+      <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-brand-500 via-rose-500 to-amber-400 opacity-35 blur-xl"></div>
 
       {/* Main Container Card with 3D Tilt and Spotlight */}
       <div 
@@ -177,7 +177,7 @@ export default function InteractiveTerminalCard() {
         <div
           className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30"
           style={{
-            background: `radial-gradient(420px circle at ${mousePos.x}px ${mousePos.y}px, rgba(56, 189, 248, 0.12), transparent 45%)`
+            background: `radial-gradient(420px circle at ${mousePos.x}px ${mousePos.y}px, rgba(139, 92, 246, 0.12), transparent 45%)`
           }}
         />
         
@@ -241,7 +241,7 @@ export default function InteractiveTerminalCard() {
             <div className="flex items-center gap-4">
               <motion.div
                 whileHover={{ rotate: 10, scale: 1.05 }}
-                className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-500/30"
+                className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-rose-600 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-500/30"
               >
                 DK
               </motion.div>
@@ -262,11 +262,11 @@ export default function InteractiveTerminalCard() {
 
             {/* Code Snippet Box */}
             <div className="rounded-xl bg-slate-950 p-4 font-mono text-xs text-slate-300 leading-relaxed border border-slate-800 shadow-inner overflow-x-auto">
-              <p><span className="text-purple-400">const</span> <span className="text-blue-400">engineer</span> = &#123;</p>
+              <p><span className="text-purple-400">const</span> <span className="text-brand-300">engineer</span> = &#123;</p>
               <p className="pl-4"><span className="text-slate-400">name:</span> <span className="text-emerald-400">"{personalInfo.name}"</span>,</p>
               <p className="pl-4"><span className="text-slate-400">role:</span> <span className="text-emerald-400">"B.Tech Student"</span>,</p>
               <p className="pl-4"><span className="text-slate-400">university:</span> <span className="text-amber-400">"JECRC University"</span>,</p>
-              <p className="pl-4"><span className="text-slate-400">focus:</span> [<span className="text-cyan-400">"Artificial Intelligence"</span>, <span className="text-cyan-400">"Web Dev"</span>],</p>
+              <p className="pl-4"><span className="text-slate-400">focus:</span> [<span className="text-rose-400">"Artificial Intelligence"</span>, <span className="text-amber-300">"Web Dev"</span>],</p>
               <p className="pl-4"><span className="text-slate-400">status:</span> <span className="text-emerald-400">"Open to Opportunities"</span></p>
               <p>&#125;;</p>
             </div>

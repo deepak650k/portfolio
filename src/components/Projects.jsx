@@ -21,7 +21,7 @@ export default function Projects() {
   // Gradient visuals for project cards
   const projectThumbnails = {
     "portfolio-website": {
-      gradient: "from-brand-600 via-indigo-600 to-cyan-500",
+      gradient: "from-brand-600 via-rose-600 to-amber-500",
       icon: Laptop,
       accentText: "Portfolio v1.0",
       tag: "Live Project"

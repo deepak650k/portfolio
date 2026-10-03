@@ -204,16 +204,16 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
         >
           {/* Outer Expanding Wave */}
           <span 
-            className="absolute inline-flex w-16 h-16 rounded-full bg-cyan-400/25 animate-ping"
+            className="absolute inline-flex w-16 h-16 rounded-full bg-violet-400/25 animate-ping"
             style={{ animationDuration: '3.2s' }}
           />
           {/* Inner Secondary Wave */}
           <span 
-            className="absolute inline-flex w-14 h-14 rounded-full bg-brand-500/20 animate-ping"
+            className="absolute inline-flex w-14 h-14 rounded-full bg-amber-500/20 animate-ping"
             style={{ animationDuration: '2.4s', animationDelay: '0.8s' }}
           />
           {/* Ambient Radial Halo */}
-          <span className="absolute inline-flex w-16 h-16 rounded-full bg-gradient-to-tr from-brand-500/20 to-cyan-400/20 blur-md animate-pulse" />
+          <span className="absolute inline-flex w-16 h-16 rounded-full bg-gradient-to-tr from-brand-500/20 to-amber-400/20 blur-md animate-pulse" />
         </div>
       )}
 
@@ -235,12 +235,12 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
               className="relative group p-3.5 rounded-2xl bg-slate-900/98 dark:bg-slate-950/98 border border-brand-500/40 hover:border-brand-500/70 shadow-2xl shadow-brand-500/25 backdrop-blur-xl transition-all duration-300 cursor-pointer overflow-hidden"
             >
               {/* Top Laser Accent Beam */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 via-rose-500 to-transparent" />
 
               {/* Header row with Avatar, Title and Close Button */}
               <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-800/80">
                 <div className="flex items-center gap-2">
-                  <div className="relative w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-brand-500/30 shrink-0">
+                  <div className="relative w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 via-rose-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-brand-500/30 shrink-0">
                     <Bot size={17} className="animate-pulse" />
                     {/* Live Green Online Dot */}
                     <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
@@ -249,7 +249,7 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
                     </span>
                   </div>
                   <div>
-                    <h4 className="text-[13px] font-extrabold font-heading bg-gradient-to-r from-white via-cyan-100 to-cyan-300 bg-clip-text text-transparent leading-none">
+                    <h4 className="text-[13px] font-extrabold font-heading bg-gradient-to-r from-white via-rose-100 to-amber-300 bg-clip-text text-transparent leading-none">
                       Campus Buddy AI
                     </h4>
                     <div className="flex items-center gap-1.5 mt-1">
@@ -288,7 +288,7 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
                     transition={{ duration: 0.2 }}
                     className="text-xs sm:text-[13px] leading-relaxed text-slate-100 font-sans"
                   >
-                    <span className="inline-block px-1.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-500/20 to-brand-500/20 border border-cyan-400/30 text-cyan-300 font-mono text-[10px] font-bold uppercase tracking-wider mr-1.5">
+                    <span className="inline-block px-1.5 py-0.5 rounded-md bg-gradient-to-r from-violet-500/20 to-amber-500/20 border border-violet-400/30 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider mr-1.5">
                       AI
                     </span>
                     <span className="font-semibold text-slate-100 drop-shadow-sm">
@@ -300,11 +300,11 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
 
               {/* Bottom Quick Call-to-action */}
               <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-semibold">
-                <span className="flex items-center gap-1.5 text-cyan-300">
+                <span className="flex items-center gap-1.5 text-amber-300">
                   <Sparkles size={12} className="text-amber-400 animate-spin-slow" />
                   <span className="tracking-wide">Ask Campus Buddy</span>
                 </span>
-                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 group-hover:bg-cyan-500/25 transition-colors">
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 group-hover:bg-amber-500/25 transition-colors">
                   <span className="text-[10px] font-mono uppercase font-bold">Chat</span>
                   <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                 </div>

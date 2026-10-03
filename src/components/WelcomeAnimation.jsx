@@ -87,11 +87,11 @@ export default function WelcomeAnimation({ onComplete }) {
               rotate: [0, 90, 180]
             }}
             transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-brand-600/30 via-indigo-600/25 to-cyan-400/25 rounded-full blur-[140px] pointer-events-none"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-brand-600/30 via-purple-600/25 to-amber-500/20 rounded-full blur-[140px] pointer-events-none"
           />
 
           {/* Glowing Center Ring Horizon */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-cyan-500/10 pointer-events-none animate-ping [animation-duration:3s]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-violet-500/15 pointer-events-none animate-ping [animation-duration:3s]"></div>
 
           <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-xl min-h-[280px] justify-center">
             
@@ -109,19 +109,19 @@ export default function WelcomeAnimation({ onComplete }) {
                   >
                     <div className="relative flex flex-col items-center">
                       {/* Ambient soft glow aura behind text */}
-                      <div className="absolute -inset-6 bg-gradient-to-r from-cyan-500/25 via-brand-500/30 to-indigo-500/25 blur-3xl rounded-full -z-10 pointer-events-none" />
+                      <div className="absolute -inset-8 bg-gradient-to-r from-violet-600/30 via-rose-500/25 to-amber-500/20 blur-3xl rounded-full -z-10 pointer-events-none" />
 
-                      <span className="text-6xl sm:text-7xl md:text-8xl font-black font-heading tracking-tight bg-gradient-to-r from-cyan-300 via-sky-200 via-indigo-300 to-teal-300 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.45)]">
+                      <span className="text-6xl sm:text-7xl md:text-8xl font-black font-heading tracking-tight bg-gradient-to-r from-amber-200 via-rose-300 via-purple-300 to-violet-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(244,63,94,0.4)]">
                         {greetings[greetingIndex].text}
                       </span>
 
                       {/* Luminous Cybernetic Language Badge */}
-                      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.3)] mt-4">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-violet-400/40 text-violet-300 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(139,92,246,0.3)] mt-4">
                         <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                         </span>
-                        <span className="font-semibold">{greetings[greetingIndex].sub}</span>
+                        <span className="font-semibold text-amber-200">{greetings[greetingIndex].sub}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -140,11 +140,11 @@ export default function WelcomeAnimation({ onComplete }) {
                   initial={{ scale: 0.5, rotate: -15, opacity: 0 }}
                   animate={{ scale: 1, rotate: 0, opacity: 1 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-600 via-indigo-600 to-cyan-500 text-white font-extrabold text-3xl shadow-2xl shadow-brand-500/40 mb-5"
+                  className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-violet-600 via-purple-600 to-amber-500 text-white font-extrabold text-3xl shadow-2xl shadow-violet-500/40 mb-5"
                 >
                   <span>D</span>
                   {/* Conic glowing halo */}
-                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-400 to-cyan-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
+                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-violet-500 via-rose-400 to-amber-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
                 </motion.div>
 
                 {/* Name with Liquid Metallic Shimmer - First Name Only */}
@@ -154,7 +154,7 @@ export default function WelcomeAnimation({ onComplete }) {
                   transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                   className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight mb-3"
                 >
-                  <span className="bg-gradient-to-r from-brand-400 via-indigo-300 via-cyan-400 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-violet-400 via-rose-300 via-amber-300 to-violet-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
                     Deepak
                   </span>
                 </motion.h1>
@@ -164,9 +164,9 @@ export default function WelcomeAnimation({ onComplete }) {
                   initial={{ scaleX: 0, opacity: 0 }}
                   animate={{ scaleX: 1, opacity: 1 }}
                   transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-64 sm:w-80 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full mb-4"
+                  className="relative w-64 sm:w-80 h-0.5 bg-gradient-to-r from-transparent via-amber-400 via-violet-400 to-transparent rounded-full mb-4"
                 >
-                  <div className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 rounded-full bg-cyan-300 blur-xs animate-ping"></div>
+                  <div className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 rounded-full bg-amber-300 blur-xs animate-ping"></div>
                 </motion.div>
 
                 {/* Subtitle / Focus Statement */}
@@ -213,7 +213,7 @@ export default function WelcomeAnimation({ onComplete }) {
           </motion.div>
 
           {/* Bottom Horizon Accent Beam that sweeps up with the curtain */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 via-brand-500 to-transparent shadow-[0_0_20px_rgba(6,182,212,0.8)]"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 via-rose-500 via-brand-500 to-transparent shadow-[0_0_20px_rgba(244,63,94,0.8)]"></div>
         </motion.div>
       )}
     </AnimatePresence>

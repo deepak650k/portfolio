@@ -88,18 +88,18 @@ export default function Education() {
             
             {/* Top continuous fiber-optic laser beam */}
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-slate-200 dark:bg-slate-800 overflow-hidden">
-              <div className="h-full w-[200%] bg-gradient-to-r from-brand-500 via-indigo-500 via-cyan-400 to-brand-500 bg-[length:200%_auto] animate-shimmer" />
+              <div className="h-full w-[200%] bg-gradient-to-r from-brand-500 via-rose-500 via-amber-400 to-brand-500 bg-[length:200%_auto] animate-shimmer" />
             </div>
 
             {/* University & Degree Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-start sm:items-center gap-4">
                 <div className="relative group shrink-0">
-                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 to-cyan-500 opacity-40 blur-md group-hover:opacity-80 transition duration-500"></div>
+                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 via-rose-500 to-amber-500 opacity-40 blur-md group-hover:opacity-80 transition duration-500"></div>
                   <motion.div 
                     whileHover={{ scale: 1.08, rotate: 6 }}
                     transition={{ duration: 0.3 }}
-                    className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/25"
+                    className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/25"
                   >
                     <GraduationCap size={32} />
                   </motion.div>
