@@ -10,7 +10,8 @@ import {
   Check, 
   ExternalLink, 
   MessageSquare, 
-  Sparkles
+  Sparkles,
+  Bot
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
@@ -250,6 +251,50 @@ export default function Contact() {
                 </div>
               </div>
             </div>
+
+            {/* Campus Buddy AI Assistant Trigger Card */}
+            <motion.div
+              whileHover={{ y: -3, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                if (window.botpress && typeof window.botpress.open === 'function') {
+                  window.botpress.open();
+                } else {
+                  const btn = document.querySelector('#bp-web-widget-container button, .bp-widget-web button, [aria-label*="chat" i]');
+                  if (btn) btn.click();
+                }
+              }}
+              className="p-5 rounded-2xl bg-gradient-to-br from-brand-600/10 via-cyan-500/10 to-indigo-600/10 border border-brand-500/30 hover:border-brand-500/60 shadow-sm hover:shadow-lg hover:shadow-brand-500/15 transition-all cursor-pointer flex items-center justify-between group"
+            >
+              <div className="flex items-center gap-3.5">
+                <div className="relative p-3 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 text-white shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-md">
+                  <Bot size={22} />
+                  <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                      Campus Buddy AI
+                    </span>
+                    <span className="px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
+                      Online
+                    </span>
+                  </div>
+                  <div className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-500 transition-colors">
+                    Ask About JECRC &amp; Academics
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Instant AI answers for admissions, campus &amp; exams
+                  </p>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-all">
+                <Sparkles size={18} />
+              </div>
+            </motion.div>
 
           </motion.div>
 
