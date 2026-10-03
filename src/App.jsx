@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import TechMarquee from './components/TechMarquee';
 import About from './components/About';
 import Education from './components/Education';
 import Skills from './components/Skills';
@@ -38,6 +39,9 @@ export default function App() {
       <main className="flex-1">
         {/* 1. Hero / Home */}
         <Hero />
+
+        {/* Dynamic Tech Marquee */}
+        <TechMarquee />
 
         {/* 2. About Me */}
         <About />
