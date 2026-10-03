@@ -59,6 +59,43 @@
   background: radial-gradient(circle, rgba(244, 63, 94, 0.15) 0%, rgba(244, 63, 94, 0) 70%);
 }
 
+@keyframes cyber-scan {
+  0% {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+.animate-cyber-scan {
+  animation: cyber-scan 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes orbit-slow {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.animate-orbit-slow {
+  animation: orbit-slow 24s ease-in-out infinite;
+}
+
 /* Dot grid background pattern */
 .bg-dot-grid {
   background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);

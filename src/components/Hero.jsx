@@ -11,7 +11,6 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import ParticleBackground from './ParticleBackground';
 import InteractiveTerminalCard from './InteractiveTerminalCard';
 
 export default function Hero() {
@@ -70,8 +69,7 @@ export default function Hero() {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-slate-950/20"
     >
-      {/* Interactive Neural Canvas Background */}
-      <ParticleBackground />
+
 
       {/* Ambient background glow orbs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-slow"></div>

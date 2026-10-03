@@ -12,6 +12,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CampusBuddyEnhancer from './components/CampusBuddyEnhancer';
 import WelcomeAnimation from './components/WelcomeAnimation';
+import ParticleBackground from './components/ParticleBackground';
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -52,11 +53,14 @@ export default function App() {
       {/* Cinematic Welcome Animation Curtain Reveal */}
       {showWelcome && <WelcomeAnimation onComplete={() => setShowWelcome(false)} />}
 
+      {/* Global Interactive Animated Particle Canvas & Atmospheric Background */}
+      <ParticleBackground />
+
       {/* Top Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
       {/* Main Content Sections */}
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* 1. Hero / Home */}
         <Hero />
 
