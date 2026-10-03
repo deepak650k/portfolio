@@ -14,251 +14,305 @@ import {
   Activity,
   ShieldCheck,
   Cpu,
-  Radio,
-  Zap,
+  Clock,
+  Briefcase,
+  CheckCircle2,
+  ArrowUpRight,
   Flame,
-  CheckCircle2
+  Zap,
+  Globe2
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 /**
- * CyberHUDMatrix - Futuristic Sci-Fi / Arc Reactor Diagnostic Core
- * Inspired by Iron Man (JARVIS) & Tactical Sci-Fi Aerospace Cockpits.
+ * ExecutiveBentoMatrix - High-End Luxury Bento Card
+ * Built for tech recruiters and elite software engineering portfolios.
+ * Interactive tabs: Overview, Tech Arsenal, and AI Uplink.
  */
 export default function InteractiveTerminalCard() {
-  const [activeMode, setActiveMode] = useState('reactor'); // 'reactor' | 'telemetry' | 'uplink'
-  const [powerLevel, setPowerLevel] = useState(99.4);
-  const [activeFrequencies, setActiveFrequencies] = useState([40, 65, 80, 55, 90, 75, 60, 85, 95, 70, 50, 65]);
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'stack' | 'assistant'
+  const [localTime, setLocalTime] = useState('');
 
-  // Audio equalizer pulse simulation
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveFrequencies(prev => prev.map(() => Math.floor(Math.random() * 65) + 30));
-    }, 180);
+    const updateTime = () => {
+      const now = new Date();
+      setLocalTime(now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  const openCampusBuddy = () => {
+    if (window.botpress && typeof window.botpress.open === 'function') {
+      window.botpress.open();
+    } else {
+      const btn = document.querySelector('#bp-web-widget-container button, .bp-widget-web button, [aria-label*="chat" i]');
+      if (btn) btn.click();
+    }
+  };
+
   return (
-    <div className="relative mx-auto max-w-lg w-full font-mono select-none">
-      {/* Outer Cyan Arc-Reactor Glow Backlight */}
-      <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-cyan-500/25 via-blue-600/20 to-sky-400/20 opacity-80 blur-2xl pointer-events-none" />
+    <div className="relative mx-auto max-w-lg w-full select-none">
+      {/* Luxury Ambient Backlight */}
+      <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-blue-500/20 via-sky-400/15 to-indigo-500/20 opacity-70 blur-2xl pointer-events-none" />
 
-      {/* Main Tactical HUD Frame with Cybernetic Angle Brackets */}
-      <div className="relative rounded-2xl bg-[#060c18]/95 border border-cyan-500/40 shadow-2xl backdrop-blur-2xl overflow-hidden transition-all duration-300">
+      {/* Main Luxury Frosted Glass Chassis */}
+      <div className="relative rounded-3xl luxury-glass overflow-hidden transition-all duration-300">
         
-        {/* Corner HUD Bracket Graphics */}
-        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-cyan-400 z-20 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-cyan-400 z-20 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-cyan-400 z-20 pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none" />
-
-        {/* Top Tactical Status Bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 bg-cyan-950/40 border-b border-cyan-500/30 text-[11px]">
-          <div className="flex items-center gap-2 text-cyan-400">
-            <Radio size={13} className="animate-pulse text-cyan-300" />
-            <span className="font-bold tracking-wider">HUD.CORE // V4.8</span>
+        {/* Top Executive Header Bar */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.08] bg-slate-900/40">
+          
+          {/* Status Badge */}
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-2.5 w-2.5 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <div className="flex flex-col">
+              <span className="text-xs font-semibold text-white tracking-tight">Executive Dossier</span>
+              <span className="text-[10px] text-slate-400 font-mono">Verified Portfolio</span>
+            </div>
           </div>
 
-          {/* Mode Selectors */}
-          <div className="flex items-center gap-1 bg-[#091528] p-0.5 rounded-lg border border-cyan-500/30">
-            <button
-              onClick={() => setActiveMode('reactor')}
-              className={`px-2.5 py-0.5 rounded text-[10px] uppercase font-bold transition-all ${
-                activeMode === 'reactor'
-                  ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(0,240,255,0.6)]'
-                  : 'text-cyan-400/70 hover:text-cyan-300'
-              }`}
-            >
-              Reactor
-            </button>
-            <button
-              onClick={() => setActiveMode('telemetry')}
-              className={`px-2.5 py-0.5 rounded text-[10px] uppercase font-bold transition-all ${
-                activeMode === 'telemetry'
-                  ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(0,240,255,0.6)]'
-                  : 'text-cyan-400/70 hover:text-cyan-300'
-              }`}
-            >
-              Telemetry
-            </button>
-            <button
-              onClick={() => setActiveMode('uplink')}
-              className={`px-2.5 py-0.5 rounded text-[10px] uppercase font-bold transition-all ${
-                activeMode === 'uplink'
-                  ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(0,240,255,0.6)]'
-                  : 'text-cyan-400/70 hover:text-cyan-300'
-              }`}
-            >
-              Uplink
-            </button>
+          {/* Luxury Tab Switcher */}
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/60 border border-white/[0.06]">
+            {[
+              { id: 'overview', label: 'Overview' },
+              { id: 'stack', label: 'Stack' },
+              { id: 'assistant', label: 'AI Copilot' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer ${
+                  activeTab === tab.id
+                    ? 'text-white font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                }`}
+              >
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeBentoTab"
+                    className="absolute inset-0 bg-blue-600/90 rounded-lg shadow-sm shadow-blue-500/30"
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </button>
+            ))}
           </div>
 
-          <div className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-            <span>ONLINE</span>
-          </div>
         </div>
 
-        {/* Tab 1: Arc Reactor / JARVIS Core Interface */}
-        {activeMode === 'reactor' && (
-          <div className="p-6 space-y-6">
+        {/* Tab 1: Executive Overview Bento */}
+        {activeTab === 'overview' && (
+          <div className="p-5 space-y-4">
             
-            {/* Center Arc Reactor Graphic with Rotating Rings */}
-            <div className="relative flex items-center justify-center py-4">
-              {/* Outer Concentric Rotating Ring */}
-              <div className="relative w-44 h-44 rounded-full border border-cyan-500/30 flex items-center justify-center animate-spin-slow">
-                <div className="absolute top-0 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_8px_#00f0ff]" />
-                <div className="absolute bottom-0 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_8px_#00f0ff]" />
-                <div className="absolute left-0 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_8px_#00f0ff]" />
-                <div className="absolute right-0 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_8px_#00f0ff]" />
+            {/* Bento Row 1: Location & Time Card + Academy Card */}
+            <div className="grid grid-cols-2 gap-3">
+              
+              {/* Location & Time Widget */}
+              <div className="p-3.5 rounded-2xl luxury-card flex flex-col justify-between">
+                <div className="flex items-center justify-between text-slate-400">
+                  <span className="text-[11px] font-mono uppercase tracking-wider">Location</span>
+                  <MapPin size={14} className="text-blue-400" />
+                </div>
+                <div className="mt-2">
+                  <div className="text-sm font-bold text-white tracking-tight">{personalInfo.location}</div>
+                  <div className="text-[11px] text-slate-400 font-mono flex items-center gap-1 mt-0.5">
+                    <Clock size={11} className="text-slate-500" />
+                    <span>{localTime || '12:00:00 PM'} IST</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Inner Counter-Rotating Concentric Ring */}
-              <div className="absolute w-32 h-32 rounded-full border border-dashed border-sky-400/40 flex items-center justify-center animate-spin-reverse">
-                <div className="w-24 h-24 rounded-full border border-cyan-400/50" />
+              {/* Academy & Track Widget */}
+              <div className="p-3.5 rounded-2xl luxury-card flex flex-col justify-between">
+                <div className="flex items-center justify-between text-slate-400">
+                  <span className="text-[11px] font-mono uppercase tracking-wider">Education</span>
+                  <GraduationCap size={14} className="text-sky-400" />
+                </div>
+                <div className="mt-2">
+                  <div className="text-sm font-bold text-white tracking-tight">JECRC University</div>
+                  <div className="text-[11px] text-slate-400 font-mono mt-0.5">
+                    B.Tech CSE • Class 2027
+                  </div>
+                </div>
               </div>
 
-              {/* Core Glowing Arc Reactor Center */}
-              <div className="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-cyan-600 via-sky-400 to-blue-500 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.7)] text-white">
-                <Zap size={22} className="animate-pulse" />
-                <span className="text-[10px] font-black tracking-tight">{powerLevel}%</span>
+            </div>
+
+            {/* Bento Row 2: Quantifiable Impact Metrics Grid */}
+            <div className="grid grid-cols-3 gap-2.5">
+              <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-center hover:border-white/[0.12] transition-colors">
+                <div className="text-lg font-extrabold font-heading text-white">10+</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5 font-medium">Projects Built</div>
+              </div>
+              <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-center hover:border-white/[0.12] transition-colors">
+                <div className="text-lg font-extrabold font-heading text-sky-400">500+</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5 font-medium">DSA Problems</div>
+              </div>
+              <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-center hover:border-white/[0.12] transition-colors">
+                <div className="text-lg font-extrabold font-heading text-emerald-400">99.9%</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5 font-medium">App Reliability</div>
               </div>
             </div>
 
-            {/* Neural Audio Equalizer Waves */}
-            <div className="p-3.5 rounded-xl bg-[#091528] border border-cyan-500/30">
-              <div className="flex items-center justify-between text-[11px] text-cyan-300 font-bold mb-2">
-                <span className="flex items-center gap-1.5">
-                  <Activity size={12} className="text-cyan-400" />
-                  <span>NEURAL SYNAPSE WAVEFORM</span>
-                </span>
-                <span className="text-emerald-400 text-[10px]">FREQ: 432.8 MHz</span>
+            {/* Bento Row 3: Currently Engineering Status */}
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-950/40 via-slate-900/60 to-slate-900/40 border border-blue-500/20 flex items-start gap-3">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 mt-0.5 border border-blue-500/20">
+                <Activity size={16} className="animate-pulse" />
               </div>
+              <div>
+                <div className="text-xs font-bold text-white tracking-tight flex items-center gap-1.5">
+                  <span>Currently Engineering</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping" />
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed mt-0.5">
+                  Developing autonomous AI agent workflows and resilient full-stack web applications with React & Python.
+                </p>
+              </div>
+            </div>
 
-              {/* Equalizer Frequency Bars */}
-              <div className="h-8 flex items-end justify-between gap-1 px-1">
-                {activeFrequencies.map((val, idx) => (
-                  <div
-                    key={idx}
-                    className="flex-1 bg-gradient-to-t from-cyan-600 to-cyan-300 rounded-t-xs transition-all duration-150"
-                    style={{ height: `${val}%` }}
-                  />
+          </div>
+        )}
+
+        {/* Tab 2: Categorized Tech Stack */}
+        {activeTab === 'stack' && (
+          <div className="p-5 space-y-3.5 text-xs">
+            <div>
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+                <Code2 size={13} className="text-blue-400" />
+                <span>Frontend Architecture</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {['React 18', 'JavaScript ES6+', 'Tailwind CSS', 'Framer Motion', 'Vite', 'HTML5 / CSS3'].map((item) => (
+                  <span 
+                    key={item}
+                    className="px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-200 text-[11px] hover:border-blue-400/50 hover:bg-blue-500/10 transition-colors"
+                  >
+                    {item}
+                  </span>
                 ))}
               </div>
             </div>
 
-            {/* Live Tactical Specifications */}
-            <div className="grid grid-cols-2 gap-2 text-[11px]">
-              <div className="p-2.5 rounded-lg bg-[#091528] border border-cyan-500/20">
-                <div className="text-[9px] text-cyan-400/60 uppercase">System Pilot</div>
-                <div className="text-white font-bold text-xs truncate">{personalInfo.name}</div>
+            <div className="pt-2 border-t border-white/[0.06]">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+                <Cpu size={13} className="text-sky-400" />
+                <span>Backend & Intelligence</span>
               </div>
-              <div className="p-2.5 rounded-lg bg-[#091528] border border-cyan-500/20">
-                <div className="text-[9px] text-cyan-400/60 uppercase">Academy Sector</div>
-                <div className="text-white font-bold text-xs truncate">JECRC Univ (CSE)</div>
+              <div className="flex flex-wrap gap-1.5">
+                {['Python', 'FastAPI', 'Gemini API', 'LLM Agents', 'Node.js', 'RESTful APIs'].map((item) => (
+                  <span 
+                    key={item}
+                    className="px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-200 text-[11px] hover:border-sky-400/50 hover:bg-sky-500/10 transition-colors"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
 
+            <div className="pt-2 border-t border-white/[0.06]">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+                <ShieldCheck size={13} className="text-emerald-400" />
+                <span>Engineering Practices</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {['Data Structures & Algorithms', 'Git & GitHub', 'System Design', 'Performance Optimization'].map((item) => (
+                  <span 
+                    key={item}
+                    className="px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-200 text-[11px] hover:border-emerald-400/50 hover:bg-emerald-500/10 transition-colors"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Tab 2: System Telemetry & Weapons Arsenal */}
-        {activeMode === 'telemetry' && (
-          <div className="p-6 space-y-4 text-xs">
-            <div className="flex items-center justify-between text-cyan-400 pb-2 border-b border-cyan-500/20">
-              <span className="font-bold tracking-wider">TACTICAL ARSENAL // MODULES</span>
-              <span className="text-[10px] text-emerald-400 font-mono">100% OPERATIONAL</span>
+        {/* Tab 3: AI Copilot Quick Uplink */}
+        {activeTab === 'assistant' && (
+          <div className="p-5 space-y-4">
+            
+            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-blue-900/30 to-indigo-900/30 border border-blue-500/25">
+              <div className="relative w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/30 shrink-0">
+                <Bot size={20} />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-slate-900" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white font-heading">Campus Buddy AI</div>
+                <div className="text-[11px] text-slate-300 font-sans">
+                  Deepak's personal AI representative & project companion.
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                Suggested Prompts:
+              </div>
               {[
-                { name: 'MOD-01: REACT 18 & MODERN WEB', status: 'ARMED', stat: '98%' },
-                { name: 'MOD-02: PYTHON & LLM AGENTS', status: 'ACTIVE', stat: '94%' },
-                { name: 'MOD-03: TAILWIND DESIGN MATRIX', status: 'ONLINE', stat: '96%' },
-                { name: 'MOD-04: DSA & SYSTEM ALGORITHMS', status: 'SYNCED', stat: '90%' },
-                { name: 'MOD-05: CAMPUS BUDDY BOT CORE', status: 'DEPLOYED', stat: '99%' }
-              ].map((item, idx) => (
-                <div 
-                  key={idx} 
-                  className="p-2.5 rounded-lg bg-[#091528] border border-cyan-500/25 flex items-center justify-between hover:border-cyan-400 transition-colors"
+                "What are Deepak's featured projects?",
+                "What is Deepak's engineering skill set?",
+                "How do I contact Deepak for opportunities?"
+              ].map((prompt, idx) => (
+                <button
+                  key={idx}
+                  onClick={openCampusBuddy}
+                  className="w-full text-left p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.06] hover:border-blue-400/40 text-xs text-slate-300 hover:text-white transition-all flex items-center justify-between group cursor-pointer"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                    <span className="text-[11px] font-bold text-white">{item.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">{item.status}</span>
-                    <span className="text-cyan-400 font-bold text-[10px]">{item.stat}</span>
-                  </div>
-                </div>
+                  <span className="truncate mr-2 font-sans">{prompt}</span>
+                  <ArrowUpRight size={13} className="text-slate-500 group-hover:text-blue-400 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
               ))}
             </div>
 
-            <div className="text-[10px] text-cyan-400/60 pt-1">
-              &gt; ALL HARDWARE REGISTERS CALIBRATED AND READY FOR IMMEDIATE INTEGRATION.
-            </div>
-          </div>
-        )}
-
-        {/* Tab 3: Uplink to Campus Buddy AI */}
-        {activeMode === 'uplink' && (
-          <div className="p-6 space-y-4">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/40">
-              <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30 shrink-0">
-                <Bot size={20} className="animate-pulse text-cyan-200" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping" />
-              </div>
-              <div>
-                <div className="text-xs font-bold text-white font-heading">CAMPUS BUDDY AI AGENT</div>
-                <div className="text-[10px] text-cyan-300 font-mono">STATUS: UPLINK ACTIVE • JECRC SECTOR</div>
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-[#091528] border border-cyan-500/30 text-xs text-slate-200 leading-relaxed">
-              <span className="text-cyan-400 font-bold">&gt; JARVIS_BOT: </span>
-              "Greetings, Commander. I am ready to answer queries regarding Deepak's engineering background, projects, technical skills, or university achievements."
-            </div>
-
             <button
-              onClick={() => {
-                if (window.botpress && typeof window.botpress.open === 'function') {
-                  window.botpress.open();
-                } else {
-                  const btn = document.querySelector('#bp-web-widget-container button, .bp-widget-web button, [aria-label*="chat" i]');
-                  if (btn) btn.click();
-                }
-              }}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/30 transition-all cursor-pointer flex items-center justify-center gap-2"
+              onClick={openCampusBuddy}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs tracking-wide shadow-lg shadow-blue-600/25 transition-all cursor-pointer flex items-center justify-center gap-2"
             >
-              <Zap size={14} />
-              <span>LAUNCH FULL SCREEN UPLINK</span>
+              <Bot size={15} />
+              <span>Open Campus Buddy Chat</span>
             </button>
+
           </div>
         )}
 
-        {/* Bottom Cockpit Telemetry Footer */}
-        <div className="px-4 py-2 bg-cyan-950/50 border-t border-cyan-500/30 flex items-center justify-between text-[10px] text-cyan-400/80">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <span>LOC: JAIPUR [26.9°N, 75.8°E]</span>
+        {/* Executive Card Footer */}
+        <div className="px-5 py-3 border-t border-white/[0.08] bg-slate-900/30 flex items-center justify-between text-xs text-slate-400">
+          <div className="flex items-center gap-1.5 font-medium">
+            <Globe2 size={13} className="text-blue-400" />
+            <span>Open for Summer '25 & Full-Time</span>
           </div>
+
           <div className="flex items-center gap-2">
-            <a 
-              href={personalInfo.githubUrl} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-cyan-200 transition-colors"
+            <a
+              href={personalInfo.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1 rounded text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+              aria-label="GitHub"
             >
-              [GITHUB]
+              <Github size={14} />
             </a>
-            <span>•</span>
-            <a 
-              href={personalInfo.linkedinUrl} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-cyan-200 transition-colors"
+            <a
+              href={personalInfo.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1 rounded text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+              aria-label="LinkedIn"
             >
-              [LINKEDIN]
+              <Linkedin size={14} />
             </a>
           </div>
         </div>
