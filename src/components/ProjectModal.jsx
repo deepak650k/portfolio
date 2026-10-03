@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, CheckCircle2, Sparkles } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { modalVariants } from '../utils/motion';
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -20,19 +19,15 @@ export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
   return (
-    <motion.div 
-      variants={modalVariants.backdrop}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
+    <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div 
-        variants={modalVariants.content}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
@@ -131,6 +126,6 @@ export default function ProjectModal({ project, onClose }) {
         </div>
 
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

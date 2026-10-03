@@ -13,7 +13,6 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { MOTION_TOKENS, fadeInUp, defaultViewport, staggerContainer, AnimatedCounter } from '../utils/motion';
 
 export default function About() {
   const pillars = [
@@ -39,24 +38,16 @@ export default function About() {
     }
   ];
 
-  const handlePillarMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-  };
-
   return (
     <section id="about" className="py-24 relative bg-slate-50/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header with smooth viewport reveal */}
+        {/* Section Header */}
         <motion.div
-          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={defaultViewport}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -77,10 +68,10 @@ export default function About() {
           
           {/* Left Column: Visual Introduction & Key Quick Facts */}
           <motion.div
-            variants={fadeInUp(24, MOTION_TOKENS.duration.section, 0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={defaultViewport}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6 }}
             className="lg:col-span-5 space-y-6"
           >
             
@@ -89,11 +80,8 @@ export default function About() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
               <div className="flex items-center gap-4 mb-6">
-                <div className="relative group shrink-0">
-                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 via-rose-500 to-amber-500 opacity-40 blur-sm group-hover:opacity-100 transition duration-500 animate-pulse-slow"></div>
-                  <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-purple-600 to-rose-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
-                    DK
-                  </div>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                  DK
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white">
@@ -126,7 +114,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                   <Sparkles size={16} className="text-amber-500 shrink-0" />
-                  <span>AI &amp; Web Dev</span>
+                  <span>AI & Web Dev</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                   <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
@@ -148,22 +136,22 @@ export default function About() {
 
           </motion.div>
 
-          {/* Right Column: Pillars of Interest & Activity with Staggered Scroll-Reveal */}
-          <div className="lg:col-span-7">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5 }}
-              className="space-y-4 mb-8"
-            >
+          {/* Right Column: Pillars of Interest & Activity */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7"
+          >
+            <div className="space-y-4 mb-8">
               <h3 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
                 What Drives Me
               </h3>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                 As a computer science student at JECRC University, my daily focus revolves around these four strategic pillars:
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {pillars.map((pillar, index) => {
@@ -171,80 +159,33 @@ export default function About() {
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    onMouseMove={handlePillarMouseMove}
-                    className="relative overflow-hidden p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-xl transition-all duration-300 group"
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.2 }}
+                    className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-lg transition-all duration-300 group"
                   >
-                    {/* Spotlight sheen */}
-                    <div
-                      className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
-                      style={{
-                        background: 'radial-gradient(220px circle at var(--mouse-x, 100px) var(--mouse-y, 100px), rgba(14, 165, 233, 0.12), transparent 70%)'
-                      }}
-                    />
-                    <div className="relative z-10">
-                      <div className="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 shadow-sm">
-                        <IconComponent size={24} />
-                      </div>
-                      <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
-                        {pillar.title}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {pillar.description}
-                      </p>
+                    <div className="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
+                      <IconComponent size={24} />
                     </div>
+                    <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
+                      {pillar.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {pillar.description}
+                    </p>
                   </motion.div>
                 );
               })}
             </div>
 
-            {/* Impact Metric Counters with AnimatedCounter */}
-            <motion.div
-              variants={fadeInUp(20, MOTION_TOKENS.duration.ui, 0.2)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={defaultViewport}
-              className="mt-6 grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm"
-            >
-              <div className="text-center">
-                <div className="text-2xl font-extrabold font-heading text-brand-600 dark:text-brand-400">
-                  <AnimatedCounter end={10} suffix="+" />
-                </div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider font-mono mt-0.5">Projects Built</div>
-              </div>
-              <div className="text-center border-x border-slate-200 dark:border-slate-800">
-                <div className="text-2xl font-extrabold font-heading text-sky-500">
-                  <AnimatedCounter end={500} suffix="+" />
-                </div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider font-mono mt-0.5">DSA Problems</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-extrabold font-heading text-emerald-500">
-                  <AnimatedCounter end={100} suffix="%" />
-                </div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider font-mono mt-0.5">Responsive</div>
-              </div>
-            </motion.div>
-
             {/* University Learning Quote */}
-            <motion.div 
-              variants={fadeInUp(16, MOTION_TOKENS.duration.ui, 0.3)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={defaultViewport}
-              className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4"
-            >
+            <div className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4">
               <span className="text-3xl text-brand-500 font-serif leading-none">“</span>
               <p className="text-xs sm:text-sm italic text-slate-700 dark:text-slate-300 leading-relaxed">
                 Technology is at its best when it solves real human friction. As a student in Jaipur, I aim to merge solid algorithmic foundations with intuitive design to build products that make a tangible difference.
               </p>
-            </motion.div>
+            </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

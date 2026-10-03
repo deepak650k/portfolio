@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap } from 'lucide-react';
 import { navLinks, personalInfo } from '../data/portfolioData';
 
 export default function Navbar({ darkMode, setDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      // Track scroll percentage for the top laser progress bar
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        setScrollProgress((window.scrollY / totalScroll) * 100);
-      }
 
       const sections = ['hero', 'about', 'education', 'skills', 'projects', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + 140;
@@ -35,7 +28,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -55,9 +48,9 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-slate-950/85 dark:bg-slate-950/90 bg-white/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/80 shadow-lg shadow-black/5 dark:shadow-black/20 py-3.5'
@@ -73,9 +66,9 @@ export default function Navbar({ darkMode, setDarkMode }) {
             className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg p-1"
           >
             <motion.div 
-              whileHover={{ rotate: [0, -8, 8, 0], scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 border border-slate-700/80 text-white font-bold text-lg shadow-md shadow-blue-500/20"
+              whileHover={{ rotate: [0, -10, 10, 0], scale: 1.05 }}
+              transition={{ duration: 0.4 }}
+              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-bold text-lg shadow-md shadow-brand-500/25"
             >
               <span>DK</span>
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
@@ -90,7 +83,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             </div>
           </a>
 
-          {/* Desktop Navigation Links with Smooth Hover Underline Animation */}
+          {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-full border border-slate-200/60 dark:border-slate-800/60 backdrop-blur-sm">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace('#', '');
@@ -99,7 +92,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`group relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 ${
+                  className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
                     isActive
                       ? 'text-white'
                       : 'text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
@@ -112,12 +105,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <span className="relative">
-                    {link.name}
-                    {!isActive && (
-                      <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-brand-500 transition-all duration-300 group-hover:w-full rounded-full"></span>
-                    )}
-                  </span>
+                  {link.name}
                 </a>
               );
             })}
@@ -125,25 +113,14 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
           {/* Right Action Icons & CTA */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Dark / Light Toggle with Smooth 360 Morph Animation */}
+            {/* Dark / Light Toggle */}
             <motion.button
-              whileTap={{ scale: 0.9, rotate: 180 }}
-              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200 border border-transparent hover:border-slate-300 dark:hover:border-slate-700 overflow-hidden"
+              className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200 border border-transparent hover:border-slate-300 dark:hover:border-slate-700"
               aria-label="Toggle theme"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={darkMode ? 'dark' : 'light'}
-                  initial={{ rotate: -90, opacity: 0, scale: 0.8 }}
-                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                  exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
-                </motion.div>
-              </AnimatePresence>
+              {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
             </motion.button>
 
             {/* Let's Talk CTA */}
@@ -152,7 +129,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
               whileTap={{ scale: 0.97 }}
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 hover:brightness-105 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={16} />
@@ -224,15 +201,6 @@ export default function Navbar({ darkMode, setDarkMode }) {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Dynamic Luminous Scroll Progress Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent overflow-hidden">
-        <motion.div
-          className="h-full bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-          style={{ width: `${scrollProgress}%` }}
-          transition={{ ease: 'easeOut', duration: 0.1 }}
-        />
-      </div>
     </motion.header>
   );
 }

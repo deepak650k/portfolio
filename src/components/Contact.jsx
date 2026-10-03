@@ -10,11 +10,9 @@ import {
   Check, 
   ExternalLink, 
   MessageSquare, 
-  Sparkles,
-  Bot
+  Sparkles
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { MOTION_TOKENS, fadeInUp, defaultViewport, microInteractions } from '../utils/motion';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -63,10 +61,10 @@ export default function Contact() {
         
         {/* Section Header */}
         <motion.div
-          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={defaultViewport}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -126,37 +124,13 @@ export default function Contact() {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.1, rotate: copied ? 0 : 6 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleCopyEmail}
-                  className={`p-2.5 rounded-xl transition-all shrink-0 ${
-                    copied
-                      ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
-                      : 'text-slate-400 hover:text-brand-600 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700'
-                  }`}
+                  className="p-2 rounded-xl text-slate-400 hover:text-brand-600 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shrink-0"
                   title="Copy email to clipboard"
                   aria-label="Copy email"
                 >
-                  <AnimatePresence mode="wait">
-                    {copied ? (
-                      <motion.div
-                        key="check"
-                        initial={{ scale: 0.5, rotate: -30 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        exit={{ scale: 0.5 }}
-                      >
-                        <Check size={16} className="text-emerald-500" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="copy"
-                        initial={{ scale: 0.8 }}
-                        animate={{ scale: 1 }}
-                      >
-                        <Copy size={16} />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
                 </motion.button>
               </div>
 
@@ -253,50 +227,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Campus Buddy AI Assistant Trigger Card */}
-            <motion.div
-              whileHover={{ y: -3, scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                if (window.botpress && typeof window.botpress.open === 'function') {
-                  window.botpress.open();
-                } else {
-                  const btn = document.querySelector('#bp-web-widget-container button, .bp-widget-web button, [aria-label*="chat" i]');
-                  if (btn) btn.click();
-                }
-              }}
-              className="p-5 rounded-2xl bg-gradient-to-br from-brand-600/10 via-rose-500/10 to-amber-500/10 border border-brand-500/30 hover:border-brand-500/60 shadow-sm hover:shadow-lg hover:shadow-brand-500/15 transition-all cursor-pointer flex items-center justify-between group"
-            >
-              <div className="flex items-center gap-3.5">
-                <div className="relative p-3 rounded-xl bg-gradient-to-tr from-brand-600 via-purple-600 to-amber-500 text-white shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-md">
-                  <Bot size={22} />
-                  <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">
-                      Campus Buddy AI
-                    </span>
-                    <span className="px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
-                      Online
-                    </span>
-                  </div>
-                  <div className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-500 transition-colors">
-                    Ask About JECRC &amp; Academics
-                  </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    Instant AI answers for admissions, campus &amp; exams
-                  </p>
-                </div>
-              </div>
-              <div className="p-2.5 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-all">
-                <Sparkles size={18} />
-              </div>
-            </motion.div>
-
           </motion.div>
 
           {/* Right Column: Interactive Send Message Form */}
@@ -356,7 +286,7 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="John Doe"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
                       />
                     </div>
 
@@ -373,7 +303,7 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="john@example.com"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
                       />
                     </div>
                   </div>
@@ -391,7 +321,7 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="Project Discussion / Internship / Question"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
                     />
                   </div>
 
@@ -408,19 +338,17 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Write your message here..."
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm resize-none"
                     ></textarea>
                   </div>
 
-                  {/* Submit Button with Gleam Ray */}
+                  {/* Submit Button */}
                   <motion.button
-                    whileHover={{ scale: 1.015, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={loading}
-                    className="relative group/btn overflow-hidden w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40 transition-all duration-200 disabled:opacity-70 cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40 transition-all duration-200 disabled:opacity-70 cursor-pointer"
                   >
-                    <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
                     {loading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -428,7 +356,7 @@ export default function Contact() {
                       </>
                     ) : (
                       <>
-                        <Send size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-0.5 transition-transform duration-200" />
+                        <Send size={18} />
                         <span>Send Message</span>
                       </>
                     )}

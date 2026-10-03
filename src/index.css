@@ -43,75 +43,20 @@
 }
 
 .glow-pill {
-  box-shadow: 0 0 24px -2px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 0 20px -3px rgba(14, 140, 233, 0.3);
 }
 
-/* Radial ambient lighting - calm & atmospheric */
+/* Radial ambient lighting */
+.ambient-glow-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0) 70%);
+}
+
+.ambient-glow-purple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
+}
+
 .ambient-glow-blue {
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 70%);
-}
-
-.ambient-glow-slate {
-  background: radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, rgba(148, 163, 184, 0) 70%);
-}
-
-.ambient-glow-indigo {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 70%);
-}
-
-/* Luxury Professional Glass & Component Styling */
-.luxury-glass {
-  background: rgba(11, 16, 27, 0.78);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
-}
-
-.luxury-card {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.luxury-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-.luxury-badge {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
-}
-
-.luxury-text-gradient {
-  background: linear-gradient(180deg, #ffffff 15%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.luxury-glow-subtle {
-  box-shadow: 0 0 60px -15px rgba(56, 189, 248, 0.12);
-}
-
-@keyframes orbit-slow {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.08);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-.animate-orbit-slow {
-  animation: orbit-slow 24s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(14, 140, 233, 0.15) 0%, rgba(14, 140, 233, 0) 70%);
 }
 
 /* Dot grid background pattern */
@@ -128,33 +73,4 @@
 :not(.dark) .bg-dot-grid {
   background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
-}
-
-/* Hide Botpress chatbot completely while welcome screen is active */
-.welcome-active #bp-web-widget-container,
-.welcome-active div:has(> iframe[title*="chat" i]),
-.welcome-active div:has(> iframe[src*="botpress" i]),
-.welcome-active .bp-widget-web,
-.welcome-active #bp-web-widget,
-.welcome-active .bpw-widget,
-.welcome-active .bp-widget,
-.welcome-active [id*="bp-web-widget"],
-.welcome-active [class*="bp-widget"],
-.welcome-active iframe[title*="chat" i],
-.welcome-active iframe[src*="botpress" i] {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  transform: scale(0) !important;
-}
-
-/* Reduced motion accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }

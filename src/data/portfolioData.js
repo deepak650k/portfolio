@@ -164,24 +164,6 @@ export const projectsData = [
       "Progress analytics showing completion rates and weekly streaks",
       "Zero account setup required - instant offline local persistence"
     ]
-  },
-  {
-    id: "ai-chess-engine",
-    title: "AI Chess Game & Engine",
-    category: "Game AI & Algorithms",
-    shortDescription: "A full-featured interactive chess game with intelligent AI opponent heuristics, custom move evaluation engine, piece move legalities, and realistic audio effects.",
-    fullDescription: "Built with pure algorithmic precision featuring minimax game-tree decision making, board state evaluation, legal move validation, sound synthesizers, and desktop Python & web integrations.",
-    technologies: ["JavaScript", "Python", "Minimax AI", "Audio API", "Game Theory"],
-    featured: true,
-    github: "https://github.com/deepak650k/Portfolio/tree/main/chess-game",
-    demo: "#",
-    metrics: "Minimax AI • Audio Haptics • Alpha-Beta Pruning",
-    features: [
-      "Dynamic AI decision heuristics with multiple difficulty depth levels",
-      "Complete FIDE chess rule enforcement including castling and en passant",
-      "Interactive desktop Python runner & browser web interface",
-      "Audio haptics for check, capture, and move notifications"
-    ]
   }
 ];
 

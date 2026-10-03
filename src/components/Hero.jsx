@@ -1,101 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { 
   ArrowRight, 
   Mail, 
   Github, 
   Linkedin, 
+  Sparkles, 
+  Code, 
+  Cpu, 
+  GraduationCap, 
   MapPin, 
-  ChevronDown,
-  Sparkles,
-  Code2,
-  Cpu,
-  GraduationCap,
-  Zap,
-  Volume2,
-  Bot,
-  Layers,
-  FolderGit2,
-  Terminal,
-  ExternalLink
+  ChevronDown
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { MOTION_TOKENS, fadeInUp, fadeInScale, microInteractions, staggerContainer } from '../utils/motion';
 
-/**
- * Hero - High-End Centered Developer Hero with Interactive 3D Tilt Card,
- * Magnetic Glass Dock, and Synthesized Audio Chime.
- */
 export default function Hero() {
-  const roles = [
-    "Full-Stack Web Architect",
-    "Autonomous AI Agent Builder",
-    "Generative AI & Python Engineer",
-    "B.Tech Computer Science Student"
-  ];
-  const [roleIndex, setRoleIndex] = useState(0);
-
-  // 3D Tilt State & Specular Glare
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
-  const [isAudioPlayed, setIsAudioPlayed] = useState(false);
-
-  // Kinetic specialization cycler
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [roles.length]);
-
-  // Gentle Crystal Audio Chime (Web Audio API)
-  const playAudioChime = () => {
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = new AudioCtx();
-      const now = ctx.currentTime;
-      // Gentle 3-note harmonic chime (C5, E5, G5)
-      [523.25, 659.25, 783.99].forEach((freq, idx) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.07);
-        gain.gain.setValueAtTime(0.035, now + idx * 0.07);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.65);
-        osc.start(now + idx * 0.07);
-        osc.stop(now + idx * 0.07 + 0.65);
-      });
-      setIsAudioPlayed(true);
-      setTimeout(() => setIsAudioPlayed(false), 800);
-    } catch {
-      // Audio fallback safe
-    }
-  };
-
-  const handleCardMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -9;
-    const rotateY = ((x - centerX) / centerX) * 9;
-    setTilt({ x: rotateX, y: rotateY });
-    setGlare({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-      opacity: 0.22
-    });
-  };
-
-  const handleCardMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-    setGlare({ x: 50, y: 50, opacity: 0 });
-  };
-
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -107,260 +26,284 @@ export default function Hero() {
     }
   };
 
-  const openCampusBuddy = () => {
-    if (window.botpress && typeof window.botpress.open === 'function') {
-      window.botpress.open();
-    } else {
-      const btn = document.querySelector('#bp-web-widget-container button, .bp-widget-web button, [aria-label*="chat" i]');
-      if (btn) btn.click();
-    }
-  };
-
   return (
     <section 
       id="hero" 
-      className="relative min-h-[95vh] flex items-center justify-center pt-28 pb-20 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-dot-grid"
     >
-      <motion.div 
-        variants={staggerContainer(0.07, 0.05)}
-        initial="hidden"
-        animate="visible"
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 text-center flex flex-col items-center"
-      >
-        
-        {/* 1. Status Pill: Availability & Academy */}
-        <motion.div
-          variants={fadeInScale(0.94)}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-300 mb-6 backdrop-blur-xl shadow-sm"
-        >
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span>Available for Summer '25 &amp; Full-Time Roles</span>
-          <span className="text-slate-600">•</span>
-          <span className="text-slate-400 font-mono text-[11px]">JECRC University</span>
-        </motion.div>
+      {/* Background ambient lighting orbs with subtle pulse */}
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-slow"></div>
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-indigo-500/15 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-float"></div>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-96 h-64 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-        {/* 2. Developer Monogram / Profile Badge */}
-        <motion.div
-          variants={fadeInScale(0.85)}
-          whileHover={{ scale: 1.05 }}
-          className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 border border-slate-700/80 text-white font-extrabold text-2xl shadow-xl shadow-blue-500/15 mb-6 cursor-default"
-        >
-          <span>DK</span>
-          <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-slate-950 rounded-full" />
-          <div className="absolute -inset-2 rounded-3xl bg-blue-500/15 blur-lg -z-10" />
-        </motion.div>
-
-        {/* 3. Main Headline */}
-        <motion.h1
-          variants={fadeInUp(20, MOTION_TOKENS.duration.hero)}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-heading text-white tracking-tight leading-[1.08] mb-5 max-w-3xl"
-        >
-          Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">{personalInfo.name}</span>.
-          <span className="block mt-2 text-2xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
-            Crafting scalable web systems &amp; intelligent AI.
-          </span>
-        </motion.h1>
-
-        {/* 4. Kinetic Specialization Cycler */}
-        <motion.div
-          variants={fadeInUp(16, MOTION_TOKENS.duration.ui)}
-          className="h-9 inline-flex items-center gap-2 px-3.5 py-1 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md mb-6"
-        >
-          <Code2 size={15} className="text-blue-400 shrink-0" />
-          <div className="h-5 overflow-hidden relative flex items-center min-w-[250px] sm:min-w-[280px]">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roleIndex}
-                initial={{ y: 12, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -12, opacity: 0 }}
-                transition={{ duration: 0.28 }}
-                className="absolute left-0 right-0 font-mono text-xs sm:text-sm font-semibold text-sky-400 text-center"
-              >
-                {roles[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-        </motion.div>
-
-        {/* 5. Authentic, Grounded Narrative Bio */}
-        <motion.p
-          variants={fadeInUp(16, MOTION_TOKENS.duration.ui)}
-          className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed mb-8 font-sans"
-        >
-          B.Tech Computer Science student at JECRC University building modern, high-performance web applications and intelligent AI agent workflows. Dedicated to clean architecture, intuitive design, and production engineering.
-        </motion.p>
-
-        {/* 6. Creative Interactive 3D Perspective Tilt Card */}
-        <motion.div
-          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
-          onMouseMove={handleCardMouseMove}
-          onMouseLeave={handleCardMouseLeave}
-          style={{
-            transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-            transition: 'transform 0.12s ease-out'
-          }}
-          className="relative w-full max-w-xl p-5 sm:p-6 rounded-3xl bg-slate-900/80 border border-white/[0.08] shadow-2xl backdrop-blur-2xl text-left select-none mb-10 overflow-hidden group cursor-pointer"
-        >
-          {/* Dynamic Specular Glare Effect */}
-          <div
-            className="absolute inset-0 pointer-events-none rounded-3xl transition-opacity duration-300"
-            style={{
-              background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, ${glare.opacity}) 0%, transparent 60%)`
-            }}
-          />
-
-          {/* Top Row: Interactive Status & Audio Chime Action */}
-          <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/[0.06]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-xs font-semibold text-white font-mono">
-                ENGINEERING STATUS: ACTIVE
-              </span>
-            </div>
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                playAudioChime();
-              }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/30 text-sky-300 text-xs font-mono transition-all cursor-pointer"
-              title="Click to play interactive UI chime"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: Headline and Call-to-actions */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            
+            {/* Greeting Pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50/80 dark:bg-brand-950/60 border border-brand-200/60 dark:border-brand-800/60 text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold mb-6 shadow-sm"
             >
-              <Volume2 size={13} className={isAudioPlayed ? 'animate-bounce text-emerald-400' : ''} />
-              <span>{isAudioPlayed ? 'CHIMED ♪' : 'PLAY CHIME'}</span>
-            </button>
-          </div>
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>Hello, Welcome to my Portfolio</span>
+              <Sparkles size={14} className="text-amber-500" />
+            </motion.div>
 
-          {/* Center Content: Interactive Tech Arsenal Chips */}
-          <div className="space-y-2.5">
-            <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
-              Interactive Tech Arsenal (Hover chips):
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { name: 'React 18', tag: 'UI Library' },
-                { name: 'Python 3', tag: 'Core AI' },
-                { name: 'Tailwind CSS', tag: 'Styling' },
-                { name: 'Gemini API', tag: 'LLM Agent' },
-                { name: 'FastAPI', tag: 'Backend' },
-                { name: 'DSA & Systems', tag: 'Algorithms' }
-              ].map((tech) => (
-                <motion.div
-                  key={tech.name}
-                  whileHover={{ scale: 1.08, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-3 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.08] hover:border-blue-400/40 text-xs text-slate-200 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer"
+            {/* Name Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4"
+            >
+              I'm{' '}
+              <span className="bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-500 dark:from-brand-400 dark:via-indigo-300 dark:to-cyan-300 bg-clip-text text-transparent">
+                {personalInfo.name}
+              </span>
+            </motion.h1>
+
+            {/* Role & Subtitle */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-base sm:text-lg md:text-xl mb-6 shadow-sm"
+            >
+              <GraduationCap className="text-brand-500 shrink-0" size={22} />
+              <span>{personalInfo.headline}</span>
+            </motion.div>
+
+            {/* Short Professional Introduction */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mb-8"
+            >
+              {personalInfo.shortBio}
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
+            >
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => scrollTo('projects')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
+              >
+                <span>View Projects</span>
+                <ArrowRight size={18} />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => scrollTo('contact')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200"
+              >
+                <Mail size={18} className="text-brand-500" />
+                <span>Contact Me</span>
+              </motion.button>
+            </motion.div>
+
+            {/* Social Links & Quick Meta */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex flex-wrap items-center gap-6 pt-6 border-t border-slate-200 dark:border-slate-800/80 w-full"
+            >
+              <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Connect With Me
+              </div>
+              <div className="flex items-center gap-3">
+                <motion.a
+                  whileHover={{ scale: 1.1, rotate: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                  href={personalInfo.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all"
+                  aria-label="GitHub Profile"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                  <span className="font-medium">{tech.name}</span>
-                </motion.div>
-              ))}
+                  <Github size={18} />
+                </motion.a>
+
+                <motion.a
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  href={personalInfo.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all"
+                  aria-label="LinkedIn Profile"
+                >
+                  <Linkedin size={18} />
+                </motion.a>
+
+                <motion.a
+                  whileHover={{ scale: 1.1, rotate: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                  href={`mailto:${personalInfo.email}`}
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all"
+                  aria-label="Email Deepak"
+                >
+                  <Mail size={18} />
+                </motion.a>
+              </div>
+
+              <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium ml-auto">
+                <MapPin size={14} className="text-rose-500" />
+                <span>{personalInfo.location}</span>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Right Column: Visual Interactive Student Profile Card with Motion */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="lg:col-span-5 relative"
+          >
+            <div className="relative mx-auto max-w-md w-full">
+              
+              {/* Outer decorative gradient border */}
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400 opacity-30 blur-xl"></div>
+
+              {/* Main Card */}
+              <div className="relative rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-7 backdrop-blur-xl">
+                
+                {/* Header of card with simulated code tab */}
+                <div className="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                    <span className="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                    <span className="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                    <span className="ml-2 font-mono text-xs text-slate-400">deepak_profile.json</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-brand-500/10 text-brand-600 dark:text-brand-400 font-medium">
+                    ACTIVE
+                  </span>
+                </div>
+
+                {/* Profile snippet */}
+                <div className="py-5 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-500/30"
+                    >
+                      DK
+                    </motion.div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
+                        {personalInfo.name}
+                      </h3>
+                      <p className="text-xs text-brand-600 dark:text-brand-400 font-medium">
+                        {personalInfo.college}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
+                        <MapPin size={12} className="text-rose-500" />
+                        Jaipur, India
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Code-like JSON snippet */}
+                  <div className="rounded-xl bg-slate-950 p-4 font-mono text-xs text-slate-300 leading-relaxed border border-slate-800 shadow-inner">
+                    <p><span className="text-purple-400">const</span> <span className="text-blue-400">student</span> = &#123;</p>
+                    <p className="pl-4"><span className="text-slate-400">name:</span> <span className="text-emerald-400">"{personalInfo.name}"</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">degree:</span> <span className="text-emerald-400">"B.Tech"</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">institution:</span> <span className="text-emerald-400">"JECRC University"</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">passions:</span> [<span className="text-amber-400">"AI"</span>, <span className="text-amber-400">"Web Dev"</span>, <span className="text-amber-400">"Productivity"</span>],</p>
+                    <p className="pl-4"><span className="text-slate-400">status:</span> <span className="text-cyan-400">"Building & Learning"</span></p>
+                    <p>&#125;;</p>
+                  </div>
+
+                  {/* Highlights Grid */}
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800 flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-brand-500/10 text-brand-500">
+                        <Cpu size={18} />
+                      </div>
+                      <div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">Domain</div>
+                        <div className="text-xs font-bold text-slate-800 dark:text-slate-200">AI & Tech</div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800 flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-500">
+                        <Code size={18} />
+                      </div>
+                      <div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">Craft</div>
+                        <div className="text-xs font-bold text-slate-800 dark:text-slate-200">Modern Web</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Footer of card */}
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Ready to build impactful solutions
+                  </span>
+                  <button 
+                    onClick={() => scrollTo('about')}
+                    className="hover:text-brand-500 font-medium transition-colors flex items-center gap-1"
+                  >
+                    Learn more &rarr;
+                  </button>
+                </div>
+
+              </div>
+
+              {/* Floating tech badge */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -bottom-4 -left-4 hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/90 text-white border border-slate-700/80 shadow-xl backdrop-blur-md"
+              >
+                <Sparkles size={16} className="text-amber-400" />
+                <span className="text-xs font-semibold">Generative AI Enthusiast</span>
+              </motion.div>
+
             </div>
-          </div>
+          </motion.div>
 
-          {/* Bottom Card Footer: Location & Academy Coordinates */}
-          <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 font-mono">
-            <span className="flex items-center gap-1">
-              <MapPin size={12} className="text-blue-400" />
-              <span>Jaipur, Rajasthan [26.9°N, 75.8°E]</span>
-            </span>
-            <span className="text-slate-500 hidden sm:inline">3D Gyro Perspective Active</span>
-          </div>
-        </motion.div>
-
-        {/* 7. Floating Magnetic Interactive Glass Dock */}
-        <motion.div
-          variants={fadeInUp(18, MOTION_TOKENS.duration.ui)}
-          className="flex items-center gap-1.5 sm:gap-2 p-2 rounded-2xl bg-slate-900/80 border border-white/[0.1] backdrop-blur-xl shadow-2xl mb-8"
-        >
-          <motion.button
-            whileHover={{ scale: 1.15, y: -3 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={() => scrollTo('projects')}
-            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-blue-600 hover:text-white text-slate-300 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-            title="Projects"
-          >
-            <FolderGit2 size={16} />
-            <span className="hidden sm:inline">Projects</span>
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.15, y: -3 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={() => scrollTo('skills')}
-            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-sky-600 hover:text-white text-slate-300 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-            title="Skills"
-          >
-            <Layers size={16} />
-            <span className="hidden sm:inline">Skills</span>
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.15, y: -3 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={() => scrollTo('contact')}
-            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-indigo-600 hover:text-white text-slate-300 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-            title="Contact"
-          >
-            <Mail size={16} />
-            <span className="hidden sm:inline">Contact</span>
-          </motion.button>
-
-          <div className="w-px h-5 bg-white/[0.1] mx-0.5" />
-
-          <motion.a
-            whileHover={{ scale: 1.15, y: -3 }}
-            whileTap={{ scale: 0.92 }}
-            href={personalInfo.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-colors"
-            title="GitHub"
-          >
-            <Github size={16} />
-          </motion.a>
-
-          <motion.a
-            whileHover={{ scale: 1.15, y: -3 }}
-            whileTap={{ scale: 0.92 }}
-            href={personalInfo.linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-colors"
-            title="LinkedIn"
-          >
-            <Linkedin size={16} />
-          </motion.a>
-
-          <motion.button
-            whileHover={{ scale: 1.15, y: -3 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={openCampusBuddy}
-            className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/30 transition-all flex items-center gap-1 text-xs font-semibold cursor-pointer"
-            title="Chat with Campus Buddy AI"
-          >
-            <Bot size={16} />
-            <span className="hidden sm:inline">AI Chat</span>
-          </motion.button>
-        </motion.div>
+        </div>
 
         {/* Scroll Indicator */}
-        <div className="mt-6">
+        <div className="mt-16 flex justify-center">
           <button
             onClick={() => scrollTo('about')}
-            className="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+            className="flex flex-col items-center gap-1 text-slate-400 hover:text-brand-500 transition-colors animate-bounce"
             aria-label="Scroll to About section"
           >
-            <span className="text-[10px] font-mono uppercase tracking-widest">Explore Portfolio</span>
-            <ChevronDown size={16} className="text-slate-500 animate-bounce" />
+            <span className="text-xs font-mono uppercase tracking-wider">Scroll Down</span>
+            <ChevronDown size={18} />
           </button>
         </div>
 
-      </motion.div>
+      </div>
     </section>
   );
 }
