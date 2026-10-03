@@ -9,9 +9,14 @@ import { motion } from 'framer-motion';
 export default function ParticleBackground() {
   const canvasRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: -500, y: -500 });
+  const [isDesktopPointer, setIsDesktopPointer] = useState(false);
 
-  // Track smooth cursor spotlight
+  // Track smooth cursor spotlight (desktop only with fine pointer)
   useEffect(() => {
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    setIsDesktopPointer(hasFinePointer);
+    if (!hasFinePointer) return;
+
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
@@ -132,14 +137,16 @@ export default function ParticleBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden select-none -z-10">
       
-      {/* 1. Interactive Cursor Radial Spotlight (Moves fluidly with mouse) */}
-      <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[130px] pointer-events-none transition-all duration-300 ease-out opacity-40 dark:opacity-60"
-        style={{
-          background: 'radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(99, 102, 241, 0.10) 45%, transparent 70%)',
-          transform: `translate(${mousePos.x - 300}px, ${mousePos.y - 300}px)`,
-        }}
-      />
+      {/* 1. Interactive Cursor Radial Spotlight (Desktop pointer only) */}
+      {isDesktopPointer && (
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full blur-[130px] pointer-events-none transition-all duration-300 ease-out opacity-40 dark:opacity-60"
+          style={{
+            background: 'radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(99, 102, 241, 0.10) 45%, transparent 70%)',
+            transform: `translate(${mousePos.x - 300}px, ${mousePos.y - 300}px)`,
+          }}
+        />
+      )}
 
       {/* 2. Fluid Glowing Aurora Mesh Ribbons */}
       {/* Aurora Orb 1: Deep Indigo & Sapphire (Top Center) */}

@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { MOTION_TOKENS, fadeInUp, defaultViewport, staggerContainer, AnimatedCounter } from '../utils/motion';
 
 export default function About() {
   const pillars = [
@@ -52,10 +53,10 @@ export default function About() {
         
         {/* Section Header with smooth viewport reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -76,10 +77,10 @@ export default function About() {
           
           {/* Left Column: Visual Introduction & Key Quick Facts */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            variants={fadeInUp(24, MOTION_TOKENS.duration.section, 0.1)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
             className="lg:col-span-5 space-y-6"
           >
             
@@ -201,12 +202,40 @@ export default function About() {
               })}
             </div>
 
+            {/* Impact Metric Counters with AnimatedCounter */}
+            <motion.div
+              variants={fadeInUp(20, MOTION_TOKENS.duration.ui, 0.2)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="mt-6 grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm"
+            >
+              <div className="text-center">
+                <div className="text-2xl font-extrabold font-heading text-brand-600 dark:text-brand-400">
+                  <AnimatedCounter end={10} suffix="+" />
+                </div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider font-mono mt-0.5">Projects Built</div>
+              </div>
+              <div className="text-center border-x border-slate-200 dark:border-slate-800">
+                <div className="text-2xl font-extrabold font-heading text-sky-500">
+                  <AnimatedCounter end={500} suffix="+" />
+                </div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider font-mono mt-0.5">DSA Problems</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-extrabold font-heading text-emerald-500">
+                  <AnimatedCounter end={100} suffix="%" />
+                </div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider font-mono mt-0.5">Responsive</div>
+              </div>
+            </motion.div>
+
             {/* University Learning Quote */}
             <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              variants={fadeInUp(16, MOTION_TOKENS.duration.ui, 0.3)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
               className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4"
             >
               <span className="text-3xl text-brand-500 font-serif leading-none">“</span>

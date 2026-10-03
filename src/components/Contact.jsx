@@ -14,6 +14,7 @@ import {
   Bot
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { MOTION_TOKENS, fadeInUp, defaultViewport, microInteractions } from '../utils/motion';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -62,10 +63,10 @@ export default function Contact() {
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5 }}
+          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">

@@ -14,6 +14,7 @@ import {
   Laptop
 } from 'lucide-react';
 import { educationData } from '../data/portfolioData';
+import { MOTION_TOKENS, fadeInUp, defaultViewport, staggerContainer } from '../utils/motion';
 
 export default function Education() {
   const edu = educationData[0];
@@ -57,10 +58,10 @@ export default function Education() {
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -78,10 +79,10 @@ export default function Education() {
 
         {/* Education Highlight Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          variants={fadeInUp(24, MOTION_TOKENS.duration.section, 0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="max-w-4xl mx-auto"
         >
           <div className="relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden p-6 sm:p-10 transition-all hover:shadow-2xl">

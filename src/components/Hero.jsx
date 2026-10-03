@@ -20,6 +20,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { MOTION_TOKENS, fadeInUp, fadeInScale, microInteractions, staggerContainer } from '../utils/motion';
 
 /**
  * Hero - High-End Centered Developer Hero with Interactive 3D Tilt Card,
@@ -120,13 +121,16 @@ export default function Hero() {
       id="hero" 
       className="relative min-h-[95vh] flex items-center justify-center pt-28 pb-20 overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 text-center flex flex-col items-center">
+      <motion.div 
+        variants={staggerContainer(0.07, 0.05)}
+        initial="hidden"
+        animate="visible"
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 text-center flex flex-col items-center"
+      >
         
         {/* 1. Status Pill: Availability & Academy */}
         <motion.div
-          initial={{ opacity: 0, y: -12, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.5 }}
+          variants={fadeInScale(0.94)}
           className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-300 mb-6 backdrop-blur-xl shadow-sm"
         >
           <span className="flex h-2 w-2 relative">
@@ -140,9 +144,7 @@ export default function Hero() {
 
         {/* 2. Developer Monogram / Profile Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          variants={fadeInScale(0.85)}
           whileHover={{ scale: 1.05 }}
           className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 border border-slate-700/80 text-white font-extrabold text-2xl shadow-xl shadow-blue-500/15 mb-6 cursor-default"
         >
@@ -153,9 +155,7 @@ export default function Hero() {
 
         {/* 3. Main Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          variants={fadeInUp(20, MOTION_TOKENS.duration.hero)}
           className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-heading text-white tracking-tight leading-[1.08] mb-5 max-w-3xl"
         >
           Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">{personalInfo.name}</span>.
@@ -166,9 +166,7 @@ export default function Hero() {
 
         {/* 4. Kinetic Specialization Cycler */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
+          variants={fadeInUp(16, MOTION_TOKENS.duration.ui)}
           className="h-9 inline-flex items-center gap-2 px-3.5 py-1 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md mb-6"
         >
           <Code2 size={15} className="text-blue-400 shrink-0" />
@@ -190,9 +188,7 @@ export default function Hero() {
 
         {/* 5. Authentic, Grounded Narrative Bio */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
+          variants={fadeInUp(16, MOTION_TOKENS.duration.ui)}
           className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed mb-8 font-sans"
         >
           B.Tech Computer Science student at JECRC University building modern, high-performance web applications and intelligent AI agent workflows. Dedicated to clean architecture, intuitive design, and production engineering.
@@ -200,9 +196,7 @@ export default function Hero() {
 
         {/* 6. Creative Interactive 3D Perspective Tilt Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          variants={fadeInUp(24, MOTION_TOKENS.duration.section)}
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
           style={{
@@ -280,9 +274,7 @@ export default function Hero() {
 
         {/* 7. Floating Magnetic Interactive Glass Dock */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          variants={fadeInUp(18, MOTION_TOKENS.duration.ui)}
           className="flex items-center gap-1.5 sm:gap-2 p-2 rounded-2xl bg-slate-900/80 border border-white/[0.1] backdrop-blur-xl shadow-2xl mb-8"
         >
           <motion.button
@@ -368,7 +360,7 @@ export default function Hero() {
           </button>
         </div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }
