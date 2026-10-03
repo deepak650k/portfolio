@@ -74,3 +74,33 @@
   background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* Shimmer animation for metallic gradients */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 3.5s linear infinite;
+}
+
+/* Hide Botpress chatbot completely while welcome screen is active */
+.welcome-active #bp-web-widget-container,
+.welcome-active div:has(> iframe[title*="chat" i]),
+.welcome-active div:has(> iframe[src*="botpress" i]),
+.welcome-active .bp-widget-web,
+.welcome-active #bp-web-widget,
+.welcome-active .bpw-widget,
+.welcome-active .bp-widget,
+.welcome-active [id*="bp-web-widget"],
+.welcome-active [class*="bp-widget"],
+.welcome-active iframe[title*="chat" i],
+.welcome-active iframe[src*="botpress" i] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: scale(0) !important;
+}
+
