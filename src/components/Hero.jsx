@@ -108,7 +108,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4"
             >
               I'm{' '}
-              <span className="bg-gradient-to-r from-brand-500 via-indigo-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-gradient-to-r from-brand-500 via-indigo-400 via-cyan-400 to-brand-500 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-sm">
                 {personalInfo.name}
               </span>
             </motion.h1>

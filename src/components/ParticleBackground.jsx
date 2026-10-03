@@ -5,7 +5,13 @@ export default function ParticleBackground() {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      const hero = document.getElementById('hero');
+      if (hero) {
+        const rect = hero.getBoundingClientRect();
+        setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+      } else {
+        setMousePos({ x: e.clientX, y: e.clientY });
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
