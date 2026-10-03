@@ -34,6 +34,14 @@ export default function App() {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    if (showWelcome) {
+      document.documentElement.classList.add('welcome-active');
+    } else {
+      document.documentElement.classList.remove('welcome-active');
+    }
+  }, [showWelcome]);
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -75,7 +83,7 @@ export default function App() {
       </main>
 
       {/* Campus Buddy AI Chatbot Animation Companion */}
-      <CampusBuddyEnhancer />
+      <CampusBuddyEnhancer isWelcomeActive={showWelcome} />
 
       {/* Footer */}
       <Footer />

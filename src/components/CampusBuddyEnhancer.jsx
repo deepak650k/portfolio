@@ -10,7 +10,7 @@ const promptMessages = [
   "⚡ Tap to start a live chat with Campus Buddy AI!"
 ];
 
-export default function CampusBuddyEnhancer() {
+export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [autoHidden, setAutoHidden] = useState(false);
@@ -21,27 +21,54 @@ export default function CampusBuddyEnhancer() {
   const autoHideTimerRef = useRef(null);
 
   useEffect(() => {
-    // Show prompt bubble after 2 seconds
+    // If welcome screen is active, do not start show timers yet
+    if (isWelcomeActive) {
+      setIsReady(false);
+      return;
+    }
+
+    // Show prompt bubble 2.5 seconds AFTER welcome animation finishes
     const showTimer = setTimeout(() => {
       setIsReady(true);
-    }, 2000);
+    }, 2500);
 
-    // Auto-hide the text bubble after 8 seconds so it doesn't stay permanently
+    // Auto-hide the prompt text bubble after 8.5 seconds
     autoHideTimerRef.current = setTimeout(() => {
       setAutoHidden(true);
-    }, 8500);
+    }, 9500);
 
     // Cycle prompt messages while active
     const interval = setInterval(() => {
       setPromptIndex((prev) => (prev + 1) % promptMessages.length);
     }, 4000);
 
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(autoHideTimerRef.current);
+      clearInterval(interval);
+    };
+  }, [isWelcomeActive]);
+
+  useEffect(() => {
     // Inject enhanced CSS for Botpress FAB & Chat Window
     const styleId = 'campus-buddy-custom-animation';
     if (!document.getElementById(styleId)) {
       const style = document.createElement('style');
       style.id = styleId;
       style.innerHTML = `
+        /* Hide completely while welcome is active */
+        .welcome-active #bp-web-widget-container,
+        .welcome-active div:has(> iframe[title*="chat" i]),
+        .welcome-active div:has(> iframe[src*="botpress" i]),
+        .welcome-active .bp-widget-web,
+        .welcome-active #bp-web-widget,
+        .welcome-active .bpw-widget {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+
         /* Hardware-accelerated entrance and gentle floating for Botpress FAB */
         #bp-web-widget-container,
         div:has(> iframe[title*="chat" i]),
@@ -127,9 +154,6 @@ export default function CampusBuddyEnhancer() {
     observer.observe(document.body, { childList: true, subtree: true, attributes: true });
 
     return () => {
-      clearTimeout(showTimer);
-      clearTimeout(autoHideTimerRef.current);
-      clearInterval(interval);
       clearInterval(checkBotpressInterval);
       observer.disconnect();
     };
@@ -164,8 +188,8 @@ export default function CampusBuddyEnhancer() {
 
   return (
     <>
-      {/* 1. Pulsing Radar Wave Beacon around Botpress FAB (Always active until chat opened) */}
-      {!isOpen && (
+      {/* 1. Pulsing Radar Wave Beacon around Botpress FAB (Hidden during welcome) */}
+      {!isOpen && !isWelcomeActive && (
         <div 
           onClick={handleOpenChat}
           onMouseEnter={() => {
@@ -193,9 +217,9 @@ export default function CampusBuddyEnhancer() {
         </div>
       )}
 
-      {/* 2. Interactive Floating Speech Bubble Companion (Auto-hides after some time) */}
+      {/* 2. Interactive Floating Speech Bubble Companion (Hidden during welcome, auto-hides after some time) */}
       <AnimatePresence>
-        {isReady && !isOpen && !dismissed && !autoHidden && (
+        {isReady && !isOpen && !dismissed && !autoHidden && !isWelcomeActive && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
