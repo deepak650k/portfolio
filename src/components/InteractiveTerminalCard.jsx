@@ -11,7 +11,9 @@ import {
   Play, 
   CheckCircle2, 
   CornerDownLeft,
-  GraduationCap
+  GraduationCap,
+  Copy,
+  Check
 } from 'lucide-react';
 import { personalInfo, skillsData } from '../data/portfolioData';
 
@@ -22,7 +24,21 @@ export default function InteractiveTerminalCard() {
     { type: 'system', text: 'Type "help" or click quick chips below to explore.' }
   ]);
   const [cliInput, setCliInput] = useState('');
+  const [copied, setCopied] = useState(false);
   const terminalBottomRef = useRef(null);
+
+  const handleCopyJson = () => {
+    const jsonStr = JSON.stringify({
+      name: personalInfo.name,
+      role: "B.Tech Student",
+      university: "JECRC University",
+      focus: ["Artificial Intelligence", "Web Dev"],
+      status: "Open to Opportunities"
+    }, null, 2);
+    navigator.clipboard.writeText(jsonStr);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   // AI chat states
   const [aiChat, setAiChat] = useState([
@@ -260,8 +276,25 @@ export default function InteractiveTerminalCard() {
               </div>
             </div>
 
-            {/* Code Snippet Box */}
-            <div className="rounded-xl bg-slate-950 p-4 font-mono text-xs text-slate-300 leading-relaxed border border-slate-800 shadow-inner overflow-x-auto">
+            {/* Code Snippet Box with Copy Action */}
+            <div className="relative rounded-xl bg-slate-950 p-4 font-mono text-xs text-slate-300 leading-relaxed border border-slate-800 shadow-inner overflow-x-auto group">
+              <button
+                onClick={handleCopyJson}
+                className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 text-[10px] font-mono text-slate-300 hover:text-white transition-all border border-slate-700/60 shadow-sm"
+                title="Copy Profile JSON"
+              >
+                {copied ? (
+                  <>
+                    <Check size={11} className="text-emerald-400" />
+                    <span className="text-emerald-300">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={11} className="text-slate-400" />
+                    <span>Copy JSON</span>
+                  </>
+                )}
+              </button>
               <p><span className="text-purple-400">const</span> <span className="text-brand-300">engineer</span> = &#123;</p>
               <p className="pl-4"><span className="text-slate-400">name:</span> <span className="text-emerald-400">"{personalInfo.name}"</span>,</p>
               <p className="pl-4"><span className="text-slate-400">role:</span> <span className="text-emerald-400">"B.Tech Student"</span>,</p>

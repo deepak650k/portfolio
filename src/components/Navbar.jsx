@@ -75,7 +75,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <motion.div 
               whileHover={{ rotate: [0, -8, 8, 0], scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-bold text-lg shadow-md shadow-brand-500/25"
+              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 via-purple-600 to-rose-600 text-white font-bold text-lg shadow-md shadow-brand-500/30"
             >
               <span>DK</span>
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
