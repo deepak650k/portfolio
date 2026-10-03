@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, Sparkles, X, ArrowRight } from 'lucide-react';
 
@@ -13,19 +13,28 @@ const promptMessages = [
 export default function CampusBuddyEnhancer() {
   const [isOpen, setIsOpen] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [autoHidden, setAutoHidden] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [promptIndex, setPromptIndex] = useState(0);
   const [isReady, setIsReady] = useState(false);
 
+  const autoHideTimerRef = useRef(null);
+
   useEffect(() => {
-    // Show prompt bubble after a gentle delay so it doesn't conflict with initial page load
+    // Show prompt bubble after 2 seconds
     const showTimer = setTimeout(() => {
       setIsReady(true);
-    }, 2800);
+    }, 2000);
 
-    // Rotate through prompt messages every 4.5 seconds
+    // Auto-hide the text bubble after 8 seconds so it doesn't stay permanently
+    autoHideTimerRef.current = setTimeout(() => {
+      setAutoHidden(true);
+    }, 8500);
+
+    // Cycle prompt messages while active
     const interval = setInterval(() => {
       setPromptIndex((prev) => (prev + 1) % promptMessages.length);
-    }, 4500);
+    }, 4000);
 
     // Inject enhanced CSS for Botpress FAB & Chat Window
     const styleId = 'campus-buddy-custom-animation';
@@ -93,7 +102,7 @@ export default function CampusBuddyEnhancer() {
       document.head.appendChild(style);
     }
 
-    // Connect with Botpress API events or DOM observer to track open/close
+    // Connect with Botpress API events to track open/close
     const checkBotpressInterval = setInterval(() => {
       if (window.botpress) {
         try {
@@ -119,6 +128,7 @@ export default function CampusBuddyEnhancer() {
 
     return () => {
       clearTimeout(showTimer);
+      clearTimeout(autoHideTimerRef.current);
       clearInterval(interval);
       clearInterval(checkBotpressInterval);
       observer.disconnect();
@@ -134,14 +144,38 @@ export default function CampusBuddyEnhancer() {
       if (btn) btn.click();
     }
     setIsOpen(true);
+    setAutoHidden(true);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (autoHideTimerRef.current) {
+      clearTimeout(autoHideTimerRef.current);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    // Hide smoothly 3.5 seconds after user moves away
+    autoHideTimerRef.current = setTimeout(() => {
+      setAutoHidden(true);
+    }, 3500);
   };
 
   return (
     <>
-      {/* 1. Pulsing Radar Wave Beacon around Botpress FAB */}
+      {/* 1. Pulsing Radar Wave Beacon around Botpress FAB (Always active until chat opened) */}
       {!isOpen && (
         <div 
-          className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 w-18 h-18 pointer-events-none z-30 flex items-center justify-center"
+          onClick={handleOpenChat}
+          onMouseEnter={() => {
+            // Re-show prompt bubble if hovered over the launcher area
+            if (!dismissed) {
+              setAutoHidden(false);
+              clearTimeout(autoHideTimerRef.current);
+            }
+          }}
+          className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 w-18 h-18 pointer-events-none z-30 flex items-center justify-center cursor-pointer"
           aria-hidden="true"
         >
           {/* Outer Expanding Wave */}
@@ -159,23 +193,25 @@ export default function CampusBuddyEnhancer() {
         </div>
       )}
 
-      {/* 2. Interactive Floating Speech Bubble Companion */}
+      {/* 2. Interactive Floating Speech Bubble Companion (Auto-hides after some time) */}
       <AnimatePresence>
-        {isReady && !isOpen && !dismissed && (
+        {isReady && !isOpen && !dismissed && !autoHidden && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.88, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: 15, scale: 0.88, filter: 'blur(6px)' }}
+            initial={{ opacity: 0, y: 15, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.9, transition: { duration: 0.3 } }}
             transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             className="fixed bottom-24 right-4 sm:right-6 z-40 max-w-[290px] sm:max-w-[320px] select-none"
           >
             {/* Glassmorphic Bubble Card */}
             <div 
               onClick={handleOpenChat}
-              className="relative group p-3.5 rounded-2xl bg-slate-900/95 dark:bg-slate-950/95 border border-brand-500/30 hover:border-brand-500/60 shadow-2xl shadow-brand-500/20 backdrop-blur-xl transition-all duration-300 cursor-pointer overflow-hidden"
+              className="relative group p-3.5 rounded-2xl bg-slate-900/98 dark:bg-slate-950/98 border border-brand-500/40 hover:border-brand-500/70 shadow-2xl shadow-brand-500/25 backdrop-blur-xl transition-all duration-300 cursor-pointer overflow-hidden"
             >
               {/* Top Laser Accent Beam */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-shimmer" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
 
               {/* Header row with Avatar, Title and Close Button */}
               <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-800/80">
@@ -212,16 +248,16 @@ export default function CampusBuddyEnhancer() {
                 </button>
               </div>
 
-              {/* Dynamic Kinetic Prompt Message */}
+              {/* Dynamic Kinetic Prompt Message (Clear, crisp, high-contrast text) */}
               <div className="min-h-[38px] flex items-center">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={promptIndex}
-                    initial={{ opacity: 0, y: 8, filter: 'blur(3px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, y: -8, filter: 'blur(3px)' }}
-                    transition={{ duration: 0.3 }}
-                    className="text-xs text-slate-200 leading-snug"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-xs sm:text-[13px] text-white font-medium leading-snug drop-shadow-sm"
                   >
                     {promptMessages[promptIndex]}
                   </motion.p>
@@ -231,7 +267,7 @@ export default function CampusBuddyEnhancer() {
               {/* Bottom Quick Call-to-action */}
               <div className="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-cyan-400 font-semibold group-hover:text-cyan-300 transition-colors">
                 <span className="flex items-center gap-1">
-                  <Sparkles size={12} className="text-amber-400 animate-spin-slow" />
+                  <Sparkles size={12} className="text-amber-400" />
                   <span>Tap to open chat</span>
                 </span>
                 <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
