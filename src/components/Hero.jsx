@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
@@ -12,13 +12,18 @@ import {
   Cpu,
   GraduationCap,
   Zap,
-  Globe2
+  Volume2,
+  Bot,
+  Layers,
+  FolderGit2,
+  Terminal,
+  ExternalLink
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 /**
- * Hero - Clean, Centered Modern Silicon Valley Developer Hero
- * Balanced, elegant, and authentic without cluttered widget boxes.
+ * Hero - High-End Centered Developer Hero with Interactive 3D Tilt Card,
+ * Magnetic Glass Dock, and Synthesized Audio Chime.
  */
 export default function Hero() {
   const roles = [
@@ -29,12 +34,66 @@ export default function Hero() {
   ];
   const [roleIndex, setRoleIndex] = useState(0);
 
+  // 3D Tilt State & Specular Glare
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+  const [isAudioPlayed, setIsAudioPlayed] = useState(false);
+
+  // Kinetic specialization cycler
   useEffect(() => {
     const timer = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 3000);
     return () => clearInterval(timer);
   }, [roles.length]);
+
+  // Gentle Crystal Audio Chime (Web Audio API)
+  const playAudioChime = () => {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const now = ctx.currentTime;
+      // Gentle 3-note harmonic chime (C5, E5, G5)
+      [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+        gain.gain.setValueAtTime(0.035, now + idx * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.65);
+        osc.start(now + idx * 0.07);
+        osc.stop(now + idx * 0.07 + 0.65);
+      });
+      setIsAudioPlayed(true);
+      setTimeout(() => setIsAudioPlayed(false), 800);
+    } catch {
+      // Audio fallback safe
+    }
+  };
+
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -9;
+    const rotateY = ((x - centerX) / centerX) * 9;
+    setTilt({ x: rotateX, y: rotateY });
+    setGlare({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+      opacity: 0.22
+    });
+  };
+
+  const handleCardMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
@@ -47,14 +106,20 @@ export default function Hero() {
     }
   };
 
+  const openCampusBuddy = () => {
+    if (window.botpress && typeof window.botpress.open === 'function') {
+      window.botpress.open();
+    } else {
+      const btn = document.querySelector('#bp-web-widget-container button, .bp-widget-web button, [aria-label*="chat" i]');
+      if (btn) btn.click();
+    }
+  };
+
   return (
     <section 
       id="hero" 
-      className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-20 overflow-hidden"
+      className="relative min-h-[95vh] flex items-center justify-center pt-28 pb-20 overflow-hidden"
     >
-      {/* Subtle Ambient Radial Backlight */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-blue-600/10 via-sky-500/10 to-indigo-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 text-center flex flex-col items-center">
         
         {/* 1. Status Pill: Availability & Academy */}
@@ -62,7 +127,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -12, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-300 mb-8 backdrop-blur-xl shadow-sm"
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-300 mb-6 backdrop-blur-xl shadow-sm"
         >
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -133,88 +198,166 @@ export default function Hero() {
           B.Tech Computer Science student at JECRC University building modern, high-performance web applications and intelligent AI agent workflows. Dedicated to clean architecture, intuitive design, and production engineering.
         </motion.p>
 
-        {/* 6. Executive Action Controls */}
+        {/* 6. Creative Interactive 3D Perspective Tilt Card */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-10"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          onMouseMove={handleCardMouseMove}
+          onMouseLeave={handleCardMouseLeave}
+          style={{
+            transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+            transition: 'transform 0.12s ease-out'
+          }}
+          className="relative w-full max-w-xl p-5 sm:p-6 rounded-3xl bg-slate-900/80 border border-white/[0.08] shadow-2xl backdrop-blur-2xl text-left select-none mb-10 overflow-hidden group cursor-pointer"
         >
-          {/* Primary Action Button: White Luxury Pill */}
-          <motion.button
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => scrollTo('projects')}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-semibold text-sm text-slate-950 bg-white hover:bg-slate-100 shadow-xl shadow-white/10 transition-all cursor-pointer group"
-          >
-            <span>Explore Projects</span>
-            <ArrowRight size={16} className="text-slate-900 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
+          {/* Dynamic Specular Glare Effect */}
+          <div
+            className="absolute inset-0 pointer-events-none rounded-3xl transition-opacity duration-300"
+            style={{
+              background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, ${glare.opacity}) 0%, transparent 60%)`
+            }}
+          />
 
-          {/* Secondary Action Button: Frosted Glass Pill */}
-          <motion.button
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => scrollTo('contact')}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-semibold text-sm text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 backdrop-blur-xl transition-all cursor-pointer shadow-lg shadow-black/20"
-          >
-            <Mail size={16} className="text-slate-400" />
-            <span>Get In Touch</span>
-          </motion.button>
+          {/* Top Row: Interactive Status & Audio Chime Action */}
+          <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/[0.06]">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="text-xs font-semibold text-white font-mono">
+                ENGINEERING STATUS: ACTIVE
+              </span>
+            </div>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                playAudioChime();
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/30 text-sky-300 text-xs font-mono transition-all cursor-pointer"
+              title="Click to play interactive UI chime"
+            >
+              <Volume2 size={13} className={isAudioPlayed ? 'animate-bounce text-emerald-400' : ''} />
+              <span>{isAudioPlayed ? 'CHIMED ♪' : 'PLAY CHIME'}</span>
+            </button>
+          </div>
+
+          {/* Center Content: Interactive Tech Arsenal Chips */}
+          <div className="space-y-2.5">
+            <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+              Interactive Tech Arsenal (Hover chips):
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: 'React 18', tag: 'UI Library' },
+                { name: 'Python 3', tag: 'Core AI' },
+                { name: 'Tailwind CSS', tag: 'Styling' },
+                { name: 'Gemini API', tag: 'LLM Agent' },
+                { name: 'FastAPI', tag: 'Backend' },
+                { name: 'DSA & Systems', tag: 'Algorithms' }
+              ].map((tech) => (
+                <motion.div
+                  key={tech.name}
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-3 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.08] hover:border-blue-400/40 text-xs text-slate-200 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span className="font-medium">{tech.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom Card Footer: Location & Academy Coordinates */}
+          <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 font-mono">
+            <span className="flex items-center gap-1">
+              <MapPin size={12} className="text-blue-400" />
+              <span>Jaipur, Rajasthan [26.9°N, 75.8°E]</span>
+            </span>
+            <span className="text-slate-500 hidden sm:inline">3D Gyro Perspective Active</span>
+          </div>
         </motion.div>
 
-        {/* 7. Quick Highlights & Social Node Bar */}
+        {/* 7. Floating Magnetic Interactive Glass Dock */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.55 }}
-          className="flex flex-wrap items-center justify-center gap-3 pt-6 border-t border-slate-800/80 w-full max-w-xl text-xs text-slate-400"
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex items-center gap-1.5 sm:gap-2 p-2 rounded-2xl bg-slate-900/80 border border-white/[0.1] backdrop-blur-xl shadow-2xl mb-8"
         >
-          <div className="flex items-center gap-2">
-            <a
-              href={personalInfo.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-all"
-              aria-label="GitHub Profile"
-            >
-              <Github size={16} />
-            </a>
-            <a
-              href={personalInfo.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-all"
-              aria-label="LinkedIn Profile"
-            >
-              <Linkedin size={16} />
-            </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="p-2 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-all"
-              aria-label="Email Deepak"
-            >
-              <Mail size={16} />
-            </a>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={() => scrollTo('projects')}
+            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-blue-600 hover:text-white text-slate-300 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+            title="Projects"
+          >
+            <FolderGit2 size={16} />
+            <span className="hidden sm:inline">Projects</span>
+          </motion.button>
 
-          <span className="text-slate-700 hidden sm:inline">•</span>
+          <motion.button
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={() => scrollTo('skills')}
+            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-sky-600 hover:text-white text-slate-300 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+            title="Skills"
+          >
+            <Layers size={16} />
+            <span className="hidden sm:inline">Skills</span>
+          </motion.button>
 
-          <div className="flex items-center gap-1.5 font-mono text-slate-400">
-            <MapPin size={13} className="text-blue-400" />
-            <span>{personalInfo.location}</span>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={() => scrollTo('contact')}
+            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-indigo-600 hover:text-white text-slate-300 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+            title="Contact"
+          >
+            <Mail size={16} />
+            <span className="hidden sm:inline">Contact</span>
+          </motion.button>
 
-          <span className="text-slate-700 hidden sm:inline">•</span>
+          <div className="w-px h-5 bg-white/[0.1] mx-0.5" />
 
-          <div className="flex items-center gap-1.5 font-mono text-slate-400">
-            <GraduationCap size={13} className="text-sky-400" />
-            <span>CSE Class of '27</span>
-          </div>
+          <motion.a
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.92 }}
+            href={personalInfo.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-colors"
+            title="GitHub"
+          >
+            <Github size={16} />
+          </motion.a>
+
+          <motion.a
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.92 }}
+            href={personalInfo.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-colors"
+            title="LinkedIn"
+          >
+            <Linkedin size={16} />
+          </motion.a>
+
+          <motion.button
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={openCampusBuddy}
+            className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/30 transition-all flex items-center gap-1 text-xs font-semibold cursor-pointer"
+            title="Chat with Campus Buddy AI"
+          >
+            <Bot size={16} />
+            <span className="hidden sm:inline">AI Chat</span>
+          </motion.button>
         </motion.div>
 
         {/* Scroll Indicator */}
-        <div className="mt-14">
+        <div className="mt-6">
           <button
             onClick={() => scrollTo('about')}
             className="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
