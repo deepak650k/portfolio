@@ -15,13 +15,7 @@ import WelcomeAnimation from './components/WelcomeAnimation';
 import ParticleBackground from './components/ParticleBackground';
 
 export default function App() {
-  const [showWelcome, setShowWelcome] = useState(() => {
-    try {
-      return !sessionStorage.getItem('hasSeenWelcome');
-    } catch {
-      return false;
-    }
-  });
+  const [showWelcome, setShowWelcome] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     // Default to dark mode for premium developer aesthetic, check localStorage
     const savedTheme = localStorage.getItem('theme');
