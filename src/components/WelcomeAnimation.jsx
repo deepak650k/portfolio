@@ -107,13 +107,23 @@ export default function WelcomeAnimation({ onComplete }) {
                     transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                     className="flex flex-col items-center"
                   >
-                    <span className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                      {greetings[greetingIndex].text}
-                    </span>
-                    <span className="text-xs font-mono uppercase tracking-widest text-brand-400/80 mt-3 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                      <span>{greetings[greetingIndex].sub}</span>
-                    </span>
+                    <div className="relative flex flex-col items-center">
+                      {/* Ambient soft glow aura behind text */}
+                      <div className="absolute -inset-6 bg-gradient-to-r from-cyan-500/25 via-brand-500/30 to-indigo-500/25 blur-3xl rounded-full -z-10 pointer-events-none" />
+
+                      <span className="text-6xl sm:text-7xl md:text-8xl font-black font-heading tracking-tight bg-gradient-to-r from-cyan-300 via-sky-200 via-indigo-300 to-teal-300 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.45)]">
+                        {greetings[greetingIndex].text}
+                      </span>
+
+                      {/* Luminous Cybernetic Language Badge */}
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.3)] mt-4">
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                        </span>
+                        <span className="font-semibold">{greetings[greetingIndex].sub}</span>
+                      </div>
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>

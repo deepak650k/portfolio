@@ -240,21 +240,26 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
               {/* Header row with Avatar, Title and Close Button */}
               <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-800/80">
                 <div className="flex items-center gap-2">
-                  <div className="relative w-7 h-7 rounded-lg bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center text-white shadow-sm shrink-0">
-                    <Bot size={16} className="animate-pulse" />
+                  <div className="relative w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-brand-500/30 shrink-0">
+                    <Bot size={17} className="animate-pulse" />
                     {/* Live Green Online Dot */}
-                    <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+                    <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                     </span>
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-white leading-none">
+                    <h4 className="text-[13px] font-extrabold font-heading bg-gradient-to-r from-white via-cyan-100 to-cyan-300 bg-clip-text text-transparent leading-none">
                       Campus Buddy AI
                     </h4>
-                    <span className="text-[10px] font-mono text-cyan-400">
-                      JECRC University • Online
-                    </span>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <span className="px-1.5 py-0.2 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-[9px] font-mono text-emerald-300 font-bold uppercase">
+                        Online
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">
+                        JECRC University
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -272,29 +277,37 @@ export default function CampusBuddyEnhancer({ isWelcomeActive = false }) {
                 </button>
               </div>
 
-              {/* Dynamic Kinetic Prompt Message (Clear, crisp, high-contrast text) */}
-              <div className="min-h-[38px] flex items-center">
+              {/* Dynamic Kinetic Prompt Message with Distinctive Styling & Colors */}
+              <div className="min-h-[42px] flex items-center py-1">
                 <AnimatePresence mode="wait">
-                  <motion.p
+                  <motion.div
                     key={promptIndex}
-                    initial={{ opacity: 0, y: 5 }}
+                    initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
+                    exit={{ opacity: 0, y: -4 }}
                     transition={{ duration: 0.2 }}
-                    className="text-xs sm:text-[13px] text-white font-medium leading-snug drop-shadow-sm"
+                    className="text-xs sm:text-[13px] leading-relaxed text-slate-100 font-sans"
                   >
-                    {promptMessages[promptIndex]}
-                  </motion.p>
+                    <span className="inline-block px-1.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-500/20 to-brand-500/20 border border-cyan-400/30 text-cyan-300 font-mono text-[10px] font-bold uppercase tracking-wider mr-1.5">
+                      AI
+                    </span>
+                    <span className="font-semibold text-slate-100 drop-shadow-sm">
+                      {promptMessages[promptIndex]}
+                    </span>
+                  </motion.div>
                 </AnimatePresence>
               </div>
 
               {/* Bottom Quick Call-to-action */}
-              <div className="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-cyan-400 font-semibold group-hover:text-cyan-300 transition-colors">
-                <span className="flex items-center gap-1">
-                  <Sparkles size={12} className="text-amber-400" />
-                  <span>Tap to open chat</span>
+              <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-semibold">
+                <span className="flex items-center gap-1.5 text-cyan-300">
+                  <Sparkles size={12} className="text-amber-400 animate-spin-slow" />
+                  <span className="tracking-wide">Ask Campus Buddy</span>
                 </span>
-                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 group-hover:bg-cyan-500/25 transition-colors">
+                  <span className="text-[10px] font-mono uppercase font-bold">Chat</span>
+                  <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                </div>
               </div>
             </div>
           </motion.div>
