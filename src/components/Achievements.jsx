@@ -131,7 +131,7 @@ export default function Achievements() {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  whileHover={{ y: -6 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
                   className={`p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group ${style.borderHover}`}
                 >
                   <div>
@@ -186,7 +186,7 @@ export default function Achievements() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            whileHover={{ y: -4 }}
+            whileHover={{ y: -4, scale: 1.02 }}
             className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-brand-500/5 via-slate-100/50 to-white dark:from-brand-500/5 dark:via-slate-900/40 dark:to-slate-950 border border-dashed border-brand-300 dark:border-brand-700/60 shadow-sm flex flex-col justify-between items-center text-center p-8 group hover:border-brand-500 transition-colors"
           >
             <div className="my-auto py-4">

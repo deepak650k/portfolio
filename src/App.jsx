@@ -11,8 +11,11 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CampusBuddyEnhancer from './components/CampusBuddyEnhancer';
+import IntroLoader from './components/IntroLoader';
+import CustomCursor from './components/CustomCursor';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(() => {
     // Default to dark mode for premium developer aesthetic, check localStorage
     const savedTheme = localStorage.getItem('theme');
@@ -39,6 +42,12 @@ export default function App() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white"
     >
+      {/* Initial Welcome Intro Loader Animation */}
+      {loading && <IntroLoader onComplete={() => setLoading(false)} />}
+
+      {/* Desktop Custom Micro-Animation Cursor */}
+      <CustomCursor />
+
       {/* Top Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
