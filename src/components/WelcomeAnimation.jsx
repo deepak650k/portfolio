@@ -22,7 +22,7 @@ export default function WelcomeAnimation({ onComplete }) {
       return;
     }
 
-    // Cycle through multilingual greetings
+    // Cycle through multilingual greetings with increased duration
     const greetingInterval = setInterval(() => {
       setGreetingIndex((prev) => {
         if (prev < greetings.length - 1) {
@@ -33,12 +33,12 @@ export default function WelcomeAnimation({ onComplete }) {
           return prev;
         }
       });
-    }, 420);
+    }, 650);
 
-    // Auto-transition to portfolio after the grand reveal
+    // Auto-transition to portfolio after the expanded grand reveal (~5.2s total)
     const exitTimer = setTimeout(() => {
       handleExit();
-    }, 3600);
+    }, 5200);
 
     return () => {
       clearInterval(greetingInterval);
@@ -133,23 +133,20 @@ export default function WelcomeAnimation({ onComplete }) {
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-600 via-indigo-600 to-cyan-500 text-white font-extrabold text-3xl shadow-2xl shadow-brand-500/40 mb-5"
                 >
-                  <span>DK</span>
+                  <span>D</span>
                   {/* Conic glowing halo */}
                   <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-400 to-cyan-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
                 </motion.div>
 
-                {/* Name with Liquid Metallic Shimmer */}
+                {/* Name with Liquid Metallic Shimmer - First Name Only */}
                 <motion.h1
                   initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading tracking-tight mb-3"
+                  className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight mb-3"
                 >
-                  <span className="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                    Deepak{' '}
-                  </span>
                   <span className="bg-gradient-to-r from-brand-400 via-indigo-300 via-cyan-400 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
-                    Kumawat
+                    Deepak
                   </span>
                 </motion.h1>
 
