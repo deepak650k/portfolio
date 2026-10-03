@@ -7,10 +7,17 @@ export default function Navbar({ darkMode, setDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Track scroll percentage for the top laser progress bar
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        setScrollProgress((window.scrollY / totalScroll) * 100);
+      }
 
       const sections = ['hero', 'about', 'education', 'skills', 'projects', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + 140;
@@ -28,7 +35,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -118,14 +125,25 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
           {/* Right Action Icons & CTA */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Dark / Light Toggle */}
+            {/* Dark / Light Toggle with Smooth 360 Morph Animation */}
             <motion.button
-              whileTap={{ scale: 0.92 }}
+              whileTap={{ scale: 0.9, rotate: 180 }}
+              whileHover={{ scale: 1.08 }}
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200 border border-transparent hover:border-slate-300 dark:hover:border-slate-700"
+              className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200 border border-transparent hover:border-slate-300 dark:hover:border-slate-700 overflow-hidden"
               aria-label="Toggle theme"
             >
-              {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={darkMode ? 'dark' : 'light'}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.8 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
+                </motion.div>
+              </AnimatePresence>
             </motion.button>
 
             {/* Let's Talk CTA */}
@@ -206,6 +224,15 @@ export default function Navbar({ darkMode, setDarkMode }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Dynamic Luminous Scroll Progress Bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent overflow-hidden">
+        <motion.div
+          className="h-full bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"
+          style={{ width: `${scrollProgress}%` }}
+          transition={{ ease: 'easeOut', duration: 0.1 }}
+        />
+      </div>
     </motion.header>
   );
 }

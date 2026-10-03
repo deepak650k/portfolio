@@ -89,17 +89,20 @@ export default function Hero() {
             className="lg:col-span-7 flex flex-col items-start text-left"
           >
             
-            {/* Greeting Pill */}
+            {/* Greeting Pill with Continuous Shimmer Border */}
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50/80 dark:bg-brand-950/60 border border-brand-200/60 dark:border-brand-800/60 text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold mb-6 shadow-sm"
+              className="relative inline-flex p-[1px] rounded-full overflow-hidden mb-6 group cursor-default shadow-sm"
             >
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span>Available for Projects &amp; Internships</span>
-              <Sparkles size={14} className="text-amber-500" />
+              <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/50 via-cyan-500/50 to-brand-500/50 animate-pulse-slow" />
+              <div className="relative inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50/90 dark:bg-slate-950/90 backdrop-blur-md text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold border border-brand-200/50 dark:border-brand-800/50">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>Available for Projects &amp; Internships</span>
+                <Sparkles size={14} className="text-amber-500 animate-pulse" />
+              </div>
             </motion.div>
 
             {/* Name Heading with Gradient Glow */}
@@ -188,7 +191,7 @@ export default function Hero() {
                   href={personalInfo.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 hover:shadow-[0_0_15px_rgba(14,140,233,0.35)] transition-all shadow-sm"
                   aria-label="GitHub Profile"
                 >
                   <Github size={18} />
@@ -200,7 +203,7 @@ export default function Hero() {
                   href={personalInfo.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 hover:shadow-[0_0_15px_rgba(14,140,233,0.35)] transition-all shadow-sm"
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin size={18} />
@@ -210,7 +213,7 @@ export default function Hero() {
                   whileHover={{ scale: 1.1, rotate: -4 }}
                   whileTap={{ scale: 0.92 }}
                   href={`mailto:${personalInfo.email}`}
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 hover:shadow-[0_0_15px_rgba(14,140,233,0.35)] transition-all shadow-sm"
                   aria-label="Email Deepak"
                 >
                   <Mail size={18} />

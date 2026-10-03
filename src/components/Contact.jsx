@@ -124,13 +124,37 @@ export default function Contact() {
                 </div>
 
                 <motion.button
+                  whileHover={{ scale: 1.1, rotate: copied ? 0 : 6 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleCopyEmail}
-                  className="p-2 rounded-xl text-slate-400 hover:text-brand-600 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shrink-0"
+                  className={`p-2.5 rounded-xl transition-all shrink-0 ${
+                    copied
+                      ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
+                      : 'text-slate-400 hover:text-brand-600 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  }`}
                   title="Copy email to clipboard"
                   aria-label="Copy email"
                 >
-                  {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+                  <AnimatePresence mode="wait">
+                    {copied ? (
+                      <motion.div
+                        key="check"
+                        initial={{ scale: 0.5, rotate: -30 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        exit={{ scale: 0.5 }}
+                      >
+                        <Check size={16} className="text-emerald-500" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="copy"
+                        initial={{ scale: 0.8 }}
+                        animate={{ scale: 1 }}
+                      >
+                        <Copy size={16} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.button>
               </div>
 
@@ -286,7 +310,7 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="John Doe"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm"
                       />
                     </div>
 
@@ -303,7 +327,7 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="john@example.com"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm"
                       />
                     </div>
                   </div>
@@ -321,7 +345,7 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="Project Discussion / Internship / Question"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm"
                     />
                   </div>
 
@@ -338,17 +362,19 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Write your message here..."
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 focus:shadow-[0_0_15px_rgba(14,140,233,0.15)] hover:border-slate-400 dark:hover:border-slate-600 transition-all text-sm resize-none"
                     ></textarea>
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit Button with Gleam Ray */}
                   <motion.button
+                    whileHover={{ scale: 1.015, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={loading}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40 transition-all duration-200 disabled:opacity-70 cursor-pointer"
+                    className="relative group/btn overflow-hidden w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40 transition-all duration-200 disabled:opacity-70 cursor-pointer"
                   >
+                    <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
                     {loading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -356,7 +382,7 @@ export default function Contact() {
                       </>
                     ) : (
                       <>
-                        <Send size={18} />
+                        <Send size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-0.5 transition-transform duration-200" />
                         <span>Send Message</span>
                       </>
                     )}

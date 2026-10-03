@@ -38,10 +38,10 @@ export default function TechMarquee() {
           return (
             <div
               key={idx}
-              className="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm shrink-0 hover:border-brand-500/50 hover:scale-105 transition-all duration-200 cursor-default"
+              className="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm shrink-0 hover:border-brand-500/60 hover:scale-105 hover:-translate-y-0.5 hover:shadow-[0_0_16px_rgba(14,140,233,0.25)] transition-all duration-300 cursor-default group"
             >
-              <Icon size={16} className={tech.color} />
-              <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+              <Icon size={16} className={`${tech.color} group-hover:scale-115 group-hover:rotate-6 transition-transform duration-300`} />
+              <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-brand-500 transition-colors">
                 {tech.name}
               </span>
             </div>

@@ -38,6 +38,14 @@ export default function About() {
     }
   ];
 
+  const handlePillarMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   return (
     <section id="about" className="py-24 relative bg-slate-50/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,8 +88,11 @@ export default function About() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
-                  DK
+                <div className="relative group shrink-0">
+                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-500 opacity-40 blur-sm group-hover:opacity-100 transition duration-500 animate-pulse-slow"></div>
+                  <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    DK
+                  </div>
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white">
@@ -163,18 +174,28 @@ export default function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-40px' }}
                     transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-lg transition-all duration-300 group"
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    onMouseMove={handlePillarMouseMove}
+                    className="relative overflow-hidden p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-xl transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
-                      <IconComponent size={24} />
+                    {/* Spotlight sheen */}
+                    <div
+                      className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                      style={{
+                        background: 'radial-gradient(220px circle at var(--mouse-x, 100px) var(--mouse-y, 100px), rgba(14, 165, 233, 0.12), transparent 70%)'
+                      }}
+                    />
+                    <div className="relative z-10">
+                      <div className="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <IconComponent size={24} />
+                      </div>
+                      <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
+                        {pillar.title}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {pillar.description}
+                      </p>
                     </div>
-                    <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
-                      {pillar.title}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {pillar.description}
-                    </p>
                   </motion.div>
                 );
               })}

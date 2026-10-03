@@ -222,12 +222,14 @@ export default function Projects() {
                   <div className="p-6 sm:p-7 pt-0 flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800/80 mt-4">
                     {/* View Project Button */}
                     <motion.button
+                      whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.96 }}
                       onClick={() => handleOpenProject(project)}
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-600/20 hover:shadow-brand-600/35 transition-all duration-200 cursor-pointer"
+                      className="relative group/btn overflow-hidden flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-600/20 hover:shadow-brand-600/35 transition-all duration-200 cursor-pointer"
                     >
-                      <Eye size={16} />
-                      <span>View Project Details</span>
+                      <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+                      <Eye size={16} className="relative z-10 group-hover/btn:scale-110 transition-transform" />
+                      <span className="relative z-10">View Project Details</span>
                     </motion.button>
 
                     {/* GitHub Repo Button */}

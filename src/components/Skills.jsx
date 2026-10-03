@@ -159,7 +159,7 @@ export default function Skills() {
                   {/* Top Skill Row */}
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${style.accent} text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${style.accent} text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
                         <Icon size={24} />
                       </div>
                       <span className={`text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border ${style.badge}`}>
@@ -183,20 +183,22 @@ export default function Skills() {
                     </p>
                   </div>
 
-                  {/* Progress Indicator with Animation */}
+                  {/* Progress Indicator with Shimmer Ray */}
                   <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80">
                     <div className="flex items-center justify-between text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
                       <span>Proficiency</span>
                       <span>{skill.percentage}%</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden relative">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.percentage}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, ease: 'easeOut' }}
-                        className={`h-full rounded-full bg-gradient-to-r ${style.accent}`}
-                      ></motion.div>
+                        className={`h-full rounded-full bg-gradient-to-r ${style.accent} relative overflow-hidden`}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+                      </motion.div>
                     </div>
                   </div>
 

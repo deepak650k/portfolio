@@ -86,19 +86,24 @@ export default function Education() {
         >
           <div className="relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden p-6 sm:p-10 transition-all hover:shadow-2xl">
             
-            {/* Top decorative accent ribbon */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400"></div>
+            {/* Top continuous fiber-optic laser beam */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-slate-200 dark:bg-slate-800 overflow-hidden">
+              <div className="h-full w-[200%] bg-gradient-to-r from-brand-500 via-indigo-500 via-cyan-400 to-brand-500 bg-[length:200%_auto] animate-shimmer" />
+            </div>
 
             {/* University & Degree Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-start sm:items-center gap-4">
-                <motion.div 
-                  whileHover={{ scale: 1.06, rotate: 4 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-500/25"
-                >
-                  <GraduationCap size={32} />
-                </motion.div>
+                <div className="relative group shrink-0">
+                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-600 to-cyan-500 opacity-40 blur-md group-hover:opacity-80 transition duration-500"></div>
+                  <motion.div 
+                    whileHover={{ scale: 1.08, rotate: 6 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/25"
+                  >
+                    <GraduationCap size={32} />
+                  </motion.div>
+                </div>
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 mb-1">
                     <span>{edu.status}</span>
@@ -150,14 +155,14 @@ export default function Education() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-30px' }}
                       transition={{ duration: 0.4, delay: index * 0.06 }}
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-brand-500/40 transition-all duration-200 flex items-start gap-3.5"
+                      whileHover={{ scale: 1.025, y: -3 }}
+                      className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-3.5 group"
                     >
-                      <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm border border-slate-200/50 dark:border-slate-700/50 shrink-0">
+                      <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm border border-slate-200/50 dark:border-slate-700/50 shrink-0 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
                         <Icon size={18} />
                       </div>
                       <div>
-                        <h5 className="font-semibold text-sm text-slate-900 dark:text-white mb-1">
+                        <h5 className="font-semibold text-sm text-slate-900 dark:text-white mb-1 group-hover:text-brand-500 transition-colors">
                           {area.title}
                         </h5>
                         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
