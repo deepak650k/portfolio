@@ -11,8 +11,10 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CampusBuddyEnhancer from './components/CampusBuddyEnhancer';
+import WelcomeAnimation from './components/WelcomeAnimation';
 
 export default function App() {
+  const [showWelcome, setShowWelcome] = useState(true);
   const [darkMode, setDarkMode] = useState(() => {
     // Default to dark mode for premium developer aesthetic, check localStorage
     const savedTheme = localStorage.getItem('theme');
@@ -39,6 +41,9 @@ export default function App() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white"
     >
+      {/* Cinematic Welcome Animation Curtain Reveal */}
+      {showWelcome && <WelcomeAnimation onComplete={() => setShowWelcome(false)} />}
+
       {/* Top Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
