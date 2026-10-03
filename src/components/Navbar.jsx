@@ -228,7 +228,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       {/* Dynamic Luminous Scroll Progress Bar */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"
+          className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600 shadow-[0_0_10px_rgba(0,240,255,0.7)]"
           style={{ width: `${scrollProgress}%` }}
           transition={{ ease: 'easeOut', duration: 0.1 }}
         />

@@ -21,9 +21,16 @@ export default {
           900: '#1e3a8a',
           950: '#0f172a',
         },
+        cyber: {
+          neon: '#00f0ff',
+          glow: '#00e5ff',
+          dark: '#050b14',
+          panel: '#09111e',
+          border: 'rgba(0, 240, 255, 0.28)',
+        },
         accent: {
           purple: '#8b5cf6',
-          cyan: '#06b6d4',
+          cyan: '#00f0ff',
           emerald: '#10b981',
           amber: '#f59e0b',
           rose: '#f43f5e',
@@ -32,15 +39,22 @@ export default {
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
         heading: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'gradient': 'gradient 8s linear infinite',
         'shimmer': 'shimmer 5s ease-in-out infinite',
+        'spin-slow': 'spin 18s linear infinite',
+        'spin-reverse': 'spin 14s linear infinite reverse',
+        'radar': 'radar 4s linear infinite',
       },
       keyframes: {
+        radar: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-12px)' },
