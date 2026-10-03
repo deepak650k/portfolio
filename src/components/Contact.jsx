@@ -52,7 +52,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="pt-28 pb-20 relative">
+    <section id="contact" className="py-24 relative">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 right-10 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>

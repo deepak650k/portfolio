@@ -52,7 +52,7 @@ export default function Education() {
   ];
 
   return (
-    <section id="education" className="pt-28 pb-20 relative">
+    <section id="education" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

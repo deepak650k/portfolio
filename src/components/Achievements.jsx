@@ -71,7 +71,7 @@ export default function Achievements() {
   });
 
   return (
-    <section id="achievements" className="pt-28 pb-20 relative bg-slate-50/50 dark:bg-slate-900/40">
+    <section id="achievements" className="py-24 relative bg-slate-50/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
