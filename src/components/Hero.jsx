@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import confetti from 'canvas-confetti';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
   Mail, 
@@ -16,47 +15,20 @@ import ParticleBackground from './ParticleBackground';
 import InteractiveTerminalCard from './InteractiveTerminalCard';
 
 export default function Hero() {
-  // Dynamic typewriter roles
   const roles = [
     "B.Tech Student | AI Enthusiast",
     "Full-Stack Web Developer",
     "Generative AI & Python Builder",
     "Digital Productivity Architect"
   ];
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    const currentRole = roles[currentRoleIndex];
-    const typingSpeed = isDeleting ? 40 : 80;
-
-    const timer = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayText(currentRole.substring(0, displayText.length + 1));
-        if (displayText === currentRole) {
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        setDisplayText(currentRole.substring(0, displayText.length - 1));
-        if (displayText === '') {
-          setIsDeleting(false);
-          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentRoleIndex]);
-
-  const triggerConfetti = () => {
-    confetti({
-      particleCount: 65,
-      spread: 60,
-      origin: { y: 0.7 },
-      colors: ['#0ea5e9', '#6366f1', '#a855f7', '#10b981']
-    });
-  };
+    const timer = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, [roles.length]);
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
@@ -141,16 +113,28 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            {/* Dynamic Typewriter Subtitle */}
+            {/* Kinetic Role Showcase with Smooth Vertical Flip */}
             <motion.div
               variants={itemVariants}
-              className="h-10 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-100/90 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 font-semibold text-base sm:text-lg mb-6 shadow-sm backdrop-blur-sm"
+              className="h-11 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-2xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-md backdrop-blur-md mb-6"
             >
-              <GraduationCap className="text-brand-500 shrink-0" size={20} />
-              <span className="font-mono text-brand-600 dark:text-brand-400">
-                {displayText}
-              </span>
-              <span className="w-2 h-5 bg-brand-500 inline-block animate-pulse -ml-1"></span>
+              <div className="flex items-center justify-center w-7 h-7 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 shrink-0">
+                <GraduationCap size={16} />
+              </div>
+              <div className="h-6 overflow-hidden relative flex items-center min-w-[270px] sm:min-w-[310px]">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={roleIndex}
+                    initial={{ y: 20, opacity: 0, filter: 'blur(3px)' }}
+                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                    exit={{ y: -20, opacity: 0, filter: 'blur(3px)' }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute left-0 font-mono text-sm sm:text-base font-bold bg-gradient-to-r from-brand-600 via-indigo-500 to-cyan-500 dark:from-brand-400 dark:via-indigo-300 dark:to-cyan-300 bg-clip-text text-transparent whitespace-nowrap"
+                  >
+                    {roles[roleIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
             </motion.div>
 
             {/* Short Professional Introduction */}
@@ -161,34 +145,30 @@ export default function Hero() {
               {personalInfo.shortBio}
             </motion.p>
 
-            {/* Action Buttons with Subtle Hover Scale and Glow */}
+            {/* Action Buttons with High-End Shimmer and Magnetic Hover */}
             <motion.div
               variants={itemVariants}
               className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
             >
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => {
-                  triggerConfetti();
-                  scrollTo('projects');
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:brightness-105 transition-all duration-200 cursor-pointer"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => scrollTo('projects')}
+                className="relative group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-semibold text-base text-white bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 shadow-xl shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-300 overflow-hidden cursor-pointer"
               >
-                <span>View Projects</span>
-                <ArrowRight size={18} />
+                {/* Subtle animated light gleam on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                <span className="relative">View Projects</span>
+                <ArrowRight size={18} className="relative group-hover:translate-x-1 transition-transform duration-200" />
               </motion.button>
 
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => {
-                  triggerConfetti();
-                  scrollTo('contact');
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-md hover:brightness-105 transition-all duration-200 cursor-pointer"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => scrollTo('contact')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-semibold text-base bg-white dark:bg-slate-900/90 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 hover:border-brand-500/50 shadow-md backdrop-blur-md transition-all duration-300 cursor-pointer group"
               >
-                <Mail size={18} className="text-brand-500" />
+                <Mail size={18} className="text-brand-500 group-hover:scale-110 transition-transform" />
                 <span>Contact Me</span>
               </motion.button>
             </motion.div>

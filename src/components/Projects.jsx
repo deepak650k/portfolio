@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import { 
   FolderGit2, 
   Github, 
@@ -8,9 +7,9 @@ import {
   Laptop, 
   Bot, 
   CheckCircle, 
-  Eye,
-  Crown,
-  Sparkles
+  Eye, 
+  Crown, 
+  Sparkles 
 } from 'lucide-react';
 import { projectsData, personalInfo } from '../data/portfolioData';
 import ProjectModal from './ProjectModal';
@@ -54,13 +53,15 @@ export default function Projects() {
     return project.category === activeFilter;
   });
 
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--card-mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--card-mouse-y', `${y}px`);
+  };
+
   const handleOpenProject = (project) => {
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.8 },
-      colors: ['#0ea5e9', '#6366f1', '#10b981']
-    });
     setSelectedProject(project);
   };
 
@@ -126,9 +127,18 @@ export default function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="group relative flex flex-col justify-between rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:border-brand-500/40 hover:shadow-brand-500/5 transition-all duration-300 overflow-hidden"
+                  whileHover={{ y: -6, scale: 1.01 }}
+                  onMouseMove={handleCardMouseMove}
+                  className="group relative flex flex-col justify-between rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:border-brand-500/50 hover:shadow-brand-500/10 transition-all duration-300 overflow-hidden"
                 >
+                  {/* Dynamic Spotlight Radial Sheen */}
+                  <div
+                    className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+                    style={{
+                      background: 'radial-gradient(420px circle at var(--card-mouse-x, 200px) var(--card-mouse-y, 200px), rgba(14, 165, 233, 0.12), transparent 45%)'
+                    }}
+                  />
+
                   <div>
                     {/* Card Visual Header / Mockup Banner with smooth zoom */}
                     <div className="relative h-52 w-full overflow-hidden p-6 flex flex-col justify-between">

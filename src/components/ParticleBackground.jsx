@@ -1,136 +1,48 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ParticleBackground() {
-  const canvasRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: -500, y: -500 });
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-    window.addEventListener('resize', handleResize);
-
-    // Particle nodes
-    const particleCount = Math.min(Math.floor(width / 24), 55);
-    const particles = [];
-    const colors = ['#0ea5e9', '#6366f1', '#38bdf8', '#818cf8', '#a855f7'];
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        radius: Math.random() * 2 + 1.2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        baseAlpha: Math.random() * 0.5 + 0.3
-      });
-    }
-
-    let mouse = { x: null, y: null, maxDist: 150 };
-
     const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      setMousePos({ x: e.clientX, y: e.clientY });
     };
 
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
-
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 120) {
-            const alpha = (1 - dist / 120) * 0.22;
-            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw particles & update positions
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Move
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Bounce on boundaries
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        // Mouse interaction: gentle repulsion/attraction
-        if (mouse.x !== null && mouse.y !== null) {
-          const mdx = p.x - mouse.x;
-          const mdy = p.y - mouse.y;
-          const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-          if (mdist < mouse.maxDist) {
-            const force = (1 - mdist / mouse.maxDist) * 0.6;
-            p.x += (mdx / mdist) * force * 2;
-            p.y += (mdy / mdist) * force * 2;
-
-            // Draw line to mouse
-            ctx.strokeStyle = `rgba(168, 85, 247, ${(1 - mdist / mouse.maxDist) * 0.35})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
-          }
-        }
-
-        // Draw particle node
-        ctx.fillStyle = p.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-    };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 pointer-events-none z-0 opacity-40 dark:opacity-60"
-      style={{ filter: 'blur(0.5px)' }}
-    />
+    <div className="absolute inset-0 pointer-events-none overflow-hidden select-none -z-10">
+      {/* 1. Precision Cybernetic Grid Pattern with Radial Vignette Mask */}
+      <div 
+        className="absolute inset-0 opacity-[0.14] dark:opacity-[0.22] transition-opacity duration-500"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(148, 163, 184, 0.25) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(148, 163, 184, 0.25) 1px, transparent 1px)
+          `,
+          backgroundSize: '48px 48px',
+          maskImage: 'radial-gradient(ellipse 75% 65% at 50% 30%, black 30%, transparent 85%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 75% 65% at 50% 30%, black 30%, transparent 85%)'
+        }}
+      />
+
+      {/* 2. Interactive Ambient Mouse Spotlight Beam */}
+      <div
+        className="absolute inset-0 transition-opacity duration-300 opacity-60 dark:opacity-80"
+        style={{
+          background: `radial-gradient(650px circle at ${mousePos.x}px ${mousePos.y}px, rgba(14, 165, 233, 0.12), transparent 70%)`
+        }}
+      />
+
+      {/* 3. High-End Atmospheric Aurora Glow Nebulae */}
+      <div className="absolute -top-32 left-1/4 -translate-x-1/2 w-[550px] h-[550px] rounded-full bg-gradient-to-tr from-brand-600/25 via-indigo-500/20 to-cyan-400/20 blur-[130px] animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute top-1/4 right-[-80px] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-indigo-600/20 via-purple-600/15 to-cyan-500/15 blur-[140px] animate-float pointer-events-none"></div>
+      <div className="absolute bottom-[-100px] left-1/3 w-[600px] h-[350px] rounded-full bg-gradient-to-t from-cyan-600/15 via-brand-500/10 to-transparent blur-[120px] pointer-events-none"></div>
+
+      {/* 4. Subtle Ambient Horizontal Beam on Top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-500/30 to-transparent"></div>
+    </div>
   );
 }

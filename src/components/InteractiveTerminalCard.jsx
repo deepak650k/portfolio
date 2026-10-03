@@ -31,6 +31,32 @@ export default function InteractiveTerminalCard() {
   const [aiInput, setAiInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePos({ x, y });
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rX = ((y - centerY) / centerY) * -6;
+    const rY = ((x - centerX) / centerX) * 6;
+
+    setRotateX(rX);
+    setRotateY(rY);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setRotateX(0);
+    setRotateY(0);
+  };
+
   useEffect(() => {
     if (terminalBottomRef.current) {
       terminalBottomRef.current.scrollTop = terminalBottomRef.current.scrollHeight;
@@ -135,8 +161,25 @@ export default function InteractiveTerminalCard() {
       {/* Outer ambient glow backlight */}
       <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400 opacity-35 blur-xl"></div>
 
-      {/* Main Container Card */}
-      <div className="relative rounded-2xl bg-white dark:bg-slate-900/95 border border-slate-200 dark:border-slate-800 shadow-2xl backdrop-blur-xl overflow-hidden transition-all duration-300">
+      {/* Main Container Card with 3D Tilt and Spotlight */}
+      <div 
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+          transformStyle: 'preserve-3d',
+          transition: isHovered ? 'transform 0.12s ease-out' : 'transform 0.5s ease-out'
+        }}
+        className="group relative rounded-2xl bg-white dark:bg-slate-900/95 border border-slate-200 dark:border-slate-800 shadow-2xl backdrop-blur-xl overflow-hidden transition-colors duration-300"
+      >
+        {/* Dynamic Spotlight Radial Sheen */}
+        <div
+          className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30"
+          style={{
+            background: `radial-gradient(420px circle at ${mousePos.x}px ${mousePos.y}px, rgba(56, 189, 248, 0.12), transparent 45%)`
+          }}
+        />
         
         {/* Top Window Navigation Bar */}
         <div className="flex items-center justify-between px-4 py-3 bg-slate-100/90 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800/80">
