@@ -231,11 +231,12 @@ export const achievementsData = [
 ];
 
 export const navLinks = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Education", href: "#education" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Achievements", href: "#achievements" },
-  { name: "Contact", href: "#contact" }
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Education", href: "/education" },
+  { name: "Skills", href: "/skills" },
+  { name: "Projects", href: "/projects" },
+  { name: "Achievements", href: "/achievements" },
+  { name: "Contact", href: "/contact" }
 ];
+

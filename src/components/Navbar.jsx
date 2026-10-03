@@ -1,50 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks, personalInfo } from '../data/portfolioData';
 
 export default function Navbar({ darkMode, setDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      const sections = ['hero', 'about', 'education', 'skills', 'projects', 'achievements', 'contact'];
-      const scrollPosition = window.scrollY + 140;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    setIsOpen(false);
-    const targetId = href.replace('#', '');
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      const offsetTop = targetElement.offsetTop - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <motion.header
@@ -60,9 +33,9 @@ export default function Navbar({ darkMode, setDarkMode }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#hero"
-            onClick={(e) => handleNavClick(e, '#hero')}
+          <Link
+            to="/"
+            onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg p-1"
           >
             <motion.div 
@@ -81,17 +54,16 @@ export default function Navbar({ darkMode, setDarkMode }) {
                 <span>{personalInfo.college}</span>
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-full border border-slate-200/60 dark:border-slate-800/60 backdrop-blur-sm">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace('#', '');
+              const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
               return (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  to={link.href}
                   className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
                     isActive
                       ? 'text-white'
@@ -106,7 +78,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                     />
                   )}
                   {link.name}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -124,16 +96,13 @@ export default function Navbar({ darkMode, setDarkMode }) {
             </motion.button>
 
             {/* Let's Talk CTA */}
-            <motion.a
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={16} />
-            </motion.a>
+            </Link>
           </div>
 
           {/* Mobile Menu & Theme Toggle Buttons */}
@@ -169,12 +138,12 @@ export default function Navbar({ darkMode, setDarkMode }) {
           >
             <div className="flex flex-col space-y-2">
               {navLinks.map((link) => {
-                const isActive = activeSection === link.href.replace('#', '');
+                const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
                 return (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
                     className={`px-4 py-2.5 rounded-xl text-base font-medium transition-colors ${
                       isActive
                         ? 'bg-brand-600 text-white'
@@ -182,17 +151,17 @@ export default function Navbar({ darkMode, setDarkMode }) {
                     }`}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 );
               })}
               <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
-                <a
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, '#contact')}
+                <Link
+                  to="/contact"
+                  onClick={() => setIsOpen(false)}
                   className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-medium shadow-lg shadow-brand-600/30"
                 >
                   Contact Me
-                </a>
+                </Link>
                 <div className="text-center text-xs text-slate-400 font-mono">
                   {personalInfo.college} • {personalInfo.location}
                 </div>

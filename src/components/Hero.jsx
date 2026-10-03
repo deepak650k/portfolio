@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   Mail, 
@@ -15,16 +16,8 @@ import {
 import { personalInfo } from '../data/portfolioData';
 
 export default function Hero() {
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const offsetTop = el.offsetTop - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  };
+  const navigate = useNavigate();
+
 
   return (
     <section 
@@ -101,7 +94,7 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => scrollTo('projects')}
+                onClick={() => navigate('/projects')}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
               >
                 <span>View Projects</span>
@@ -111,7 +104,7 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => scrollTo('contact')}
+                onClick={() => navigate('/contact')}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200"
               >
                 <Mail size={18} className="text-brand-500" />
@@ -266,12 +259,12 @@ export default function Hero() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     Ready to build impactful solutions
                   </span>
-                  <button 
-                    onClick={() => scrollTo('about')}
+                  <Link 
+                    to="/about"
                     className="hover:text-brand-500 font-medium transition-colors flex items-center gap-1"
                   >
                     Learn more &rarr;
-                  </button>
+                  </Link>
                 </div>
 
               </div>
@@ -294,11 +287,11 @@ export default function Hero() {
         {/* Scroll Indicator */}
         <div className="mt-16 flex justify-center">
           <button
-            onClick={() => scrollTo('about')}
+            onClick={() => navigate('/about')}
             className="flex flex-col items-center gap-1 text-slate-400 hover:text-brand-500 transition-colors animate-bounce"
-            aria-label="Scroll to About section"
+            aria-label="Continue to About section"
           >
-            <span className="text-xs font-mono uppercase tracking-wider">Scroll Down</span>
+            <span className="text-xs font-mono uppercase tracking-wider">Explore About</span>
             <ChevronDown size={18} />
           </button>
         </div>

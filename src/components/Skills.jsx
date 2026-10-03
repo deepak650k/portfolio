@@ -92,7 +92,7 @@ export default function Skills() {
   });
 
   return (
-    <section id="skills" className="py-24 relative bg-slate-50/50 dark:bg-slate-900/40">
+    <section id="skills" className="pt-28 pb-20 relative bg-slate-50/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
