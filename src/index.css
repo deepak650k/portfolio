@@ -43,41 +43,20 @@
 }
 
 .glow-pill {
-  box-shadow: 0 0 20px -3px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 24px -2px rgba(59, 130, 246, 0.35);
 }
 
-/* Radial ambient lighting */
-.ambient-glow-purple {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0) 70%);
+/* Radial ambient lighting - calm & atmospheric */
+.ambient-glow-blue {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 70%);
 }
 
-.ambient-glow-amber {
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0) 70%);
+.ambient-glow-slate {
+  background: radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, rgba(148, 163, 184, 0) 70%);
 }
 
-.ambient-glow-rose {
-  background: radial-gradient(circle, rgba(244, 63, 94, 0.15) 0%, rgba(244, 63, 94, 0) 70%);
-}
-
-@keyframes cyber-scan {
-  0% {
-    transform: translateY(-20%);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.35;
-  }
-  85% {
-    opacity: 0.35;
-  }
-  100% {
-    transform: translateY(110vh);
-    opacity: 0;
-  }
-}
-
-.animate-cyber-scan {
-  animation: cyber-scan 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.ambient-glow-indigo {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 70%);
 }
 
 @keyframes orbit-slow {

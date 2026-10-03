@@ -75,7 +75,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <motion.div 
               whileHover={{ rotate: [0, -8, 8, 0], scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 via-purple-600 to-rose-600 text-white font-bold text-lg shadow-md shadow-brand-500/30"
+              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 border border-slate-700/80 text-white font-bold text-lg shadow-md shadow-blue-500/20"
             >
               <span>DK</span>
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
@@ -228,7 +228,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       {/* Dynamic Luminous Scroll Progress Bar */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-brand-500 via-rose-500 to-amber-400 shadow-[0_0_8px_rgba(244,63,94,0.8)]"
+          className="h-full bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"
           style={{ width: `${scrollProgress}%` }}
           transition={{ ease: 'easeOut', duration: 0.1 }}
         />
