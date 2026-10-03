@@ -15,7 +15,13 @@ import WelcomeAnimation from './components/WelcomeAnimation';
 import ParticleBackground from './components/ParticleBackground';
 
 export default function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    try {
+      return !sessionStorage.getItem('hasSeenWelcome');
+    } catch {
+      return false;
+    }
+  });
   const [darkMode, setDarkMode] = useState(() => {
     // Default to dark mode for premium developer aesthetic, check localStorage
     const savedTheme = localStorage.getItem('theme');
@@ -51,7 +57,16 @@ export default function App() {
       className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white"
     >
       {/* Cinematic Welcome Animation Curtain Reveal */}
-      {showWelcome && <WelcomeAnimation onComplete={() => setShowWelcome(false)} />}
+      {showWelcome && (
+        <WelcomeAnimation 
+          onComplete={() => {
+            setShowWelcome(false);
+            try {
+              sessionStorage.setItem('hasSeenWelcome', 'true');
+            } catch {}
+          }} 
+        />
+      )}
 
       {/* Global Interactive Animated Particle Canvas & Atmospheric Background */}
       <ParticleBackground />

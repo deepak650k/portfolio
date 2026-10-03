@@ -21,7 +21,7 @@ export default function WelcomeAnimation({ onComplete }) {
       return;
     }
 
-    // Cycle through multilingual greetings with comfortable duration
+    // Cycle through multilingual greetings with snappy, comfortable duration
     const greetingInterval = setInterval(() => {
       setGreetingIndex((prev) => {
         if (prev < greetings.length - 1) {
@@ -32,12 +32,12 @@ export default function WelcomeAnimation({ onComplete }) {
           return prev;
         }
       });
-    }, 750);
+    }, 450);
 
-    // Auto-transition to portfolio after the expanded grand reveal (~5.2s total)
+    // Auto-transition to portfolio quickly (~2.2s total)
     const exitTimer = setTimeout(() => {
       handleExit();
-    }, 5200);
+    }, 2200);
 
     return () => {
       clearInterval(greetingInterval);
@@ -49,7 +49,7 @@ export default function WelcomeAnimation({ onComplete }) {
     setIsVisible(false);
     setTimeout(() => {
       onComplete?.();
-    }, 750); // Matches exit slide transition
+    }, 500); // Matches exit slide transition
   };
 
   return (
@@ -60,7 +60,7 @@ export default function WelcomeAnimation({ onComplete }) {
           initial={{ opacity: 1 }}
           exit={{ 
             y: '-100%',
-            transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] }
+            transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] }
           }}
           onClick={handleExit}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-950 text-white select-none overflow-hidden cursor-pointer"
