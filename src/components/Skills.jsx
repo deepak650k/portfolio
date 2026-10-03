@@ -153,7 +153,7 @@ export default function Skills() {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  whileHover={{ y: -6 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
                   className={`group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${style.border}`}
                 >
                   {/* Top Skill Row */}

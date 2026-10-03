@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechMarquee from './components/TechMarquee';
@@ -9,6 +10,7 @@ import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CampusBuddyEnhancer from './components/CampusBuddyEnhancer';
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -31,7 +33,12 @@ export default function App() {
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white"
+    >
       {/* Top Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
@@ -62,8 +69,11 @@ export default function App() {
         <Contact />
       </main>
 
+      {/* Campus Buddy AI Chatbot Animation Companion */}
+      <CampusBuddyEnhancer />
+
       {/* Footer */}
       <Footer />
-    </div>
+    </motion.div>
   );
 }

@@ -42,12 +42,12 @@ export default function About() {
     <section id="about" className="py-24 relative bg-slate-50/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header with smooth viewport reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -68,10 +68,10 @@ export default function About() {
           
           {/* Left Column: Visual Introduction & Key Quick Facts */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 space-y-6"
           >
             
@@ -114,7 +114,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                   <Sparkles size={16} className="text-amber-500 shrink-0" />
-                  <span>AI & Web Dev</span>
+                  <span>AI &amp; Web Dev</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                   <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
@@ -136,22 +136,22 @@ export default function About() {
 
           </motion.div>
 
-          {/* Right Column: Pillars of Interest & Activity */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7"
-          >
-            <div className="space-y-4 mb-8">
+          {/* Right Column: Pillars of Interest & Activity with Staggered Scroll-Reveal */}
+          <div className="lg:col-span-7">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5 }}
+              className="space-y-4 mb-8"
+            >
               <h3 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
                 What Drives Me
               </h3>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                 As a computer science student at JECRC University, my daily focus revolves around these four strategic pillars:
               </p>
-            </div>
+            </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {pillars.map((pillar, index) => {
@@ -159,8 +159,11 @@ export default function About() {
                 return (
                   <motion.div
                     key={index}
-                    whileHover={{ y: -5 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}
+                    whileHover={{ y: -4, scale: 1.02 }}
                     className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-lg transition-all duration-300 group"
                   >
                     <div className="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
@@ -178,14 +181,20 @@ export default function About() {
             </div>
 
             {/* University Learning Quote */}
-            <div className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4"
+            >
               <span className="text-3xl text-brand-500 font-serif leading-none">“</span>
               <p className="text-xs sm:text-sm italic text-slate-700 dark:text-slate-300 leading-relaxed">
                 Technology is at its best when it solves real human friction. As a student in Jaipur, I aim to merge solid algorithmic foundations with intuitive design to build products that make a tangible difference.
               </p>
-            </div>
+            </motion.div>
 
-          </motion.div>
+          </div>
 
         </div>
 

@@ -9,9 +9,7 @@ import {
   Sparkles, 
   GraduationCap, 
   MapPin, 
-  ChevronDown,
-  Terminal,
-  Clock
+  ChevronDown
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import ParticleBackground from './ParticleBackground';
@@ -29,7 +27,6 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Typewriter effect logic
   useEffect(() => {
     const currentRole = roles[currentRoleIndex];
     const typingSpeed = isDeleting ? 40 : 80;
@@ -52,11 +49,10 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, currentRoleIndex]);
 
-  // Confetti trigger
   const triggerConfetti = () => {
     confetti({
-      particleCount: 75,
-      spread: 70,
+      particleCount: 65,
+      spread: 60,
       origin: { y: 0.7 },
       colors: ['#0ea5e9', '#6366f1', '#a855f7', '#10b981']
     });
@@ -73,9 +69,33 @@ export default function Hero() {
     }
   };
 
+  // Stagger animation container
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 22 },
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } 
+    }
+  };
+
   return (
-    <section 
+    <motion.section 
       id="hero" 
+      initial={{ opacity: 0, y: 16, scale: 0.99 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-slate-950/20"
     >
       {/* Interactive Neural Canvas Background */}
@@ -90,13 +110,16 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column: Headline and Call-to-actions */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="lg:col-span-7 flex flex-col items-start text-left"
+          >
             
             {/* Greeting Pill */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              variants={itemVariants}
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50/80 dark:bg-brand-950/60 border border-brand-200/60 dark:border-brand-800/60 text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold mb-6 shadow-sm"
             >
               <span className="flex h-2 w-2 relative">
@@ -109,9 +132,7 @@ export default function Hero() {
 
             {/* Name Heading with Gradient Glow */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              variants={itemVariants}
               className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4"
             >
               I'm{' '}
@@ -122,9 +143,7 @@ export default function Hero() {
 
             {/* Dynamic Typewriter Subtitle */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              variants={itemVariants}
               className="h-10 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-100/90 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 font-semibold text-base sm:text-lg mb-6 shadow-sm backdrop-blur-sm"
             >
               <GraduationCap className="text-brand-500 shrink-0" size={20} />
@@ -136,42 +155,38 @@ export default function Hero() {
 
             {/* Short Professional Introduction */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              variants={itemVariants}
               className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mb-8"
             >
               {personalInfo.shortBio}
             </motion.p>
 
-            {/* Action Buttons with Confetti Micro-Interaction */}
+            {/* Action Buttons with Subtle Hover Scale and Glow */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              variants={itemVariants}
               className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
             >
               <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => {
                   triggerConfetti();
                   scrollTo('projects');
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:brightness-105 transition-all duration-200 cursor-pointer"
               >
                 <span>View Projects</span>
                 <ArrowRight size={18} />
               </motion.button>
 
               <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => {
                   triggerConfetti();
                   scrollTo('contact');
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-md hover:brightness-105 transition-all duration-200 cursor-pointer"
               >
                 <Mail size={18} className="text-brand-500" />
                 <span>Contact Me</span>
@@ -180,9 +195,7 @@ export default function Hero() {
 
             {/* Social Links & Quick Meta */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              variants={itemVariants}
               className="flex flex-wrap items-center gap-6 pt-6 border-t border-slate-200 dark:border-slate-800/80 w-full"
             >
               <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
@@ -190,8 +203,8 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-3">
                 <motion.a
-                  whileHover={{ scale: 1.15, rotate: -5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1, rotate: -4 }}
+                  whileTap={{ scale: 0.92 }}
                   href={personalInfo.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -202,8 +215,8 @@ export default function Hero() {
                 </motion.a>
 
                 <motion.a
-                  whileHover={{ scale: 1.15, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1, rotate: 4 }}
+                  whileTap={{ scale: 0.92 }}
                   href={personalInfo.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -214,8 +227,8 @@ export default function Hero() {
                 </motion.a>
 
                 <motion.a
-                  whileHover={{ scale: 1.15, rotate: -5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1, rotate: -4 }}
+                  whileTap={{ scale: 0.92 }}
                   href={`mailto:${personalInfo.email}`}
                   className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm"
                   aria-label="Email Deepak"
@@ -230,13 +243,21 @@ export default function Hero() {
               </div>
             </motion.div>
 
-          </div>
+          </motion.div>
 
-          {/* Right Column: Interactive Multi-Tab Terminal & AI Card */}
+          {/* Right Column: Interactive Multi-Tab Terminal with Soft Floating Animation */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1, 
+              y: [0, -5, 0]
+            }}
+            transition={{ 
+              opacity: { duration: 0.7, delay: 0.2 },
+              scale: { duration: 0.7, delay: 0.2 },
+              y: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
+            }}
             className="lg:col-span-5 relative"
           >
             <InteractiveTerminalCard />
@@ -257,6 +278,6 @@ export default function Hero() {
         </div>
 
       </div>
-    </section>
+    </motion.section>
   );
 }

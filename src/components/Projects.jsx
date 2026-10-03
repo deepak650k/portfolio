@@ -126,16 +126,18 @@ export default function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -6 }}
-                  className="group relative flex flex-col justify-between rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                  whileHover={{ y: -5 }}
+                  className="group relative flex flex-col justify-between rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:border-brand-500/40 hover:shadow-brand-500/5 transition-all duration-300 overflow-hidden"
                 >
                   <div>
-                    {/* Card Visual Header / Mockup Banner */}
-                    <div className={`relative h-52 w-full bg-gradient-to-br ${thumb.gradient} p-6 flex flex-col justify-between overflow-hidden`}>
+                    {/* Card Visual Header / Mockup Banner with smooth zoom */}
+                    <div className="relative h-52 w-full overflow-hidden p-6 flex flex-col justify-between">
+                      {/* Gradient background with smooth zoom on hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${thumb.gradient} transition-transform duration-500 ease-out group-hover:scale-105`}></div>
                       
                       {/* Background noise and radial overlay */}
                       <div className="absolute inset-0 bg-black/25 backdrop-blur-[1px]"></div>
-                      <div className="absolute -right-6 -bottom-6 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+                      <div className="absolute -right-6 -bottom-6 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:scale-110 transition-transform duration-500"></div>
 
                       {/* Top Row in Banner */}
                       <div className="relative z-10 flex items-center justify-between">

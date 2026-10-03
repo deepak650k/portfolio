@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
 import { navLinks, personalInfo } from '../data/portfolioData';
 
 export default function Navbar({ darkMode, setDarkMode }) {
@@ -48,9 +48,9 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
   return (
     <motion.header
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-slate-950/85 dark:bg-slate-950/90 bg-white/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/80 shadow-lg shadow-black/5 dark:shadow-black/20 py-3.5'
@@ -66,8 +66,8 @@ export default function Navbar({ darkMode, setDarkMode }) {
             className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg p-1"
           >
             <motion.div 
-              whileHover={{ rotate: [0, -10, 10, 0], scale: 1.05 }}
-              transition={{ duration: 0.4 }}
+              whileHover={{ rotate: [0, -8, 8, 0], scale: 1.05 }}
+              transition={{ duration: 0.3 }}
               className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-bold text-lg shadow-md shadow-brand-500/25"
             >
               <span>DK</span>
@@ -83,7 +83,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links with Smooth Hover Underline Animation */}
           <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-full border border-slate-200/60 dark:border-slate-800/60 backdrop-blur-sm">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace('#', '');
@@ -92,7 +92,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`group relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 ${
                     isActive
                       ? 'text-white'
                       : 'text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
@@ -105,7 +105,12 @@ export default function Navbar({ darkMode, setDarkMode }) {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  {link.name}
+                  <span className="relative">
+                    {link.name}
+                    {!isActive && (
+                      <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-brand-500 transition-all duration-300 group-hover:w-full rounded-full"></span>
+                    )}
+                  </span>
                 </a>
               );
             })}
@@ -115,7 +120,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
           <div className="hidden sm:flex items-center gap-3">
             {/* Dark / Light Toggle */}
             <motion.button
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.92 }}
               onClick={() => setDarkMode(!darkMode)}
               className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200 border border-transparent hover:border-slate-300 dark:hover:border-slate-700"
               aria-label="Toggle theme"
@@ -129,7 +134,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
               whileTap={{ scale: 0.97 }}
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 hover:brightness-105 transition-all duration-200"
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={16} />

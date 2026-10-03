@@ -57,10 +57,10 @@ export default function Education() {
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -80,8 +80,8 @@ export default function Education() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl mx-auto"
         >
           <div className="relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden p-6 sm:p-10 transition-all hover:shadow-2xl">
@@ -93,7 +93,8 @@ export default function Education() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-start sm:items-center gap-4">
                 <motion.div 
-                  whileHover={{ scale: 1.08, rotate: 5 }}
+                  whileHover={{ scale: 1.06, rotate: 4 }}
+                  transition={{ duration: 0.3 }}
                   className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-500/25"
                 >
                   <GraduationCap size={32} />
@@ -130,12 +131,12 @@ export default function Education() {
               </p>
             </div>
 
-            {/* Relevant Learning Areas Section */}
+            {/* Relevant Learning Areas Section with Staggered Scroll-Reveal */}
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2 mb-6">
                 <BookOpen size={18} className="text-brand-500" />
                 <h4 className="text-lg font-bold font-heading text-slate-900 dark:text-white">
-                  Relevant Learning Areas & Core Coursework
+                  Relevant Learning Areas &amp; Core Coursework
                 </h4>
               </div>
 
@@ -145,8 +146,11 @@ export default function Education() {
                   return (
                     <motion.div
                       key={index}
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.4, delay: index * 0.06 }}
+                      whileHover={{ scale: 1.02, y: -2 }}
                       className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-brand-500/40 transition-all duration-200 flex items-start gap-3.5"
                     >
                       <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm border border-slate-200/50 dark:border-slate-700/50 shrink-0">
@@ -170,14 +174,21 @@ export default function Education() {
             <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 -mx-6 sm:-mx-10 -mb-6 sm:-mb-10 p-6 sm:p-8">
               <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-2">
                 <Award size={14} className="text-amber-500" />
-                <span>Academic Milestones & Highlights</span>
+                <span>Academic Milestones &amp; Highlights</span>
               </h5>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {edu.highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300">
+                  <motion.div 
+                    key={index} 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: index * 0.08 }}
+                    className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300"
+                  >
                     <CheckCircle size={15} className="text-emerald-500 shrink-0 mt-0.5" />
                     <span>{highlight}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
