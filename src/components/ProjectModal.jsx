@@ -107,21 +107,35 @@ export default function ProjectModal({ project, onClose }) {
 
         {/* Footer Actions */}
         <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <a
-            href={personalInfo.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white transition-colors"
-          >
-            <Github size={16} />
-            <span>GitHub Repository</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-2.5">
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-secondary hover:from-brand-500 hover:to-brand-secondary-light text-white shadow-md shadow-brand-500/20 transition-all"
+              >
+                <ExternalLink size={16} />
+                <span>Live Preview / Demo</span>
+              </a>
+            )}
+
+            <a
+              href={project.github || personalInfo.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white transition-colors"
+            >
+              <Github size={16} />
+              <span>Source Code</span>
+            </a>
+          </div>
 
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-colors"
+            className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors"
           >
-            Done
+            Close
           </button>
         </div>
 

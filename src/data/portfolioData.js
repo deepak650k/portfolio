@@ -119,11 +119,11 @@ export const projectsData = [
     fullDescription: "Built from the ground up to showcase my educational background, engineering projects, tech stack, and achievements. Highlights high-fidelity glassmorphism, responsive navigation, and performance-tuned asset delivery.",
     technologies: ["React", "Vite", "Tailwind CSS", "Framer Motion", "JavaScript"],
     featured: true,
-    github: "https://github.com/deepak650k",
-    demo: "#",
-    metrics: "100% Responsive • Dark/Light Mode • 60 FPS Smooth Scroll",
+    github: "https://github.com/deepak650k/Portfolio",
+    demo: "https://deepak-builds-26.vercel.app",
+    metrics: "100% Responsive • 12 Curated Themes • 60 FPS Smooth Scroll",
     features: [
-      "Interactive dark/light theme toggling with persistent state",
+      "Interactive 12-theme dynamic switcher with persistent state",
       "Dynamic project modal previews and animated skill cards",
       "Fully responsive mobile drawer menu and accessible navigation",
       "Modern contact hub with instant email copy and direct messaging"
@@ -137,8 +137,8 @@ export const projectsData = [
     fullDescription: "Explores the intersection of modern frontend UI and AI model interfaces. Designed to help users brainstorm ideas, summarize content, and interact with smart AI responses in a polished chat/dashboard interface.",
     technologies: ["Python", "React", "Generative AI", "Tailwind CSS", "REST APIs"],
     featured: true,
-    github: "https://github.com/deepak650k",
-    demo: "#",
+    github: "https://github.com/deepak650k/AI-Website",
+    demo: "https://deepak-builds-26.vercel.app/#projects",
     metrics: "Real-time AI Responses • Prompt Optimization • Clean UI",
     features: [
       "Custom prompt engineering and context handling",
@@ -155,8 +155,8 @@ export const projectsData = [
     fullDescription: "Developed to address the challenges of juggling academic tasks, exams, and personal projects. Incorporates customizable study timers, priority task boards, and academic progress visualization.",
     technologies: ["JavaScript", "React", "Tailwind CSS", "Local Storage", "CSS Grid"],
     featured: true,
-    github: "https://github.com/deepak650k",
-    demo: "#",
+    github: "https://github.com/deepak650k/student-productivity",
+    demo: "https://deepak-builds-26.vercel.app/#projects",
     metrics: "Zero Friction • Offline First • High Efficiency",
     features: [
       "Interactive Eisenhower matrix / priority task boards",
@@ -172,7 +172,7 @@ export const achievementsData = [
     id: 1,
     title: "AI & Machine Learning Foundations",
     type: "Certifications",
-    issuer: "Online Learning Platform",
+    issuer: "DeepLearning.AI & Coursera",
     year: "2026",
     description: "Completed comprehensive training on machine learning fundamentals, predictive modeling, and Python for data science.",
     icon: "Award",
@@ -182,7 +182,7 @@ export const achievementsData = [
     id: 2,
     title: "Full-Stack Web Development Track",
     type: "Courses",
-    issuer: "Technical Learning Academy",
+    issuer: "freeCodeCamp & Meta",
     year: "2026",
     description: "Mastered modern frontend engineering, asynchronous JavaScript, React components, and responsive design principles.",
     icon: "BookOpen",
@@ -192,7 +192,7 @@ export const achievementsData = [
     id: 3,
     title: "Campus Tech & Innovation Hackathon",
     type: "Hackathons",
-    issuer: "JECRC University",
+    issuer: "JECRC University Hackathon",
     year: "2026",
     description: "Collaborated in an intensive hackathon environment, ideating and prototyping technical solutions for everyday student workflow challenges.",
     icon: "Trophy",
@@ -202,7 +202,7 @@ export const achievementsData = [
     id: 4,
     title: "Generative AI Prompt Engineering",
     type: "Certifications",
-    issuer: "Industry Program",
+    issuer: "Google Cloud & DeepLearning.AI",
     year: "2026",
     description: "Focused training in LLM prompting techniques, few-shot prompting, and integrating generative capabilities into real-world software.",
     icon: "Sparkles",
@@ -212,7 +212,7 @@ export const achievementsData = [
     id: 5,
     title: "Academic Excellence & Continuous Learning",
     type: "Awards",
-    issuer: "JECRC Academic Recognition",
+    issuer: "JECRC Department of CSE",
     year: "2026 - Present",
     description: "Demonstrated dedication to engineering coursework, practical project submissions, and peer knowledge sharing.",
     icon: "Medal",
@@ -222,11 +222,46 @@ export const achievementsData = [
     id: 6,
     title: "Open Source & Developer Community",
     type: "Other achievements",
-    issuer: "GitHub / Developer Clubs",
+    issuer: "GitHub Campus & Technical Clubs",
     year: "Ongoing",
     description: "Active contributor to open-source student repositories and participant in campus technical clubs and community coding meetups.",
     icon: "Users",
     badge: "Community"
+  }
+];
+
+export const codingProfiles = [
+  {
+    name: "LeetCode",
+    username: "deepak650k",
+    role: "DSA & Algorithms",
+    url: "https://leetcode.com/u/deepak650k",
+    badge: "Problem Solving",
+    color: "#f59e0b"
+  },
+  {
+    name: "GitHub",
+    username: "deepak650k",
+    role: "Open Source & Code Repos",
+    url: "https://github.com/deepak650k",
+    badge: "Developer",
+    color: "#2563eb"
+  },
+  {
+    name: "HackerRank",
+    username: "deepak650k",
+    role: "Python & Logic Certified",
+    url: "https://www.hackerrank.com/profile/deepak650k",
+    badge: "Verified Skill",
+    color: "#059669"
+  },
+  {
+    name: "GeeksforGeeks",
+    username: "deepak650k",
+    role: "CS Fundamentals & Practice",
+    url: "https://www.geeksforgeeks.org/user/deepak650k/",
+    badge: "Active Learner",
+    color: "#10b981"
   }
 ];
 

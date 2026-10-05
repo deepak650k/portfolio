@@ -10,9 +10,12 @@ import {
   Target, 
   Clock, 
   HeartHandshake,
-  CheckCircle2
+  CheckCircle2,
+  ArrowUpRight,
+  Terminal,
+  Github
 } from 'lucide-react';
-import { personalInfo } from '../data/portfolioData';
+import { personalInfo, codingProfiles } from '../data/portfolioData';
 import { fadeInUp, staggerContainer, defaultViewport } from '../utils/motion';
 
 export default function About() {
@@ -209,6 +212,72 @@ export default function About() {
           </div>
 
         </div>
+
+        {/* Coding & Problem Solving Profiles Section */}
+        <motion.div
+          variants={fadeInUp(24)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="mt-20 pt-16 border-t border-slate-200 dark:border-slate-800"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-2">
+                <Terminal size={14} />
+                <span>Problem Solving & Repositories</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 dark:text-white">
+                Coding Profiles
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md">
+              Continuous practice in Data Structures, Algorithms, and production development.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {codingProfiles.map((profile) => (
+              <motion.a
+                key={profile.name}
+                href={profile.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -6, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span 
+                      className="px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider text-white"
+                      style={{ backgroundColor: profile.color }}
+                    >
+                      {profile.badge}
+                    </span>
+                    <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 group-hover:text-brand-500 group-hover:bg-brand-500/10 transition-colors">
+                      <ArrowUpRight size={16} />
+                    </div>
+                  </div>
+
+                  <h4 className="text-lg font-bold font-heading text-slate-900 dark:text-white group-hover:text-brand-500 transition-colors">
+                    {profile.name}
+                  </h4>
+                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                    @{profile.username}
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 flex items-center justify-between">
+                  <span>{profile.role}</span>
+                  <span className="text-[11px] font-semibold text-brand-600 dark:text-brand-400 group-hover:underline">
+                    View &rarr;
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
 
       </div>
     </section>

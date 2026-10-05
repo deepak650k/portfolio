@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap, Palette } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap, Palette, FileText } from 'lucide-react';
 import { navLinks, personalInfo } from '../data/portfolioData';
 import { useTheme } from '../context/ThemeContext';
 import ThemeSelector from './ThemeSelector';
+import ResumeModal from './ResumeModal';
 
 export default function Navbar() {
   const { darkMode, toggleDarkMode, colorTheme, setColorTheme, themes, activeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,6 +120,18 @@ export default function Navbar() {
           <div className="hidden sm:flex items-center gap-2.5">
             {/* Theme Selector with visible text label & color indicator */}
             <ThemeSelector />
+
+            {/* View Resume Button */}
+            <motion.button
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.02 }}
+              onClick={() => setIsResumeOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold bg-brand-500/10 hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 border border-brand-500/30 transition-all duration-200 shadow-sm"
+              aria-label="View Resume"
+            >
+              <FileText size={15} />
+              <span>Resume</span>
+            </motion.button>
 
             {/* Dark / Light Mode Switcher with text */}
             <motion.button
@@ -241,6 +255,17 @@ export default function Navbar() {
               </div>
 
               <div className="pt-2 border-t border-slate-800 flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setIsResumeOpen(true);
+                  }}
+                  className="w-full text-center py-2.5 rounded-xl bg-brand-500/15 border border-brand-500/30 text-brand-400 font-medium flex items-center justify-center gap-2 hover:bg-brand-500/25 transition-colors"
+                >
+                  <FileText size={16} />
+                  <span>View Resume / CV</span>
+                </button>
                 <a
                   href="#contact"
                   onClick={(e) => {
@@ -259,6 +284,12 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Curriculum Vitae / Resume Modal */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
     </motion.header>
   );
 }

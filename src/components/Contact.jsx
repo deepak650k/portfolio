@@ -18,6 +18,7 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [lastSentDetails, setLastSentDetails] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,13 +43,25 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate sending message with realistic feedback
+    const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+      `[Portfolio Inquiry] ${formData.subject}`
+    )}&body=${encodeURIComponent(
+      `Hi Deepak,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
+    )}`;
+
+    setLastSentDetails({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      mailtoUrl: mailtoUrl
+    });
+
     setTimeout(() => {
       setLoading(false);
       setFormSubmitted(true);
+      window.open(mailtoUrl, '_blank');
       setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setFormSubmitted(false), 6000);
-    }, 800);
+    }, 500);
   };
 
   return (
@@ -248,7 +261,7 @@ export default function Contact() {
                 </p>
               </div>
 
-              {formSubmitted ? (
+              {formSubmitted && lastSentDetails ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -257,18 +270,43 @@ export default function Contact() {
                   <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center mb-4">
                     <Check size={28} />
                   </div>
-                  <h4 className="text-lg font-bold font-heading text-emerald-800 dark:text-emerald-300 mb-1">
-                    Message Sent Successfully!
+                  <h4 className="text-xl font-bold font-heading text-emerald-800 dark:text-emerald-300 mb-1">
+                    Message Prepared & Ready!
                   </h4>
-                  <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 max-w-sm mx-auto">
-                    Thank you for reaching out! Deepak will review your message and reply via email shortly.
+                  <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 max-w-sm mx-auto mb-5">
+                    Your email app was triggered with your pre-filled inquiry addressed directly to Deepak Kumawat.
                   </p>
-                  <button
-                    onClick={() => setFormSubmitted(false)}
-                    className="mt-6 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-500 transition-colors"
-                  >
-                    Send Another Note
-                  </button>
+
+                  <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-emerald-200/80 dark:border-emerald-800/80 text-left text-xs space-y-1.5 mb-6 max-w-md mx-auto shadow-sm">
+                    <div className="text-slate-600 dark:text-slate-300">
+                      <strong className="text-slate-900 dark:text-white">To:</strong> {personalInfo.email}
+                    </div>
+                    <div className="text-slate-600 dark:text-slate-300">
+                      <strong className="text-slate-900 dark:text-white">Subject:</strong> [Portfolio Inquiry] {lastSentDetails.subject}
+                    </div>
+                    <div className="text-slate-600 dark:text-slate-300">
+                      <strong className="text-slate-900 dark:text-white">Sender:</strong> {lastSentDetails.name} ({lastSentDetails.email})
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <a
+                      href={lastSentDetails.mailtoUrl}
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-500 shadow-md transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                      <span>Click to Send via Email App</span>
+                    </a>
+                    <button
+                      onClick={() => {
+                        setFormSubmitted(false);
+                        setLastSentDetails(null);
+                      }}
+                      className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      Send Another Note
+                    </button>
+                  </div>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">

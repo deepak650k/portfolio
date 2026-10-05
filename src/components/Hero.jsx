@@ -10,11 +10,14 @@ import {
   Cpu, 
   GraduationCap, 
   MapPin, 
-  ChevronDown
+  ChevronDown,
+  FileText
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import ResumeModal from './ResumeModal';
 
 export default function Hero() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const roles = [
     personalInfo.headline,
     "B.Tech CSE Student @ JECRC University",
@@ -152,7 +155,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
+              className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto mb-10"
             >
               <motion.button
                 whileHover={{ scale: 1.03, y: -2 }}
@@ -167,8 +170,18 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => setIsResumeOpen(true)}
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-base bg-brand-500/10 hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 border border-brand-500/30 transition-all duration-200 shadow-sm"
+              >
+                <FileText size={18} className="transition-transform duration-200 group-hover:scale-110" />
+                <span>View Resume</span>
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo('contact')}
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200"
               >
                 <Mail size={18} className="text-brand-500 transition-transform duration-200 group-hover:scale-110" />
                 <span>Contact Me</span>
@@ -376,6 +389,12 @@ export default function Hero() {
         </div>
 
       </div>
+
+      {/* Curriculum Vitae / Resume Modal */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
     </section>
   );
 }

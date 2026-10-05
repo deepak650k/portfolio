@@ -85,8 +85,22 @@ export default function Projects() {
                 className="group flex flex-col justify-between rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden"
               >
                 <div>
+                  {/* Browser Chrome Header Mockup */}
+                  <div className="bg-slate-900/90 dark:bg-slate-950 px-4 py-2 border-b border-white/10 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                    </div>
+                    <div className="px-2.5 py-0.5 rounded-md bg-white/10 dark:bg-slate-800/80 text-[10px] font-mono text-slate-300 truncate max-w-[170px] flex items-center gap-1">
+                      <span className="text-emerald-400">https://</span>
+                      <span>deepak/{project.id}</span>
+                    </div>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  </div>
+
                   {/* Card Visual Header / Mockup Banner */}
-                  <div className={`relative h-48 w-full bg-gradient-to-br ${thumb.gradient} p-6 flex flex-col justify-between overflow-hidden`}>
+                  <div className={`relative h-44 w-full bg-gradient-to-br ${thumb.gradient} p-5 flex flex-col justify-between overflow-hidden`}>
                     
                     {/* Background noise and radial overlay */}
                     <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]"></div>
@@ -94,23 +108,23 @@ export default function Projects() {
 
                     {/* Top Row in Banner */}
                     <div className="relative z-10 flex items-center justify-between">
-                      <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md text-white border border-white/20">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md text-white border border-white/20">
                         {thumb.tag}
                       </span>
                       <motion.div 
                         whileHover={{ rotate: 15, scale: 1.1 }}
-                        className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center border border-white/20"
+                        className="w-8 h-8 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center border border-white/20"
                       >
-                        <Icon size={18} />
+                        <Icon size={16} />
                       </motion.div>
                     </div>
 
                     {/* Banner Headline */}
                     <div className="relative z-10">
-                      <span className="text-xs font-mono tracking-wider text-white/80 uppercase">
+                      <span className="text-[11px] font-mono tracking-wider text-white/80 uppercase">
                         {thumb.accentText}
                       </span>
-                      <h4 className="text-xl font-bold font-heading text-white line-clamp-1 drop-shadow-sm">
+                      <h4 className="text-lg sm:text-xl font-bold font-heading text-white line-clamp-1 drop-shadow-sm">
                         {project.title}
                       </h4>
                     </div>
@@ -155,22 +169,22 @@ export default function Projects() {
                 </div>
 
                 {/* Card Actions Footer */}
-                <div className="p-6 sm:p-7 pt-0 flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800/80 mt-4">
-                  {/* View Project Button (Required by prompt) */}
+                <div className="p-6 sm:p-7 pt-0 flex items-center justify-between gap-2.5 border-t border-slate-100 dark:border-slate-800/80 mt-4">
+                  {/* View Project Button */}
                   <motion.button
                     whileTap={{ scale: 0.96 }}
                     onClick={() => setSelectedProject(project)}
                     className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-600/20 hover:shadow-brand-600/35 transition-all duration-200 cursor-pointer"
                   >
                     <Eye size={16} />
-                    <span>View Project</span>
+                    <span>View Details</span>
                   </motion.button>
 
                   {/* GitHub Repo Button */}
                   <motion.a
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.94 }}
-                    href={personalInfo.githubUrl}
+                    href={project.github || personalInfo.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-700"
@@ -179,6 +193,22 @@ export default function Projects() {
                   >
                     <Github size={18} />
                   </motion.a>
+
+                  {/* Live Demo Quick Link */}
+                  {project.demo && (
+                    <motion.a
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.94 }}
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-700"
+                      title="Open Live Preview"
+                      aria-label={`Live Demo for ${project.title}`}
+                    >
+                      <ExternalLink size={18} />
+                    </motion.a>
+                  )}
                 </div>
 
               </motion.div>
