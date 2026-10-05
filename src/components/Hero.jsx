@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
   Mail, 
@@ -15,6 +15,44 @@ import {
 import { personalInfo } from '../data/portfolioData';
 
 export default function Hero() {
+  const roles = [
+    personalInfo.headline,
+    "B.Tech CSE Student @ JECRC University",
+    "Generative AI & Machine Learning Explorer",
+    "Modern Full-Stack Web Developer",
+    "Digital Productivity System Designer"
+  ];
+
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  // Smooth role text cycler (3.2s interval)
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3200);
+
+    return () => clearInterval(interval);
+  }, [roles.length]);
+
+  // 3D card tilt tracking
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setTilt({
+      x: -(y / (rect.height / 2)) * 6,
+      y: (x / (rect.width / 2)) * 6
+    });
+  };
+
+  const handleCardMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
+
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -32,8 +70,16 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-dot-grid"
     >
       {/* Background ambient lighting orbs with subtle pulse */}
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-slow"></div>
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-indigo-500/15 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-float"></div>
+      <motion.div 
+        animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none -z-10"
+      />
+      <motion.div 
+        animate={{ y: [0, -18, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/3 right-1/4 w-80 h-80 bg-indigo-500/15 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none -z-10"
+      />
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-96 h-64 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -44,9 +90,9 @@ export default function Hero() {
             
             {/* Greeting Pill */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50/80 dark:bg-brand-950/60 border border-brand-200/60 dark:border-brand-800/60 text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold mb-6 shadow-sm"
             >
               <span className="flex h-2 w-2 relative">
@@ -61,7 +107,7 @@ export default function Hero() {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4"
             >
               I'm{' '}
@@ -70,22 +116,32 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            {/* Role & Subtitle */}
+            {/* Role & Kinetic Headline Subtitle */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-base sm:text-lg md:text-xl mb-6 shadow-sm"
+              transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-base sm:text-lg md:text-xl mb-6 shadow-sm min-h-[46px]"
             >
               <GraduationCap className="text-brand-500 shrink-0" size={22} />
-              <span>{personalInfo.headline}</span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {roles[roleIndex]}
+                </motion.span>
+              </AnimatePresence>
             </motion.div>
 
             {/* Short Professional Introduction */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
               className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mb-8"
             >
               {personalInfo.shortBio}
@@ -95,26 +151,26 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
             >
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo('projects')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
               >
                 <span>View Projects</span>
-                <ArrowRight size={18} />
+                <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-1" />
               </motion.button>
 
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo('contact')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow transition-all duration-200"
               >
-                <Mail size={18} className="text-brand-500" />
+                <Mail size={18} className="text-brand-500 transition-transform duration-200 group-hover:scale-110" />
                 <span>Contact Me</span>
               </motion.button>
             </motion.div>
@@ -123,7 +179,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-wrap items-center gap-6 pt-6 border-t border-slate-200 dark:border-slate-800/80 w-full"
             >
               <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
@@ -131,34 +187,34 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-3">
                 <motion.a
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.15, y: -3, rotate: -5 }}
+                  whileTap={{ scale: 0.92 }}
                   href={personalInfo.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm hover:shadow"
                   aria-label="GitHub Profile"
                 >
                   <Github size={18} />
                 </motion.a>
 
                 <motion.a
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
+                  whileTap={{ scale: 0.92 }}
                   href={personalInfo.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm hover:shadow"
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin size={18} />
                 </motion.a>
 
                 <motion.a
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.15, y: -3, rotate: -5 }}
+                  whileTap={{ scale: 0.92 }}
                   href={`mailto:${personalInfo.email}`}
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all"
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm hover:shadow"
                   aria-label="Email Deepak"
                 >
                   <Mail size={18} />
@@ -173,14 +229,22 @@ export default function Hero() {
 
           </div>
 
-          {/* Right Column: Visual Interactive Student Profile Card with Motion */}
+          {/* Right Column: Visual Interactive Student Profile Card with 3D Motion */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            initial={{ opacity: 0, scale: 0.94, y: 25 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative mx-auto max-w-md w-full">
+            <div 
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+              style={{
+                transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                transition: 'transform 0.15s ease-out'
+              }}
+              className="relative mx-auto max-w-md w-full"
+            >
               
               {/* Outer decorative gradient border */}
               <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400 opacity-30 blur-xl"></div>
@@ -205,7 +269,8 @@ export default function Hero() {
                 <div className="py-5 space-y-4">
                   <div className="flex items-center gap-4">
                     <motion.div
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.08, rotate: 3 }}
+                      transition={{ duration: 0.2 }}
                       className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-500/30"
                     >
                       DK
@@ -237,7 +302,10 @@ export default function Hero() {
 
                   {/* Highlights Grid */}
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800 flex items-center gap-3">
+                    <motion.div 
+                      whileHover={{ scale: 1.02 }}
+                      className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800 flex items-center gap-3"
+                    >
                       <div className="p-2 rounded-lg bg-brand-500/10 text-brand-500">
                         <Cpu size={18} />
                       </div>
@@ -245,9 +313,12 @@ export default function Hero() {
                         <div className="text-xs text-slate-500 dark:text-slate-400">Domain</div>
                         <div className="text-xs font-bold text-slate-800 dark:text-slate-200">AI & Tech</div>
                       </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800 flex items-center gap-3">
+                    <motion.div 
+                      whileHover={{ scale: 1.02 }}
+                      className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800 flex items-center gap-3"
+                    >
                       <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-500">
                         <Code size={18} />
                       </div>
@@ -255,7 +326,7 @@ export default function Hero() {
                         <div className="text-xs text-slate-500 dark:text-slate-400">Craft</div>
                         <div className="text-xs font-bold text-slate-800 dark:text-slate-200">Modern Web</div>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
 
                 </div>
@@ -268,9 +339,10 @@ export default function Hero() {
                   </span>
                   <button 
                     onClick={() => scrollTo('about')}
-                    className="hover:text-brand-500 font-medium transition-colors flex items-center gap-1"
+                    className="hover:text-brand-500 font-medium transition-colors flex items-center gap-1 group"
                   >
-                    Learn more &rarr;
+                    <span>Learn more</span>
+                    <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
                   </button>
                 </div>
 

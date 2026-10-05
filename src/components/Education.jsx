@@ -5,15 +5,16 @@ import {
   Calendar, 
   MapPin, 
   BookOpen, 
-  Award, 
   CheckCircle, 
   BrainCircuit, 
-  Code, 
-  Database, 
   Binary, 
-  Laptop
+  Terminal, 
+  Database, 
+  Award,
+  Globe2
 } from 'lucide-react';
 import { educationData } from '../data/portfolioData';
+import { fadeInUp, staggerContainer, defaultViewport } from '../utils/motion';
 
 export default function Education() {
   const edu = educationData[0];
@@ -30,17 +31,17 @@ export default function Education() {
       desc: "Problem solving, algorithm optimization, arrays, linked lists, trees, graphs, and time/space complexity."
     },
     {
-      title: "Web Technologies & Architecture",
-      icon: Code,
-      desc: "Modern HTML5/CSS3, JavaScript (ES6+), React component lifecycles, state management, and responsive layouts."
+      title: "Modern Web Engineering",
+      icon: Globe2,
+      desc: "Component design, responsive UI development, React, asynchronous JavaScript, and REST APIs."
     },
     {
-      title: "Python Programming & Scripting",
-      icon: Laptop,
-      desc: "Object-oriented programming, data manipulation, automation scripts, and API consumption."
+      title: "Python Programming",
+      icon: Terminal,
+      desc: "Object-oriented programming, data structures, scripting, algorithm design, and automation modules."
     },
     {
-      title: "Database Management Systems (DBMS)",
+      title: "Database Management & SQL",
       icon: Database,
       desc: "Relational database concepts, SQL queries, normalization, data integrity, and NoSQL storage fundamentals."
     },
@@ -55,12 +56,12 @@ export default function Education() {
     <section id="education" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header with Viewport Reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5 }}
+          variants={fadeInUp(24)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -78,10 +79,10 @@ export default function Education() {
 
         {/* Education Highlight Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
+          variants={fadeInUp(24)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="max-w-4xl mx-auto"
         >
           <div className="relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden p-6 sm:p-10 transition-all hover:shadow-2xl">
@@ -94,7 +95,8 @@ export default function Education() {
               <div className="flex items-start sm:items-center gap-4">
                 <motion.div 
                   whileHover={{ scale: 1.08, rotate: 5 }}
-                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-500/25"
+                  transition={{ duration: 0.2 }}
+                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-500/25 cursor-default"
                 >
                   <GraduationCap size={32} />
                 </motion.div>
@@ -139,13 +141,20 @@ export default function Education() {
                 </h4>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <motion.div 
+                variants={staggerContainer(0.06)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={defaultViewport}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
                 {learningAreas.map((area, index) => {
                   const Icon = area.icon;
                   return (
                     <motion.div
                       key={index}
-                      whileHover={{ scale: 1.02 }}
+                      variants={fadeInUp(16)}
+                      whileHover={{ scale: 1.02, y: -2 }}
                       transition={{ duration: 0.2 }}
                       className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-brand-500/40 transition-all duration-200 flex items-start gap-3.5"
                     >
@@ -163,7 +172,7 @@ export default function Education() {
                     </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
 
             {/* University Journey Highlights */}
@@ -174,10 +183,14 @@ export default function Education() {
               </h5>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {edu.highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300">
+                  <motion.div 
+                    key={index} 
+                    whileHover={{ x: 2 }}
+                    className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300"
+                  >
                     <CheckCircle size={15} className="text-emerald-500 shrink-0 mt-0.5" />
                     <span>{highlight}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

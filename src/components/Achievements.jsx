@@ -97,8 +97,10 @@ export default function Achievements() {
           {/* Filter Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
             {categories.map((cat) => (
-              <button
+              <motion.button
                 key={cat}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                   activeCategory === cat
@@ -107,7 +109,7 @@ export default function Achievements() {
                 }`}
               >
                 {cat}
-              </button>
+              </motion.button>
             ))}
           </div>
         </motion.div>

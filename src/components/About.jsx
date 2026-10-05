@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { fadeInUp, staggerContainer, defaultViewport } from '../utils/motion';
 
 export default function About() {
   const pillars = [
@@ -42,12 +43,12 @@ export default function About() {
     <section id="about" className="py-24 relative bg-slate-50/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header with Viewport Reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5 }}
+          variants={fadeInUp(24)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 mb-3">
@@ -68,21 +69,25 @@ export default function About() {
           
           {/* Left Column: Visual Introduction & Key Quick Facts */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6 }}
+            variants={fadeInUp(24)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
             className="lg:col-span-5 space-y-6"
           >
             
             {/* Main Bio Card */}
-            <div className="rounded-2xl p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
+            <div className="rounded-2xl p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                <motion.div 
+                  whileHover={{ scale: 1.08, rotate: 3 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md cursor-default"
+                >
                   DK
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white">
                     {personalInfo.name}
@@ -125,43 +130,53 @@ export default function About() {
             </div>
 
             {/* Student Mindset Banner */}
-            <div className="p-4 rounded-xl bg-gradient-to-r from-brand-600/10 via-indigo-600/10 to-transparent border border-brand-500/20 flex items-center gap-3">
+            <motion.div 
+              whileHover={{ scale: 1.01 }}
+              className="p-4 rounded-xl bg-gradient-to-r from-brand-600/10 via-indigo-600/10 to-transparent border border-brand-500/20 flex items-center gap-3"
+            >
               <div className="p-2 rounded-lg bg-brand-500 text-white shrink-0">
                 <HeartHandshake size={20} />
               </div>
               <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                 <span className="font-semibold text-brand-600 dark:text-brand-400">Collaborative Spirit:</span> Eager to connect with fellow developers, participate in hackathons, and contribute to innovative initiatives.
               </p>
-            </div>
+            </motion.div>
 
           </motion.div>
 
           {/* Right Column: Pillars of Interest & Activity */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7"
-          >
-            <div className="space-y-4 mb-8">
+          <div className="lg:col-span-7">
+            <motion.div 
+              variants={fadeInUp(20)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="space-y-4 mb-8"
+            >
               <h3 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
                 What Drives Me
               </h3>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                 As a computer science student at JECRC University, my daily focus revolves around these four strategic pillars:
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <motion.div 
+              variants={staggerContainer(0.08)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
               {pillars.map((pillar, index) => {
                 const IconComponent = pillar.icon;
                 return (
                   <motion.div
                     key={index}
-                    whileHover={{ y: -5 }}
-                    transition={{ duration: 0.2 }}
-                    className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-lg transition-all duration-300 group"
+                    variants={fadeInUp(20)}
+                    whileHover={{ y: -6 }}
+                    transition={{ duration: 0.25 }}
+                    className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 shadow-sm hover:shadow-xl transition-all duration-300 group"
                   >
                     <div className="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
                       <IconComponent size={24} />
@@ -175,17 +190,23 @@ export default function About() {
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* University Learning Quote */}
-            <div className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4">
+            <motion.div 
+              variants={fadeInUp(16)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="mt-6 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-4"
+            >
               <span className="text-3xl text-brand-500 font-serif leading-none">“</span>
               <p className="text-xs sm:text-sm italic text-slate-700 dark:text-slate-300 leading-relaxed">
                 Technology is at its best when it solves real human friction. As a student in Jaipur, I aim to merge solid algorithmic foundations with intuitive design to build products that make a tangible difference.
               </p>
-            </div>
+            </motion.div>
 
-          </motion.div>
+          </div>
 
         </div>
 
