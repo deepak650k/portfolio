@@ -8,7 +8,8 @@ import {
   Laptop, 
   Bot, 
   CheckCircle, 
-  Eye
+  Eye,
+  MessageSquareCode
 } from 'lucide-react';
 import { projectsData, personalInfo } from '../data/portfolioData';
 import ProjectModal from './ProjectModal';
@@ -23,6 +24,12 @@ export default function Projects() {
       icon: Laptop,
       accentText: "Portfolio v1.0",
       tag: "Live Project"
+    },
+    "ai-chatbot-assistant": {
+      gradient: "from-blue-600 via-indigo-600 to-cyan-500",
+      icon: MessageSquareCode,
+      accentText: "AI Agent v2.0",
+      tag: "Conversational AI"
     },
     "ai-website-project": {
       gradient: "from-purple-600 via-pink-600 to-indigo-600",
@@ -63,8 +70,8 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Project Cards Grid - Balanced 2x2 layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projectsData.map((project, index) => {
             const thumb = projectThumbnails[project.id] || {
               gradient: "from-brand-600 to-brand-secondary",

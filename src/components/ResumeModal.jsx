@@ -208,17 +208,22 @@ TECHNICAL SKILLS
 • Core Competencies: Data Structures & Algorithms, Responsive Web Architecture, Component-Driven Design, Digital Productivity Systems
 
 TECHNICAL PROJECTS
-1. Portfolio & Personal Brand Platform | React.js, Tailwind CSS, Vite, Framer Motion
+1. Conversational AI Chatbot Assistant | Botpress, React.js, Generative AI, Webhooks, REST APIs
+Live Demo: https://deepak-builds-26.vercel.app | GitHub: https://github.com/deepak650k/AI-Chatbot
+• Architected and deployed an intelligent conversational chatbot featuring multi-turn natural language dialogue handling, intent classification, and context memory.
+• Integrated dynamic webhook endpoints and custom knowledge base search delivering rapid automated responses with sub-second latency.
+
+2. Portfolio & Personal Brand Platform | React.js, Tailwind CSS, Vite, Framer Motion
 Live Demo: https://deepak-builds-26.vercel.app | GitHub: https://github.com/deepak650k/Portfolio
 • Architected a production-grade personal portfolio featuring 12 dynamic themes, sub-second load times, and fluid 60fps animations.
 • Engineered an ATS-compliant CV export engine with vector PDF generation and accessible mobile navigation drawer.
 
-2. Generative AI Assistant Web Application | Python, React.js, Generative AI, REST APIs
+3. Generative AI Assistant Web Application | Python, React.js, Generative AI, REST APIs
 GitHub: https://github.com/deepak650k/AI-Website
 • Developed an interactive AI chat interface connecting user queries to LLM backend endpoints via structured few-shot prompt engineering.
 • Implemented contextual prompt templates, asynchronous streaming query pipelines, and client-side error handling for reliable multi-turn interactions.
 
-3. Student Productivity System (Workflow OS) | JavaScript, React.js, Tailwind CSS, LocalStorage API
+4. Student Productivity System (Workflow OS) | JavaScript, React.js, Tailwind CSS, LocalStorage API
 GitHub: https://github.com/deepak650k/student-productivity
 • Built an offline-first academic management platform incorporating an Eisenhower priority task matrix and Pomodoro focus timers.
 • Architected zero-friction client-side local persistence ensuring instantaneous task retrieval and reliable session logging without database latency.
@@ -423,9 +428,27 @@ CERTIFICATIONS & ACHIEVEMENTS
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
                 TECHNICAL PROJECTS
               </h2>
-              <div className="space-y-3 print:space-y-2">
+              <div className="space-y-3 print:space-y-1.5">
                 
-                {/* Project 1: Portfolio Platform */}
+                {/* Project 1: Conversational AI Chatbot Assistant */}
+                <div className="space-y-0.5">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
+                      Conversational AI Chatbot Assistant | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">Botpress, React.js, Generative AI, Webhooks, REST APIs</span>
+                    </h3>
+                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black flex items-center gap-1.5">
+                      <a href="https://deepak-builds-26.vercel.app" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">Demo</a>
+                      <span>•</span>
+                      <a href="https://github.com/deepak650k/AI-Chatbot" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
+                    </div>
+                  </div>
+                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
+                    <li>Architected and deployed an intelligent conversational chatbot featuring multi-turn natural language dialogue handling, intent classification, and context memory.</li>
+                    <li>Integrated dynamic webhook endpoints and custom knowledge base search delivering rapid automated responses with sub-second latency.</li>
+                  </ul>
+                </div>
+
+                {/* Project 2: Portfolio Platform */}
                 <div className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
                     <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
@@ -443,7 +466,7 @@ CERTIFICATIONS & ACHIEVEMENTS
                   </ul>
                 </div>
 
-                {/* Project 2: Generative AI Web Application */}
+                {/* Project 3: Generative AI Web Application */}
                 <div className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
                     <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
@@ -459,7 +482,7 @@ CERTIFICATIONS & ACHIEVEMENTS
                   </ul>
                 </div>
 
-                {/* Project 3: Student Productivity System */}
+                {/* Project 4: Student Productivity System */}
                 <div className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
                     <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">

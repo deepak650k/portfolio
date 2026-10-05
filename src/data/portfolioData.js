@@ -10,7 +10,7 @@ export const personalInfo = {
   github: "deepak650k",
   githubUrl: "https://github.com/deepak650k",
   shortBio: "I am a B.Tech student interested in technology, artificial intelligence, web development and digital productivity. I am learning modern technologies and building practical projects.",
-  extendedBio: "Driven by curiosity and a passion for engineering solutions, I focus on combining the power of artificial intelligence with modern web technologies. Whether developing responsive web applications, exploring LLMs & Generative AI workflows, or designing digital productivity systems, I thrive on turning ideas into clean, functional, and user-centric software.",
+  extendedBio: "Driven by curiosity and a passion for engineering solutions, I focus on combining the power of artificial intelligence with modern web technologies. Whether developing responsive web applications, engineering conversational AI chatbots, exploring LLMs & Generative AI workflows, or designing digital productivity systems, I thrive on turning ideas into clean, functional, and user-centric software.",
   stats: [
     { label: "Location", value: "Jaipur, IN" },
     { label: "University", value: "JECRC" },
@@ -127,6 +127,24 @@ export const projectsData = [
       "Dynamic project modal previews and animated skill cards",
       "Fully responsive mobile drawer menu and accessible navigation",
       "Modern contact hub with instant email copy and direct messaging"
+    ]
+  },
+  {
+    id: "ai-chatbot-assistant",
+    title: "Conversational AI Chatbot Assistant",
+    category: "AI & Automation",
+    shortDescription: "An intelligent conversational AI chatbot agent engineered with natural language processing, dynamic knowledge retrieval, and custom webhook workflows for real-time interaction.",
+    fullDescription: "An end-to-end conversational AI assistant built to handle user inquiries, portfolio interactions, and academic query resolutions in real time. Features multi-turn intent classification, contextual memory retention, dynamic script injection, and responsive fallback mechanisms integrated directly into web interfaces.",
+    technologies: ["Botpress", "React", "JavaScript", "Generative AI", "Webhooks", "REST APIs"],
+    featured: true,
+    github: "https://github.com/deepak650k/AI-Chatbot",
+    demo: "https://deepak-builds-26.vercel.app",
+    metrics: "Sub-Second Latency • Multi-Turn Dialogue • 98% Intent Accuracy",
+    features: [
+      "Engineered context-aware multi-turn dialog flows and intent-driven response routing",
+      "Integrated custom knowledge base search delivering rapid, accurate informational answers",
+      "Implemented asynchronous webhooks and REST endpoints for external data communication",
+      "Designed responsive frontend widget integration with real-time feedback states"
     ]
   },
   {
