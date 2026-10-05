@@ -222,23 +222,25 @@
     page-break-inside: avoid !important;
   }
 
-  /* 5. Typography and contrast for clear physical printout */
+  /* 5. Typography and contrast for clear physical printout & 100% ATS readability */
   .printable-resume-sheet * {
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
+    background: transparent !important;
   }
 
-  .printable-resume-sheet .text-brand-600,
-  .printable-resume-sheet .text-brand-500,
-  .printable-resume-sheet .text-brand-400 {
-    color: #1d4ed8 !important;
+  .printable-resume-sheet h1,
+  .printable-resume-sheet h2,
+  .printable-resume-sheet h3,
+  .printable-resume-sheet strong {
+    color: #000000 !important;
   }
 
   .printable-resume-sheet a {
     text-decoration: none !important;
-    color: #1d4ed8 !important;
+    color: #000000 !important;
   }
 }
 
