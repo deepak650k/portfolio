@@ -110,7 +110,7 @@ export default function Skills() {
           <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight">
             Skills & Expertise
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-teal-500 mx-auto mt-3 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-brand-secondary mx-auto mt-3 rounded-full"></div>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300">
             A balanced toolkit spanning modern web development, intelligent algorithms, and productivity frameworks.
           </p>
@@ -141,10 +141,10 @@ export default function Skills() {
             {filteredSkills.map((skill, index) => {
               const Icon = iconMap[skill.icon] || Code2;
               const style = skillStyles[skill.name] || {
-                accent: "from-brand-500 to-teal-500",
+                accent: "from-brand-500 to-brand-secondary",
                 border: "group-hover:border-brand-500/50",
                 badge: "bg-brand-500/10 text-brand-600 border-brand-500/20",
-                glow: "rgba(16, 185, 129, 0.15)"
+                glow: "rgba(var(--brand-glow), 0.15)"
               };
 
               return (

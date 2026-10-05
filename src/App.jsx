@@ -10,7 +10,11 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WelcomeAnimation from './components/WelcomeAnimation';
 
+import { useTheme } from './context/ThemeContext';
+
 export default function App() {
+  const { darkMode, setDarkMode } = useTheme();
+
   const [showWelcome, setShowWelcome] = useState(() => {
     try {
       // Only show on first visit in the session; do not show on refresh
@@ -26,25 +30,6 @@ export default function App() {
       sessionStorage.setItem('hasSeenWelcome', 'true');
     } catch {}
   };
-
-  const [darkMode, setDarkMode] = useState(() => {
-    // Default to dark mode for premium developer aesthetic, check localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    return true; // default dark
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     if (showWelcome) {

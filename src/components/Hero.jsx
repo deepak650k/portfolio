@@ -158,7 +158,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo('projects')}
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-500 hover:to-teal-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-brand-secondary hover:from-brand-500 hover:to-brand-secondary-light text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
               >
                 <span>View Projects</span>
                 <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-1" />
@@ -247,7 +247,7 @@ export default function Hero() {
             >
               
               {/* Outer decorative gradient border */}
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-teal-500 to-cyan-400 opacity-30 blur-xl"></div>
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-brand-secondary to-brand-400 opacity-30 blur-xl"></div>
 
               {/* Main Card */}
               <div className="relative rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-7 backdrop-blur-xl">
@@ -271,7 +271,7 @@ export default function Hero() {
                     <motion.div
                       whileHover={{ scale: 1.08, rotate: 3 }}
                       transition={{ duration: 0.2 }}
-                      className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-500/30"
+                      className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-secondary flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-500/30"
                     >
                       DK
                     </motion.div>

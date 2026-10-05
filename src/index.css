@@ -2,13 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Default: Emerald Matrix */
+  --brand-50: 236 253 245;
+  --brand-100: 209 250 229;
+  --brand-200: 167 243 208;
+  --brand-300: 110 231 183;
+  --brand-400: 52 211 153;
+  --brand-500: 16 185 129;
+  --brand-600: 5 150 105;
+  --brand-700: 4 120 87;
+  --brand-800: 6 95 70;
+  --brand-900: 6 78 59;
+  --brand-950: 2 44 34;
+
+  --brand-secondary: 20 184 166;
+  --brand-secondary-light: 45 212 191;
+  --brand-glow: 16, 185, 129;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply font-sans bg-slate-950 text-slate-100 antialiased overflow-x-hidden transition-colors duration-300;
+    @apply font-sans bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden transition-colors duration-300;
   }
 
   /* Custom scrollbar */
@@ -23,7 +42,7 @@
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: rgb(var(--brand-500));
   }
 }
 
@@ -43,24 +62,12 @@
 }
 
 .glow-pill {
-  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 20px -3px rgba(var(--brand-glow), 0.35);
 }
 
-/* Radial ambient lighting */
-.ambient-glow-cyan {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0) 70%);
-}
-
-.ambient-glow-purple {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
-}
-
-.ambient-glow-emerald {
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0) 70%);
-}
-
-.ambient-glow-blue {
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0) 70%);
+/* Dynamic theme ambient glow */
+.ambient-glow-theme {
+  background: radial-gradient(circle, rgba(var(--brand-glow), 0.16) 0%, rgba(var(--brand-glow), 0) 70%);
 }
 
 /* Dot grid background pattern */

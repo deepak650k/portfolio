@@ -32,7 +32,7 @@ export default function Footer() {
           {/* Column 1: Brand & Bio */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-teal-600 text-white font-bold text-lg shadow-md shadow-brand-500/25">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-secondary text-white font-bold text-lg shadow-md shadow-brand-500/25">
                 DK
               </div>
               <div>

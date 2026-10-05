@@ -160,10 +160,10 @@ export default function WelcomeAnimation({ onComplete }) {
                   initial={{ scale: 0.5, rotate: -15, opacity: 0 }}
                   animate={{ scale: 1, rotate: 0, opacity: 1 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-600 via-teal-600 to-cyan-500 text-white font-extrabold text-3xl shadow-2xl shadow-brand-500/40 mb-5"
+                  className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-600 via-brand-secondary to-cyan-500 text-white font-extrabold text-3xl shadow-2xl shadow-brand-500/40 mb-5"
                 >
                   <span>D</span>
-                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-brand-500 via-teal-400 to-cyan-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
+                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-brand-500 via-brand-secondary to-cyan-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
                 </motion.div>
 
                 {/* Name with Liquid Metallic Shimmer - First Name Only */}
@@ -173,7 +173,7 @@ export default function WelcomeAnimation({ onComplete }) {
                   transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                   className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight mb-3"
                 >
-                  <span className="bg-gradient-to-r from-brand-400 via-teal-300 via-cyan-400 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-brand-400 via-brand-secondary-light via-brand-300 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
                     Deepak
                   </span>
                 </motion.h1>

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap, Palette } from 'lucide-react';
 import { navLinks, personalInfo } from '../data/portfolioData';
+import { useTheme } from '../context/ThemeContext';
+import ThemeSelector from './ThemeSelector';
 
-export default function Navbar({ darkMode, setDarkMode }) {
+export default function Navbar() {
+  const { darkMode, toggleDarkMode, colorTheme, setColorTheme, themes, activeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -68,10 +71,10 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <motion.div 
               whileHover={{ rotate: [0, -10, 10, 0], scale: 1.05 }}
               transition={{ duration: 0.4 }}
-              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-teal-600 text-white font-bold text-lg shadow-md shadow-brand-500/25"
+              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-secondary text-white font-bold text-lg shadow-md shadow-brand-500/25"
             >
               <span>DK</span>
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
+              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-brand-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
             </motion.div>
             <div className="flex flex-col">
               <span className="font-heading font-bold text-slate-900 dark:text-white text-base tracking-tight group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
@@ -112,15 +115,29 @@ export default function Navbar({ darkMode, setDarkMode }) {
           </nav>
 
           {/* Right Action Icons & CTA */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Dark / Light Toggle */}
+          <div className="hidden sm:flex items-center gap-2.5">
+            {/* Theme Selector with visible text label & color indicator */}
+            <ThemeSelector />
+
+            {/* Dark / Light Mode Switcher with text */}
             <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200 border border-transparent hover:border-slate-300 dark:hover:border-slate-700"
-              aria-label="Toggle theme"
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.02 }}
+              onClick={toggleDarkMode}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 dark:bg-slate-900/90 hover:bg-slate-200/80 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 transition-all duration-200 shadow-sm"
+              aria-label="Toggle theme appearance"
             >
-              {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
+              {darkMode ? (
+                <>
+                  <Sun size={15} className="text-amber-400" />
+                  <span className="text-xs font-semibold">Light</span>
+                </>
+              ) : (
+                <>
+                  <Moon size={15} className="text-slate-700" />
+                  <span className="text-xs font-semibold">Dark</span>
+                </>
+              )}
             </motion.button>
 
             {/* Let's Talk CTA */}
@@ -129,7 +146,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
               whileTap={{ scale: 0.97 }}
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-500 hover:to-teal-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-secondary hover:from-brand-500 hover:to-brand-secondary-light text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={16} />
@@ -138,12 +155,14 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
           {/* Mobile Menu & Theme Toggle Buttons */}
           <div className="flex items-center gap-2 lg:hidden">
+            <ThemeSelector />
+
             <button
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={toggleDarkMode}
               className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
-              aria-label="Toggle theme"
+              aria-label="Toggle theme appearance"
             >
-              {darkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-700" />}
+              {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
             </button>
 
             <button
@@ -151,7 +170,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
               className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none"
               aria-label="Toggle navigation menu"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -185,11 +204,50 @@ export default function Navbar({ darkMode, setDarkMode }) {
                   </a>
                 );
               })}
-              <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
+              {/* Mobile Quick Color Theme Picker */}
+              <div className="pt-3 border-t border-slate-800">
+                <div className="flex items-center justify-between mb-2.5 px-1">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <Palette size={13} className="text-brand-500" />
+                    Color Theme
+                  </span>
+                  <span className="text-[11px] font-mono text-brand-400 font-semibold">
+                    {activeTheme.name}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  {themes.map((theme) => {
+                    const isSelected = colorTheme === theme.id;
+                    return (
+                      <button
+                        key={theme.id}
+                        type="button"
+                        onClick={() => setColorTheme(theme.id)}
+                        className={`flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs font-medium transition-all ${
+                          isSelected
+                            ? 'bg-brand-500/20 border border-brand-500 text-white font-bold'
+                            : 'bg-slate-800/60 hover:bg-slate-800 text-slate-300 border border-slate-700/60'
+                        }`}
+                      >
+                        <span
+                          className="w-3.5 h-3.5 rounded-full shrink-0 shadow-xs"
+                          style={{ backgroundColor: theme.primaryColor }}
+                        />
+                        <span className="truncate">{theme.name.split(' ')[0]}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-800 flex flex-col gap-3">
                 <a
                   href="#contact"
-                  onClick={(e) => handleNavClick(e, '#contact')}
-                  className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-500 hover:to-teal-500 text-white font-medium shadow-lg shadow-brand-600/30"
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    handleNavClick(e, '#contact');
+                  }}
+                  className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-secondary hover:from-brand-500 hover:to-brand-secondary-light text-white font-medium shadow-lg shadow-brand-600/30"
                 >
                   Contact Me
                 </a>
