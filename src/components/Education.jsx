@@ -71,7 +71,7 @@ export default function Education() {
           <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight">
             Education
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-indigo-600 mx-auto mt-3 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-teal-500 mx-auto mt-3 rounded-full"></div>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300">
             My formal engineering foundation and specialized areas of study at university.
           </p>
@@ -88,7 +88,7 @@ export default function Education() {
           <div className="relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden p-6 sm:p-10 transition-all hover:shadow-2xl">
             
             {/* Top decorative accent ribbon */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400"></div>
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-500 via-teal-500 to-cyan-400"></div>
 
             {/* University & Degree Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-slate-100 dark:border-slate-800">
@@ -96,7 +96,7 @@ export default function Education() {
                 <motion.div 
                   whileHover={{ scale: 1.08, rotate: 5 }}
                   transition={{ duration: 0.2 }}
-                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-500/25 cursor-default"
+                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-500/25 cursor-default"
                 >
                   <GraduationCap size={32} />
                 </motion.div>

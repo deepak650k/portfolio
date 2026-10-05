@@ -19,7 +19,7 @@ export default function Projects() {
   // Gradient visuals for the project cards
   const projectThumbnails = {
     "portfolio-website": {
-      gradient: "from-brand-600 via-indigo-600 to-cyan-500",
+      gradient: "from-brand-600 via-teal-600 to-cyan-500",
       icon: Laptop,
       accentText: "Portfolio v1.0",
       tag: "Live Project"
@@ -57,7 +57,7 @@ export default function Projects() {
           <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight">
             Projects
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-indigo-600 mx-auto mt-3 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-teal-500 mx-auto mt-3 rounded-full"></div>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300">
             Selected engineering and software projects demonstrating real-world problem solving.
           </p>
@@ -67,7 +67,7 @@ export default function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projectsData.map((project, index) => {
             const thumb = projectThumbnails[project.id] || {
-              gradient: "from-brand-600 to-indigo-600",
+              gradient: "from-brand-600 to-teal-600",
               icon: Laptop,
               accentText: "Project",
               tag: "Engineering"

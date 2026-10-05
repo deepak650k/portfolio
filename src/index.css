@@ -43,7 +43,7 @@
 }
 
 .glow-pill {
-  box-shadow: 0 0 20px -3px rgba(14, 140, 233, 0.3);
+  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.35);
 }
 
 /* Radial ambient lighting */
@@ -55,8 +55,12 @@
   background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
 }
 
+.ambient-glow-emerald {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0) 70%);
+}
+
 .ambient-glow-blue {
-  background: radial-gradient(circle, rgba(14, 140, 233, 0.15) 0%, rgba(14, 140, 233, 0) 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0) 70%);
 }
 
 /* Dot grid background pattern */

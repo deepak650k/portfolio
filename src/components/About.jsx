@@ -58,7 +58,7 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight">
             About Me
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-indigo-600 mx-auto mt-3 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-teal-500 mx-auto mt-3 rounded-full"></div>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300">
             A student developer dedicated to mastering technology, building software, and creating value.
           </p>
@@ -84,7 +84,7 @@ export default function About() {
                 <motion.div 
                   whileHover={{ scale: 1.08, rotate: 3 }}
                   transition={{ duration: 0.2 }}
-                  className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md cursor-default"
+                  className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-600 flex items-center justify-center text-white font-bold text-xl shadow-md cursor-default"
                 >
                   DK
                 </motion.div>

@@ -129,17 +129,17 @@ export default function WelcomeAnimation({ onComplete }) {
                   >
                     <div className="relative flex flex-col items-center">
                       {/* Ambient soft glow aura behind text */}
-                      <div className="absolute -inset-6 bg-gradient-to-r from-cyan-500/25 via-brand-500/30 to-indigo-500/25 blur-3xl rounded-full -z-10 pointer-events-none" />
+                      <div className="absolute -inset-6 bg-gradient-to-r from-teal-500/25 via-brand-500/35 to-cyan-500/25 blur-3xl rounded-full -z-10 pointer-events-none" />
 
-                      <span className="text-6xl sm:text-7xl md:text-8xl font-black font-heading tracking-tight bg-gradient-to-r from-cyan-300 via-sky-200 via-indigo-300 to-teal-300 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.45)]">
+                      <span className="text-6xl sm:text-7xl md:text-8xl font-black font-heading tracking-tight bg-gradient-to-r from-emerald-300 via-teal-200 via-cyan-300 to-emerald-300 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(16,185,129,0.45)]">
                         {greetings[greetingIndex].text}
                       </span>
 
                       {/* Language Badge */}
-                      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.3)] mt-4">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-emerald-400/40 text-emerald-300 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(16,185,129,0.3)] mt-4">
                         <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                         </span>
                         <span className="font-semibold">{greetings[greetingIndex].sub}</span>
                       </div>
@@ -160,10 +160,10 @@ export default function WelcomeAnimation({ onComplete }) {
                   initial={{ scale: 0.5, rotate: -15, opacity: 0 }}
                   animate={{ scale: 1, rotate: 0, opacity: 1 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-600 via-indigo-600 to-cyan-500 text-white font-extrabold text-3xl shadow-2xl shadow-brand-500/40 mb-5"
+                  className="relative flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-600 via-teal-600 to-cyan-500 text-white font-extrabold text-3xl shadow-2xl shadow-brand-500/40 mb-5"
                 >
                   <span>D</span>
-                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-400 to-cyan-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
+                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-brand-500 via-teal-400 to-cyan-400 opacity-70 blur-lg -z-10 animate-pulse"></div>
                 </motion.div>
 
                 {/* Name with Liquid Metallic Shimmer - First Name Only */}
@@ -173,7 +173,7 @@ export default function WelcomeAnimation({ onComplete }) {
                   transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                   className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight mb-3"
                 >
-                  <span className="bg-gradient-to-r from-brand-400 via-indigo-300 via-cyan-400 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-brand-400 via-teal-300 via-cyan-400 to-brand-400 bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
                     Deepak
                   </span>
                 </motion.h1>

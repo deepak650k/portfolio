@@ -68,7 +68,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <motion.div 
               whileHover={{ rotate: [0, -10, 10, 0], scale: 1.05 }}
               transition={{ duration: 0.4 }}
-              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-bold text-lg shadow-md shadow-brand-500/25"
+              className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-teal-600 text-white font-bold text-lg shadow-md shadow-brand-500/25"
             >
               <span>DK</span>
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
@@ -129,7 +129,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
               whileTap={{ scale: 0.97 }}
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-500 hover:to-teal-500 text-white shadow-md shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200"
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={16} />
@@ -189,7 +189,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, '#contact')}
-                  className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-medium shadow-lg shadow-brand-600/30"
+                  className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-500 hover:to-teal-500 text-white font-medium shadow-lg shadow-brand-600/30"
                 >
                   Contact Me
                 </a>

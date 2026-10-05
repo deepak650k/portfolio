@@ -78,7 +78,7 @@ export default function Hero() {
       <motion.div 
         animate={{ y: [0, -18, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/3 right-1/4 w-80 h-80 bg-indigo-500/15 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none -z-10"
+        className="absolute top-1/3 right-1/4 w-80 h-80 bg-teal-500/15 dark:bg-teal-500/20 rounded-full blur-3xl pointer-events-none -z-10"
       />
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-96 h-64 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
@@ -111,7 +111,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4"
             >
               I'm{' '}
-              <span className="bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-500 dark:from-brand-400 dark:via-indigo-300 dark:to-cyan-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-600 via-teal-600 to-cyan-500 dark:from-brand-400 dark:via-teal-300 dark:to-cyan-300 bg-clip-text text-transparent">
                 {personalInfo.name}
               </span>
             </motion.h1>
@@ -158,7 +158,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo('projects')}
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-base bg-gradient-to-r from-brand-600 to-teal-600 hover:from-brand-500 hover:to-teal-500 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200"
               >
                 <span>View Projects</span>
                 <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-1" />
@@ -247,7 +247,7 @@ export default function Hero() {
             >
               
               {/* Outer decorative gradient border */}
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-indigo-500 to-cyan-400 opacity-30 blur-xl"></div>
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-teal-500 to-cyan-400 opacity-30 blur-xl"></div>
 
               {/* Main Card */}
               <div className="relative rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-7 backdrop-blur-xl">
@@ -271,7 +271,7 @@ export default function Hero() {
                     <motion.div
                       whileHover={{ scale: 1.08, rotate: 3 }}
                       transition={{ duration: 0.2 }}
-                      className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-500/30"
+                      className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-500/30"
                     >
                       DK
                     </motion.div>
