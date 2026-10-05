@@ -14,10 +14,8 @@ import {
   FileText
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import ResumeModal from './ResumeModal';
 
-export default function Hero() {
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
+export default function Hero({ onOpenResume }) {
   const roles = [
     personalInfo.headline,
     "B.Tech CSE Student @ JECRC University",
@@ -170,7 +168,7 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setIsResumeOpen(true)}
+                onClick={onOpenResume}
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-base bg-brand-500/10 hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 border border-brand-500/30 transition-all duration-200 shadow-sm"
               >
                 <FileText size={18} className="transition-transform duration-200 group-hover:scale-110" />
@@ -389,12 +387,6 @@ export default function Hero() {
         </div>
 
       </div>
-
-      {/* Curriculum Vitae / Resume Modal */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
     </section>
   );
 }

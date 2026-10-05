@@ -9,11 +9,13 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WelcomeAnimation from './components/WelcomeAnimation';
+import ResumeModal from './components/ResumeModal';
 
 import { useTheme } from './context/ThemeContext';
 
 export default function App() {
   const { darkMode, setDarkMode } = useTheme();
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   const [showWelcome, setShowWelcome] = useState(() => {
     try {
@@ -44,35 +46,48 @@ export default function App() {
       {/* Cinematic Welcome Screen - Only shows on first visit, not on refresh */}
       {showWelcome && <WelcomeAnimation onComplete={handleWelcomeComplete} />}
 
-      {/* Top Navbar */}
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      {/* Main Website Wrapper - cleanly hidden during resume PDF print */}
+      <div id="portfolio-website-content" className="flex flex-col min-h-screen flex-1">
+        {/* Top Navbar */}
+        <Navbar 
+          darkMode={darkMode} 
+          setDarkMode={setDarkMode} 
+          onOpenResume={() => setIsResumeOpen(true)}
+        />
 
-      {/* Main Content Sections */}
-      <main className="flex-1">
-        {/* 1. Hero / Home */}
-        <Hero />
+        {/* Main Content Sections */}
+        <main className="flex-1">
+          {/* 1. Hero / Home */}
+          <Hero onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* 2. About Me */}
-        <About />
+          {/* 2. About Me */}
+          <About />
 
-        {/* 3. Education */}
-        <Education />
+          {/* 3. Education */}
+          <Education />
 
-        {/* 4. Skills */}
-        <Skills />
+          {/* 4. Skills */}
+          <Skills />
 
-        {/* 5. Projects */}
-        <Projects />
+          {/* 5. Projects */}
+          <Projects />
 
-        {/* 6. Achievements */}
-        <Achievements />
+          {/* 6. Achievements */}
+          <Achievements />
 
-        {/* 7. Contact */}
-        <Contact />
-      </main>
+          {/* 7. Contact */}
+          <Contact />
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
+      </div>
+
+      {/* Standalone Curriculum Vitae / Resume Modal */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
     </div>
   );
 }

@@ -4,14 +4,12 @@ import { Menu, X, Sun, Moon, ArrowUpRight, GraduationCap, Palette, FileText } fr
 import { navLinks, personalInfo } from '../data/portfolioData';
 import { useTheme } from '../context/ThemeContext';
 import ThemeSelector from './ThemeSelector';
-import ResumeModal from './ResumeModal';
 
-export default function Navbar() {
+export default function Navbar({ onOpenResume }) {
   const { darkMode, toggleDarkMode, colorTheme, setColorTheme, themes, activeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,7 +123,7 @@ export default function Navbar() {
             <motion.button
               whileTap={{ scale: 0.94 }}
               whileHover={{ scale: 1.02 }}
-              onClick={() => setIsResumeOpen(true)}
+              onClick={onOpenResume}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold bg-brand-500/10 hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 border border-brand-500/30 transition-all duration-200 shadow-sm"
               aria-label="View Resume"
             >
@@ -259,7 +257,7 @@ export default function Navbar() {
                   type="button"
                   onClick={() => {
                     setIsOpen(false);
-                    setIsResumeOpen(true);
+                    if (onOpenResume) onOpenResume();
                   }}
                   className="w-full text-center py-2.5 rounded-xl bg-brand-500/15 border border-brand-500/30 text-brand-400 font-medium flex items-center justify-center gap-2 hover:bg-brand-500/25 transition-colors"
                 >
@@ -284,12 +282,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Curriculum Vitae / Resume Modal */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
     </motion.header>
   );
 }
