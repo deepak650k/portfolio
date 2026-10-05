@@ -1,20 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
   Printer, 
-  ExternalLink,
-  Copy,
-  Check,
   FileText,
-  Sparkles,
   Info
 } from 'lucide-react';
 import { personalInfo, educationData, projectsData, achievementsData } from '../data/portfolioData';
 
 export default function ResumeModal({ isOpen, onClose }) {
   const resumeRef = useRef(null);
-  const [copiedPlainText, setCopiedPlainText] = useState(false);
 
   // Comprehensive selectors targeting Botpress WebChat v5 and other floating widgets
   const getChatbotElements = () => {
@@ -186,59 +181,6 @@ export default function ResumeModal({ isOpen, onClose }) {
     }, 1500);
   };
 
-  const handleCopyPlainText = () => {
-    const atsText = `DEEPAK KUMAWAT
-Jaipur, Rajasthan, India | ${personalInfo.email}
-LinkedIn: ${personalInfo.linkedinUrl} | GitHub: ${personalInfo.githubUrl}
-Portfolio: https://deepak-builds-26.vercel.app
-
-PROFESSIONAL SUMMARY
-Motivated Computer Science undergraduate at JECRC University with strong foundations in Python, modern JavaScript, React.js architecture, and Generative AI workflows. Proven ability to architect responsive web interfaces, optimize frontend performance, and integrate AI capabilities into user-centric software.
-
-EDUCATION
-JECRC University, Jaipur, Rajasthan
-Bachelor of Technology (B.Tech) in Computer Science & Engineering (2026 - 2030) | Currently Pursuing
-• Relevant Coursework: Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Database Management Systems, System Design, Web Technologies, Artificial Intelligence & Machine Learning Foundations.
-
-TECHNICAL SKILLS
-• Programming Languages: Python, JavaScript (ES6+), C/C++, HTML5, CSS3, SQL
-• Frameworks & Libraries: React.js, Tailwind CSS, Vite, Framer Motion
-• AI & Modern Technologies: Generative AI, Large Language Models (LLMs), Prompt Engineering, RESTful APIs
-• Developer Tools: Git, GitHub, VS Code, Vercel, LocalStorage API, npm, Chrome DevTools
-• Core Competencies: Data Structures & Algorithms, Responsive Web Architecture, Component-Driven Design, Digital Productivity Systems
-
-TECHNICAL PROJECTS
-1. Conversational AI Chatbot Assistant | Botpress, React.js, Generative AI, Webhooks, REST APIs
-Live Demo: https://deepak-builds-26.vercel.app | GitHub: https://github.com/deepak650k/AI-Chatbot
-• Architected and deployed an intelligent conversational chatbot featuring multi-turn natural language dialogue handling, intent classification, and context memory.
-• Integrated dynamic webhook endpoints and custom knowledge base search delivering rapid automated responses with sub-second latency.
-
-2. Portfolio & Personal Brand Platform | React.js, Tailwind CSS, Vite, Framer Motion
-Live Demo: https://deepak-builds-26.vercel.app | GitHub: https://github.com/deepak650k/Portfolio
-• Architected a production-grade personal portfolio featuring 12 dynamic themes, sub-second load times, and fluid 60fps animations.
-• Engineered an ATS-compliant CV export engine with vector PDF generation and accessible mobile navigation drawer.
-
-3. Generative AI Assistant Web Application | Python, React.js, Generative AI, REST APIs
-GitHub: https://github.com/deepak650k/AI-Website
-• Developed an interactive AI chat interface connecting user queries to LLM backend endpoints via structured few-shot prompt engineering.
-• Implemented contextual prompt templates, asynchronous streaming query pipelines, and client-side error handling for reliable multi-turn interactions.
-
-4. Student Productivity System (Workflow OS) | JavaScript, React.js, Tailwind CSS, LocalStorage API
-GitHub: https://github.com/deepak650k/student-productivity
-• Built an offline-first academic management platform incorporating an Eisenhower priority task matrix and Pomodoro focus timers.
-• Architected zero-friction client-side local persistence ensuring instantaneous task retrieval and reliable session logging without database latency.
-
-CERTIFICATIONS & ACHIEVEMENTS
-• AI & Machine Learning Foundations — DeepLearning.AI & Coursera (2026)
-• Full-Stack Web Development Track — freeCodeCamp & Meta (2026)
-• Generative AI & Prompt Engineering Specialization — Google Cloud & DeepLearning.AI (2026)
-• Campus Tech & Innovation Hackathon Showcase — JECRC University Hackathon (2026)`;
-
-    navigator.clipboard.writeText(atsText);
-    setCopiedPlainText(true);
-    setTimeout(() => setCopiedPlainText(false), 2500);
-  };
-
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md resume-modal-backdrop">
@@ -274,25 +216,6 @@ CERTIFICATIONS & ACHIEVEMENTS
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Copy Plain Text ATS Button */}
-              <button
-                onClick={handleCopyPlainText}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors"
-                title="Copy clean plain text for job application forms"
-              >
-                {copiedPlainText ? (
-                  <>
-                    <Check size={14} className="text-emerald-500" />
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={14} />
-                    <span>Copy Text</span>
-                  </>
-                )}
-              </button>
-
               {/* Save PDF Button */}
               <button
                 onClick={handlePrint}
@@ -532,14 +455,6 @@ CERTIFICATIONS & ACHIEVEMENTS
             </div>
             
             <div className="flex items-center gap-2.5">
-              <button
-                onClick={handleCopyPlainText}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer"
-              >
-                {copiedPlainText ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
-                <span>{copiedPlainText ? 'Copied ATS Text!' : 'Copy ATS Text'}</span>
-              </button>
-
               <button
                 onClick={handlePrint}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/25 transition-all cursor-pointer"
