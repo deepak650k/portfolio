@@ -215,7 +215,7 @@ export default function Navbar() {
                     {activeTheme.name}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 mb-3">
+                <div className="grid grid-cols-2 gap-2 mb-3 max-h-48 overflow-y-auto pr-1">
                   {themes.map((theme) => {
                     const isSelected = colorTheme === theme.id;
                     return (
