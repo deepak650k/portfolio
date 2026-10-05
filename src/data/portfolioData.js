@@ -24,7 +24,7 @@ export const educationData = [
     degree: "Bachelor of Technology (B.Tech)",
     institution: "JECRC University",
     location: "Jaipur, Rajasthan",
-    period: "2023 - 2027",
+    period: "2026 - 2030",
     status: "Currently Pursuing",
     description: "Building strong foundations in computer science and engineering with focused coursework in cutting-edge software paradigms, algorithms, and artificial intelligence.",
     learningAreas: [
@@ -173,7 +173,7 @@ export const achievementsData = [
     title: "AI & Machine Learning Foundations",
     type: "Certifications",
     issuer: "Online Learning Platform",
-    year: "2024",
+    year: "2026",
     description: "Completed comprehensive training on machine learning fundamentals, predictive modeling, and Python for data science.",
     icon: "Award",
     badge: "Certified"
@@ -183,7 +183,7 @@ export const achievementsData = [
     title: "Full-Stack Web Development Track",
     type: "Courses",
     issuer: "Technical Learning Academy",
-    year: "2024",
+    year: "2026",
     description: "Mastered modern frontend engineering, asynchronous JavaScript, React components, and responsive design principles.",
     icon: "BookOpen",
     badge: "Completed"
@@ -193,7 +193,7 @@ export const achievementsData = [
     title: "Campus Tech & Innovation Hackathon",
     type: "Hackathons",
     issuer: "JECRC University",
-    year: "2024",
+    year: "2026",
     description: "Collaborated in an intensive hackathon environment, ideating and prototyping technical solutions for everyday student workflow challenges.",
     icon: "Trophy",
     badge: "Participant / Showcase"
@@ -203,7 +203,7 @@ export const achievementsData = [
     title: "Generative AI Prompt Engineering",
     type: "Certifications",
     issuer: "Industry Program",
-    year: "2024",
+    year: "2026",
     description: "Focused training in LLM prompting techniques, few-shot prompting, and integrating generative capabilities into real-world software.",
     icon: "Sparkles",
     badge: "Specialization"
@@ -213,7 +213,7 @@ export const achievementsData = [
     title: "Academic Excellence & Continuous Learning",
     type: "Awards",
     issuer: "JECRC Academic Recognition",
-    year: "2023 - Present",
+    year: "2026 - Present",
     description: "Demonstrated dedication to engineering coursework, practical project submissions, and peer knowledge sharing.",
     icon: "Medal",
     badge: "Honor"
