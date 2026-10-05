@@ -116,12 +116,21 @@
 }
 
 /* ==========================================================
-   PRINT STYLES FOR RESUME (Clean 1–2 page PDF / Paper export)
+   PRINT STYLES FOR RESUME (Clean 1-Page PDF / Paper export)
    ========================================================== */
 @media print {
+  /* Suppress browser default header (title, date) and footer (URL, page number) */
   @page {
     size: A4 portrait;
-    margin: 10mm 12mm 10mm 12mm;
+    margin: 0mm !important;
+  }
+
+  @page :left {
+    margin: 0mm !important;
+  }
+
+  @page :right {
+    margin: 0mm !important;
   }
 
   /* 1. Hide the entire 13-page website completely when resume modal is open */
@@ -131,11 +140,6 @@
   body.resume-modal-open main,
   body.resume-modal-open section,
   body.resume-modal-open nav,
-  body.resume-modal-open #bp-web-widget-container,
-  body.resume-modal-open div:has(> iframe[title*="chat" i]),
-  body.resume-modal-open div:has(> iframe[src*="botpress" i]),
-  body.resume-modal-open [class*="bp-widget"],
-  body.resume-modal-open iframe,
   .no-print {
     display: none !important;
     height: 0 !important;
@@ -146,24 +150,55 @@
     visibility: hidden !important;
   }
 
-  /* 2. Reset document root to clean printable white page */
+  /* 2. COMPLETELY HIDE CHATBOT LOGO, FLOATING WIDGETS & IFRAMES */
+  #bp-web-widget-container,
+  #bp-web-widget,
+  .bp-widget-web,
+  .bpw-widget,
+  .bp-widget,
+  [class*="bp-widget"],
+  [id*="bp-web-widget"],
+  [id*="bp-"],
+  [class*="bp-"],
+  [class*="botpress"],
+  [id*="botpress"],
+  div:has(> iframe),
+  iframe,
+  img[src*="bpcontent"],
+  img[src*="botpress"],
+  [data-print-hidden="true"],
+  div[style*="fixed"],
+  button[style*="fixed"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    top: -99999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0) !important;
+  }
+
+  /* 3. Reset document root to clean printable white page */
   html,
   body {
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #000000 !important;
     font-size: 10pt !important;
     line-height: 1.35 !important;
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
     height: auto !important;
-    min-height: auto !important;
+    min-height: 100% !important;
     overflow: visible !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* 3. Transform modal backdrop from fixed screen overlay to flat print page */
+  /* 4. Transform modal backdrop from fixed screen overlay to flat print page */
   .resume-modal-backdrop {
     position: static !important;
     display: block !important;
@@ -203,18 +238,18 @@
     display: none !important;
   }
 
-  /* 4. Ensure resume sheet flows naturally without scrollbars */
+  /* 5. Ensure resume sheet has internal margin, filling exactly 1 page */
   .printable-resume-sheet {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+    padding: 12mm 15mm 10mm 15mm !important;
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #000000 !important;
     overflow: visible !important;
     height: auto !important;
-    max-height: none !important;
   }
 
   .print-avoid-break {
@@ -222,7 +257,7 @@
     page-break-inside: avoid !important;
   }
 
-  /* 5. Typography and contrast for clear physical printout & 100% ATS readability */
+  /* 6. Typography and contrast for clear physical printout & 100% ATS readability */
   .printable-resume-sheet * {
     color: #000000 !important;
     border-color: #000000 !important;

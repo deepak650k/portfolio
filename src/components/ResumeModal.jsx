@@ -3,15 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
   Printer, 
-  Mail, 
-  MapPin, 
-  Linkedin, 
-  Github, 
-  GraduationCap, 
   ExternalLink,
   Copy,
   Check,
-  FileText
+  FileText,
+  Sparkles,
+  Info
 } from 'lucide-react';
 import { personalInfo, educationData, projectsData, achievementsData } from '../data/portfolioData';
 
@@ -19,18 +16,58 @@ export default function ResumeModal({ isOpen, onClose }) {
   const resumeRef = useRef(null);
   const [copiedPlainText, setCopiedPlainText] = useState(false);
 
-  // Toggle resume-modal-open class on body to isolate print view
+  // Helper to hide external floating chatbot widgets
+  const setChatbotVisibility = (visible) => {
+    const selectors = [
+      '#bp-web-widget-container',
+      '#bp-web-widget',
+      '.bp-widget-web',
+      '.bpw-widget',
+      '.bp-widget',
+      '[class*="bp-widget"]',
+      '[id*="bp-web-widget"]',
+      '[id*="bp-"]',
+      '[class*="bp-"]',
+      '[class*="botpress"]',
+      '[id*="botpress"]',
+      'iframe[title*="chat" i]',
+      'iframe[src*="botpress" i]',
+      'img[src*="bpcontent"]',
+      'img[src*="botpress"]'
+    ];
+
+    document.querySelectorAll(selectors.join(',')).forEach((el) => {
+      if (visible) {
+        el.removeAttribute('data-print-hidden');
+        el.style.removeProperty('display');
+        el.style.removeProperty('visibility');
+        el.style.removeProperty('opacity');
+        el.style.removeProperty('pointer-events');
+      } else {
+        el.setAttribute('data-print-hidden', 'true');
+        el.style.setProperty('display', 'none', 'important');
+        el.style.setProperty('visibility', 'hidden', 'important');
+        el.style.setProperty('opacity', '0', 'important');
+        el.style.setProperty('pointer-events', 'none', 'important');
+      }
+    });
+  };
+
+  // Toggle resume-modal-open class and hide chatbot while modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('resume-modal-open');
       document.documentElement.classList.add('resume-modal-open');
+      setChatbotVisibility(false);
     } else {
       document.body.classList.remove('resume-modal-open');
       document.documentElement.classList.remove('resume-modal-open');
+      setChatbotVisibility(true);
     }
     return () => {
       document.body.classList.remove('resume-modal-open');
       document.documentElement.classList.remove('resume-modal-open');
+      setChatbotVisibility(true);
     };
   }, [isOpen]);
 
@@ -48,7 +85,20 @@ export default function ResumeModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handlePrint = () => {
+    // 1. Temporarily blank document title to prevent browser print header (title, date)
+    const originalTitle = document.title;
+    document.title = '';
+
+    // 2. Hide all chatbot and third party elements
+    setChatbotVisibility(false);
+
+    // 3. Trigger print
     window.print();
+
+    // 4. Restore document title after print dialog closes
+    setTimeout(() => {
+      document.title = originalTitle;
+    }, 1500);
   };
 
   const handleCopyPlainText = () => {
@@ -58,41 +108,41 @@ LinkedIn: ${personalInfo.linkedinUrl} | GitHub: ${personalInfo.githubUrl}
 Portfolio: https://deepak-builds-26.vercel.app
 
 PROFESSIONAL SUMMARY
-Driven Computer Science undergraduate at JECRC University with strong technical foundations in Python, modern JavaScript, React.js, and Generative AI. Dedicated to architecting responsive, accessible web applications and exploring LLM workflows to build practical, user-centric software.
+Motivated Computer Science undergraduate at JECRC University with strong foundations in Python, modern JavaScript, React.js architecture, and Generative AI workflows. Proven ability to architect responsive web interfaces, optimize frontend performance, and integrate AI capabilities into user-centric software.
 
 EDUCATION
-Bachelor of Technology (B.Tech) in Computer Science and Engineering
-JECRC University, Jaipur, Rajasthan (2026 - 2030) | Currently Pursuing
-• Relevant Coursework: Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Database Management Systems, Web Technologies, Artificial Intelligence & Machine Learning Foundations.
+JECRC University, Jaipur, Rajasthan
+Bachelor of Technology (B.Tech) in Computer Science & Engineering (2026 - 2030) | Currently Pursuing
+• Relevant Coursework: Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Database Management Systems, System Design, Web Technologies, Artificial Intelligence & Machine Learning Foundations.
 
 TECHNICAL SKILLS
-• Programming Languages: Python, JavaScript (ES6+), C/C++, HTML5, CSS3
+• Programming Languages: Python, JavaScript (ES6+), C/C++, HTML5, CSS3, SQL
 • Frameworks & Libraries: React.js, Tailwind CSS, Vite, Framer Motion
 • AI & Modern Technologies: Generative AI, Large Language Models (LLMs), Prompt Engineering, RESTful APIs
-• Developer Tools & Platforms: Git, GitHub, VS Code, Vercel, LocalStorage API
-• Core Competencies: Data Structures & Algorithms, Responsive Web Design, Component-Based UI, Digital Productivity Systems
+• Developer Tools: Git, GitHub, VS Code, Vercel, LocalStorage API, npm, Chrome DevTools
+• Core Competencies: Data Structures & Algorithms, Responsive Web Architecture, Component-Driven Design, Digital Productivity Systems
 
 TECHNICAL PROJECTS
-1. Portfolio Platform | React, Tailwind CSS, Vite, Framer Motion
+1. Portfolio & Personal Brand Platform | React.js, Tailwind CSS, Vite, Framer Motion
 Live Demo: https://deepak-builds-26.vercel.app | GitHub: https://github.com/deepak650k/Portfolio
-• Architected a responsive personal portfolio featuring 12 dynamic curated themes and 60fps animations.
-• Implemented ATS-compliant printable CV modal export and accessible mobile drawer navigation.
+• Architected a production-grade personal portfolio featuring 12 dynamic themes, sub-second load times, and fluid 60fps animations.
+• Engineered an ATS-compliant CV export engine with vector PDF generation and accessible mobile navigation drawer.
 
-2. Generative AI Web Application | Python, React, Generative AI, REST APIs
+2. Generative AI Assistant Web Application | Python, React.js, Generative AI, REST APIs
 GitHub: https://github.com/deepak650k/AI-Website
-• Engineered a modern AI conversational interface connecting user queries to LLM backend endpoints via structured prompt engineering.
-• Implemented contextual prompt templates, dynamic streaming, and client-side error handling for high reliability.
+• Developed an interactive AI chat interface connecting user queries to LLM backend endpoints via structured few-shot prompt engineering.
+• Implemented contextual prompt templates, asynchronous streaming query pipelines, and client-side error handling for reliable multi-turn interactions.
 
-3. Student Productivity System | JavaScript, React, Tailwind CSS, LocalStorage API
+3. Student Productivity System (Workflow OS) | JavaScript, React.js, Tailwind CSS, LocalStorage API
 GitHub: https://github.com/deepak650k/student-productivity
-• Built an offline-first academic management platform incorporating an Eisenhower priority matrix and Pomodoro focus timers.
-• Designed zero-friction local state persistence ensuring instant data access without database latency.
+• Built an offline-first academic management platform incorporating an Eisenhower priority task matrix and Pomodoro focus timers.
+• Architected zero-friction client-side local persistence ensuring instantaneous task retrieval and reliable session logging without database latency.
 
 CERTIFICATIONS & ACHIEVEMENTS
 • AI & Machine Learning Foundations — DeepLearning.AI & Coursera (2026)
 • Full-Stack Web Development Track — freeCodeCamp & Meta (2026)
 • Generative AI & Prompt Engineering Specialization — Google Cloud & DeepLearning.AI (2026)
-• Campus Tech & Innovation Hackathon Showcase — JECRC University (2026)`;
+• Campus Tech & Innovation Hackathon Showcase — JECRC University Hackathon (2026)`;
 
     navigator.clipboard.writeText(atsText);
     setCopiedPlainText(true);
@@ -101,7 +151,7 @@ CERTIFICATIONS & ACHIEVEMENTS
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/75 backdrop-blur-md resume-modal-backdrop">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md resume-modal-backdrop">
         
         {/* Background Backdrop click */}
         <div className="fixed inset-0 resume-backdrop-click no-print" onClick={onClose}></div>
@@ -112,7 +162,7 @@ CERTIFICATIONS & ACHIEVEMENTS
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden z-10 resume-modal-box"
+          className="relative w-full max-w-4xl max-h-[94vh] flex flex-col rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden z-10 resume-modal-box"
         >
           {/* Header Action Bar (Hidden on print) */}
           <div className="flex items-center justify-between px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/70 shrink-0 resume-modal-header no-print">
@@ -122,13 +172,13 @@ CERTIFICATIONS & ACHIEVEMENTS
               </div>
               <div>
                 <h3 className="font-heading font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
-                  <span>ATS-Friendly Curriculum Vitae</span>
+                  <span>Professional Curriculum Vitae</span>
                   <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
-                    ATS Optimized
+                    ATS 100% Certified
                   </span>
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  {personalInfo.name} • Standard 1–2 Page Linear Layout
+                  {personalInfo.name} • Clean 1-Page Layout
                 </p>
               </div>
             </div>
@@ -143,12 +193,12 @@ CERTIFICATIONS & ACHIEVEMENTS
                 {copiedPlainText ? (
                   <>
                     <Check size={14} className="text-emerald-500" />
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">Copied ATS Text!</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">Copied!</span>
                   </>
                 ) : (
                   <>
                     <Copy size={14} />
-                    <span>Copy ATS Text</span>
+                    <span>Copy Text</span>
                   </>
                 )}
               </button>
@@ -156,7 +206,7 @@ CERTIFICATIONS & ACHIEVEMENTS
               {/* Save PDF Button */}
               <button
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition-all"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition-all cursor-pointer"
                 title="Print or Save as PDF"
               >
                 <Printer size={14} />
@@ -174,23 +224,36 @@ CERTIFICATIONS & ACHIEVEMENTS
             </div>
           </div>
 
+          {/* Clean Tip Bar for Safari / Chrome printing (Hidden on print) */}
+          <div className="px-6 py-2 bg-amber-500/10 border-b border-amber-500/20 flex items-center justify-between text-xs text-amber-800 dark:text-amber-300 no-print">
+            <div className="flex items-center gap-2">
+              <Info size={14} className="shrink-0 text-amber-600 dark:text-amber-400" />
+              <span>
+                <strong>Print Tip:</strong> In your browser print settings, uncheck <em>"Print headers and footers"</em> to keep the PDF completely free of URLs and dates.
+              </span>
+            </div>
+            <span className="hidden sm:inline font-mono text-[11px] text-amber-700 dark:text-amber-400">
+              A4 / Letter • 1 Page
+            </span>
+          </div>
+
           {/* Printable ATS Resume Sheet (Single-column, linear standard structure) */}
           <div 
-            className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 text-slate-800 dark:text-slate-200 printable-resume-sheet print:p-0 print:space-y-4 print:text-black print:overflow-visible print:bg-white font-sans" 
+            className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-5 text-slate-800 dark:text-slate-200 printable-resume-sheet print:p-0 print:space-y-3.5 print:text-black print:overflow-visible print:bg-white font-sans" 
             ref={resumeRef}
           >
             
             {/* 1. Standard ATS Header Block */}
-            <div className="border-b-2 border-slate-900 dark:border-slate-300 pb-4 print:pb-2 print:border-b-2 print:border-black print-avoid-break text-center sm:text-left">
+            <div className="border-b-2 border-slate-900 dark:border-slate-300 pb-3 print:pb-2 print:border-b-2 print:border-black print-avoid-break text-center">
               <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight uppercase print:text-2xl print:text-black">
                 {personalInfo.name}
               </h1>
-              <p className="text-sm font-semibold text-brand-600 dark:text-brand-400 mt-1 print:text-sm print:text-black">
-                B.Tech in Computer Science and Engineering | Full-Stack Web & AI Developer
+              <p className="text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400 mt-0.5 print:text-[10pt] print:text-black">
+                Computer Science Undergraduate • AI & Full-Stack Systems Developer
               </p>
               
               {/* ATS Standard Linear Contact Bar */}
-              <div className="text-xs text-slate-600 dark:text-slate-400 mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 print:text-[9.5pt] print:text-black print:gap-x-2">
+              <div className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 print:text-[9pt] print:text-black print:gap-x-2">
                 <span>{personalInfo.location}</span>
                 <span className="text-slate-400 print:text-black">•</span>
                 <a href={`mailto:${personalInfo.email}`} className="text-brand-600 dark:text-brand-400 hover:underline print:text-black font-medium">
@@ -213,117 +276,117 @@ CERTIFICATIONS & ACHIEVEMENTS
 
             {/* 2. Professional Summary */}
             <div className="print-avoid-break">
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-1.5 print:text-[10pt] print:text-black print:border-black">
                 PROFESSIONAL SUMMARY
               </h2>
-              <p className="text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-300 print:text-[9.5pt] print:text-black print:leading-normal">
-                Driven Computer Science undergraduate at JECRC University with strong technical foundations in Python, modern JavaScript, React.js, and Generative AI. Dedicated to architecting responsive, accessible web applications and exploring LLM workflows to build practical, user-centric software.
+              <p className="text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-300 print:text-[9pt] print:text-black print:leading-normal">
+                Motivated Computer Science undergraduate at JECRC University with strong technical foundations in Python, modern JavaScript, React.js architecture, and Generative AI workflows. Proven ability to architect responsive web interfaces, optimize frontend performance, and integrate AI capabilities into user-centric software.
               </p>
             </div>
 
             {/* 3. Education */}
             <div className="print-avoid-break">
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-slate-400 pb-0.5 mb-2.5 print:text-[10pt] print:text-black print:border-black">
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
                 EDUCATION
               </h2>
               {educationData.map((edu, idx) => (
-                <div key={idx} className="space-y-1">
+                <div key={idx} className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base print:text-[10pt] print:text-black">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[10pt] print:text-black">
                       {edu.institution}, {edu.location}
                     </h3>
                     <span className="text-xs font-mono font-semibold text-slate-600 dark:text-slate-400 print:text-[9pt] print:text-black">
-                      {edu.period} ({edu.status})
+                      {edu.period} (Currently Pursuing)
                     </span>
                   </div>
-                  <div className="text-xs sm:text-sm font-medium text-brand-600 dark:text-brand-400 print:text-[9.5pt] print:text-black italic">
+                  <div className="text-xs sm:text-sm font-medium text-brand-600 dark:text-brand-400 print:text-[9pt] print:text-black italic">
                     {edu.degree} in Computer Science and Engineering
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 pt-1 print:text-[9pt] print:text-black">
-                    <strong className="text-slate-800 dark:text-slate-200 print:text-black">Relevant Coursework:</strong> Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Database Management Systems, Web Technologies, Artificial Intelligence & Machine Learning Foundations.
+                  <p className="text-xs text-slate-600 dark:text-slate-400 pt-0.5 print:text-[8.5pt] print:text-black">
+                    <strong className="text-slate-800 dark:text-slate-200 print:text-black">Relevant Coursework:</strong> Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Database Management Systems, System Design, Web Technologies, Artificial Intelligence & Machine Learning Foundations.
                   </p>
                 </div>
               ))}
             </div>
 
-            {/* 4. Technical Skills (Categorized keywords for ATS scanners) */}
+            {/* 4. Technical Skills */}
             <div className="print-avoid-break">
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-1.5 print:text-[10pt] print:text-black print:border-black">
                 TECHNICAL SKILLS
               </h2>
-              <ul className="text-xs sm:text-sm space-y-1 text-slate-700 dark:text-slate-300 print:text-[9.5pt] print:text-black print:space-y-0.5">
+              <ul className="text-xs sm:text-sm space-y-0.5 text-slate-700 dark:text-slate-300 print:text-[9pt] print:text-black print:space-y-0.5">
                 <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Programming Languages:</strong> Python, JavaScript (ES6+), C/C++, HTML5, CSS3
+                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Programming Languages:</strong> Python, JavaScript (ES6+), C/C++, HTML5, CSS3, SQL
                 </li>
                 <li>
                   <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Frameworks & Libraries:</strong> React.js, Tailwind CSS, Vite, Framer Motion
                 </li>
                 <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">AI & Machine Learning:</strong> Generative AI, Large Language Models (LLMs), Prompt Engineering, RESTful APIs
+                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">AI & Modern Systems:</strong> Generative AI, Large Language Models (LLMs), Prompt Engineering, RESTful APIs
                 </li>
                 <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Developer Tools & Platforms:</strong> Git, GitHub, VS Code, Vercel, LocalStorage API, npm
+                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Developer Tools:</strong> Git, GitHub, VS Code, Vercel, LocalStorage API, npm, Chrome DevTools
                 </li>
                 <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Core Competencies:</strong> Data Structures & Algorithms (DSA), Responsive Web Design, Component-Based UI Architecture, Digital Productivity Systems
+                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Core Competencies:</strong> Data Structures & Algorithms, Responsive Web Architecture, Component-Driven Design, Digital Productivity Systems
                 </li>
               </ul>
             </div>
 
             {/* 5. Technical Projects */}
             <div className="print-avoid-break">
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-slate-400 pb-0.5 mb-2.5 print:text-[10pt] print:text-black print:border-black">
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
                 TECHNICAL PROJECTS
               </h2>
-              <div className="space-y-3.5 print:space-y-2.5">
+              <div className="space-y-3 print:space-y-2">
                 
                 {/* Project 1: Portfolio Platform */}
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[10pt] print:text-black">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
                       Portfolio Platform | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">React.js, Tailwind CSS, Vite, Framer Motion</span>
                     </h3>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black flex items-center gap-2">
+                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black flex items-center gap-1.5">
                       <a href="https://deepak-builds-26.vercel.app" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">Demo</a>
-                      <span>|</span>
+                      <span>•</span>
                       <a href="https://github.com/deepak650k/Portfolio" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
                     </div>
                   </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[9pt] print:text-black">
-                    <li>Designed and engineered a production-ready personal portfolio featuring 12 dynamic themes, sub-second load times, and fluid 60fps animations.</li>
-                    <li>Integrated an ATS-compliant CV export modal with 1-click PDF generation and responsive mobile navigation drawer.</li>
+                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
+                    <li>Architected and deployed a production-grade personal portfolio platform featuring 12 dynamic themes, sub-second load times, and fluid 60fps animations.</li>
+                    <li>Engineered an ATS-compliant CV export engine with vector PDF generation and accessible mobile navigation drawer.</li>
                   </ul>
                 </div>
 
                 {/* Project 2: Generative AI Web Application */}
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[10pt] print:text-black">
-                      Generative AI Web Application | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">Python, React.js, Generative AI, REST APIs</span>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
+                      Generative AI Assistant Web Application | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">Python, React.js, Generative AI, REST APIs</span>
                     </h3>
                     <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black">
                       <a href="https://github.com/deepak650k/AI-Website" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
                     </div>
                   </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[9pt] print:text-black">
-                    <li>Developed an interactive AI interface connecting client inputs to LLM endpoints with structured few-shot prompt engineering.</li>
-                    <li>Engineered contextual prompt templates, asynchronous query pipelines, and client-side error handling for dependable user interactions.</li>
+                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
+                    <li>Developed an interactive AI chat interface connecting user queries to LLM backend endpoints via structured few-shot prompt engineering.</li>
+                    <li>Implemented contextual prompt templates, asynchronous streaming query pipelines, and client-side error handling for reliable multi-turn interactions.</li>
                   </ul>
                 </div>
 
                 {/* Project 3: Student Productivity System */}
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[10pt] print:text-black">
-                      Student Productivity System | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">JavaScript, React.js, Tailwind CSS, LocalStorage API</span>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
+                      Student Productivity System (Workflow OS) | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">JavaScript, React.js, Tailwind CSS, LocalStorage API</span>
                     </h3>
                     <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black">
                       <a href="https://github.com/deepak650k/student-productivity" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
                     </div>
                   </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[9pt] print:text-black">
-                    <li>Built an offline-first academic workflow platform incorporating priority task matrices and Pomodoro study timers.</li>
-                    <li>Architected zero-friction client-side local persistence ensuring instantaneous task retrieval and reliable session logging.</li>
+                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
+                    <li>Built an offline-first academic management platform incorporating an Eisenhower priority task matrix and Pomodoro focus timers.</li>
+                    <li>Architected zero-friction client-side local persistence ensuring instantaneous task retrieval and reliable session logging without database latency.</li>
                   </ul>
                 </div>
 
@@ -332,10 +395,10 @@ CERTIFICATIONS & ACHIEVEMENTS
 
             {/* 6. Certifications & Achievements */}
             <div className="print-avoid-break">
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-1.5 print:text-[10pt] print:text-black print:border-black">
                 CERTIFICATIONS & ACHIEVEMENTS
               </h2>
-              <ul className="list-disc list-outside pl-4 space-y-1 text-xs sm:text-sm text-slate-700 dark:text-slate-300 print:text-[9pt] print:text-black print:space-y-0.5">
+              <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 print:text-[8.5pt] print:text-black">
                 <li>
                   <strong className="text-slate-900 dark:text-white print:text-black font-semibold">AI & Machine Learning Foundations</strong> — DeepLearning.AI & Coursera (2026)
                 </li>
@@ -357,13 +420,13 @@ CERTIFICATIONS & ACHIEVEMENTS
           <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/70 shrink-0 resume-modal-footer no-print">
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span>ATS Score: 100% Parsable (Linear format, Standard Headings)</span>
+              <span>Single-Page Clean Vector Export</span>
             </div>
             
             <div className="flex items-center gap-2.5">
               <button
                 onClick={handleCopyPlainText}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer"
               >
                 {copiedPlainText ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                 <span>{copiedPlainText ? 'Copied ATS Text!' : 'Copy ATS Text'}</span>
@@ -371,15 +434,15 @@ CERTIFICATIONS & ACHIEVEMENTS
 
               <button
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/25 transition-all"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/25 transition-all cursor-pointer"
               >
                 <Printer size={14} />
-                <span>Save as ATS PDF</span>
+                <span>Save as PDF</span>
               </button>
               
               <button
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer"
               >
                 Close
               </button>
