@@ -124,6 +124,93 @@ export default function App() {
     }
   }, [isResumeOpen]);
 
+  // Handle Botpress proactive message bubble: remove "seconds" text and auto-hide after 7 seconds
+  useEffect(() => {
+    if (showWelcome) return;
+
+    let timerStarted = false;
+    let autoHideTimer = null;
+
+    const cleanSecondsText = (el) => {
+      if (!el || !el.textContent) return;
+      const original = el.textContent;
+      // Strip "- in 0 seconds", "- in 1 second", "- in X seconds", "X seconds ago", etc.
+      const cleaned = original
+        .replace(/\s*[-–—]?\s*(in\s+)?\d+\s*sec(ond)?(s)?(\s*ago)?/gi, '')
+        .replace(/\s*[-–—]?\s*(in\s+a\s+few\s+seconds|just\s+now)/gi, '')
+        .trim();
+
+      if (original !== cleaned && cleaned.length > 0) {
+        el.textContent = cleaned;
+      }
+    };
+
+    const handlePreviewElement = (previewEl, root) => {
+      if (!previewEl) return;
+
+      // Clean all paragraph and description texts inside the preview bubble
+      const descriptions = previewEl.querySelectorAll('.bpMessagePreviewDescription, p');
+      descriptions.forEach(cleanSecondsText);
+
+      // Start 7-second auto-hide timer once preview bubble appears
+      if (!previewEl.hasAttribute('data-timer-started') && !timerStarted) {
+        timerStarted = true;
+        previewEl.setAttribute('data-timer-started', 'true');
+
+        autoHideTimer = setTimeout(() => {
+          // 1. Programmatically trigger native close button if present in shadow root
+          const closeBtn = previewEl.querySelector('.bpMessagePreviewCloseButton') ||
+                           root.querySelector('.bpMessagePreviewCloseButton');
+          if (closeBtn) {
+            closeBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+          }
+
+          // 2. Smoothly fade out and hide the preview container
+          previewEl.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          previewEl.style.opacity = '0';
+          previewEl.style.transform = 'translateY(24px) scale(0.96)';
+          previewEl.style.pointerEvents = 'none';
+
+          setTimeout(() => {
+            previewEl.style.display = 'none';
+          }, 600);
+        }, 7000); // Automatically hide after 7 seconds
+      }
+    };
+
+    const inspectDOMAndShadowRoots = () => {
+      // Query all elements with open shadow roots
+      const hosts = Array.from(document.querySelectorAll('*')).filter((el) => el.shadowRoot);
+      hosts.forEach((host) => {
+        const root = host.shadowRoot;
+        if (!root) return;
+
+        // Search for message preview containers inside shadow root
+        const previewContainers = root.querySelectorAll(
+          '.bpMessagePreview, [data-name="message-preview"], .bpMessagePreviewContainer, .bpFABMessagePreview'
+        );
+        previewContainers.forEach((container) => handlePreviewElement(container, root));
+
+        // Clean any description elements found in shadow root
+        const descElements = root.querySelectorAll('.bpMessagePreviewDescription');
+        descElements.forEach(cleanSecondsText);
+      });
+
+      // Also inspect regular document DOM in case elements render in light DOM
+      const lightPreviews = document.querySelectorAll(
+        '.bpMessagePreview, [data-name="message-preview"], .bpMessagePreviewContainer'
+      );
+      lightPreviews.forEach((container) => handlePreviewElement(container, document));
+    };
+
+    const interval = setInterval(inspectDOMAndShadowRoots, 150);
+
+    return () => {
+      clearInterval(interval);
+      if (autoHideTimer) clearTimeout(autoHideTimer);
+    };
+  }, [showWelcome]);
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col font-sans selection:bg-brand-500 selection:text-white">
       {/* Cinematic Welcome Screen - Only shows on first visit, not on refresh */}
