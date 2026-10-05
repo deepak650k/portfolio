@@ -97,17 +97,60 @@
 }
 
 /* Hide Botpress chatbot completely while welcome screen is active */
+.welcome-active botpress-webchat,
+.welcome-active bp-widget,
+.welcome-active bp-webchat,
+.welcome-active .bpContainer,
+.welcome-active .bpWebchat,
+.welcome-active .bpModalContainer,
+.welcome-active [class*="bpContainer"],
+.welcome-active [class*="bpWebchat"],
+.welcome-active [class*="bpModal"],
 .welcome-active #bp-web-widget-container,
+.welcome-active #bp-web-widget,
 .welcome-active div:has(> iframe[title*="chat" i]),
 .welcome-active div:has(> iframe[src*="botpress" i]),
 .welcome-active .bp-widget-web,
-.welcome-active #bp-web-widget,
 .welcome-active .bpw-widget,
 .welcome-active .bp-widget,
 .welcome-active [id*="bp-web-widget"],
 .welcome-active [class*="bp-widget"],
+.welcome-active [id*="bp-"],
+.welcome-active [class*="bp-"],
+.welcome-active [class*="botpress"],
+.welcome-active [id*="botpress"],
 .welcome-active iframe[title*="chat" i],
 .welcome-active iframe[src*="botpress" i] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: scale(0) !important;
+}
+
+/* Hide Botpress chatbot completely while resume modal is open */
+body.resume-modal-open botpress-webchat,
+body.resume-modal-open bp-widget,
+body.resume-modal-open bp-webchat,
+body.resume-modal-open .bpContainer,
+body.resume-modal-open .bpWebchat,
+body.resume-modal-open .bpModalContainer,
+body.resume-modal-open [class*="bpContainer"],
+body.resume-modal-open [class*="bpWebchat"],
+body.resume-modal-open [class*="bpModal"],
+body.resume-modal-open #bp-web-widget-container,
+body.resume-modal-open #bp-web-widget,
+body.resume-modal-open .bp-widget-web,
+body.resume-modal-open .bpw-widget,
+body.resume-modal-open .bp-widget,
+body.resume-modal-open [id*="bp-web-widget"],
+body.resume-modal-open [class*="bp-widget"],
+body.resume-modal-open [id*="bp-"],
+body.resume-modal-open [class*="bp-"],
+body.resume-modal-open [class*="botpress"],
+body.resume-modal-open [id*="botpress"],
+body.resume-modal-open [data-hidden-by-resume="true"],
+body.resume-modal-open iframe {
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
@@ -150,7 +193,17 @@
     visibility: hidden !important;
   }
 
-  /* 2. COMPLETELY HIDE CHATBOT LOGO, FLOATING WIDGETS & IFRAMES */
+  /* 2. COMPLETELY HIDE CHATBOT LOGO, FLOATING WIDGETS & IFRAMES & ANY NON-ROOT NODES */
+  body > :not(#root),
+  botpress-webchat,
+  bp-widget,
+  bp-webchat,
+  .bpContainer,
+  .bpWebchat,
+  .bpModalContainer,
+  [class*="bpContainer"],
+  [class*="bpWebchat"],
+  [class*="bpModal"],
   #bp-web-widget-container,
   #bp-web-widget,
   .bp-widget-web,
@@ -167,6 +220,7 @@
   img[src*="bpcontent"],
   img[src*="botpress"],
   [data-print-hidden="true"],
+  [data-hidden-by-resume="true"],
   div[style*="fixed"],
   button[style*="fixed"] {
     display: none !important;

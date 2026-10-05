@@ -16,9 +16,18 @@ export default function ResumeModal({ isOpen, onClose }) {
   const resumeRef = useRef(null);
   const [copiedPlainText, setCopiedPlainText] = useState(false);
 
-  // Helper to hide external floating chatbot widgets
-  const setChatbotVisibility = (visible) => {
+  // Comprehensive selectors targeting Botpress WebChat v5 and other floating widgets
+  const getChatbotElements = () => {
     const selectors = [
+      'botpress-webchat',
+      'bp-widget',
+      'bp-webchat',
+      '.bpContainer',
+      '.bpWebchat',
+      '.bpModalContainer',
+      '[class*="bpContainer"]',
+      '[class*="bpWebchat"]',
+      '[class*="bpModal"]',
       '#bp-web-widget-container',
       '#bp-web-widget',
       '.bp-widget-web',
@@ -35,22 +44,32 @@ export default function ResumeModal({ isOpen, onClose }) {
       'img[src*="bpcontent"]',
       'img[src*="botpress"]'
     ];
+    return document.querySelectorAll(selectors.join(','));
+  };
 
-    document.querySelectorAll(selectors.join(',')).forEach((el) => {
+  // Helper to hide external floating chatbot widgets
+  const setChatbotVisibility = (visible) => {
+    getChatbotElements().forEach((el) => {
       if (visible) {
         el.removeAttribute('data-print-hidden');
+        el.removeAttribute('data-hidden-by-resume');
         el.style.removeProperty('display');
         el.style.removeProperty('visibility');
         el.style.removeProperty('opacity');
         el.style.removeProperty('pointer-events');
       } else {
         el.setAttribute('data-print-hidden', 'true');
+        el.setAttribute('data-hidden-by-resume', 'true');
         el.style.setProperty('display', 'none', 'important');
         el.style.setProperty('visibility', 'hidden', 'important');
         el.style.setProperty('opacity', '0', 'important');
         el.style.setProperty('pointer-events', 'none', 'important');
       }
     });
+
+    if (!visible && window.botpress?.close) {
+      try { window.botpress.close(); } catch {}
+    }
   };
 
   // Toggle resume-modal-open class and hide chatbot while modal is open
@@ -59,15 +78,52 @@ export default function ResumeModal({ isOpen, onClose }) {
       document.body.classList.add('resume-modal-open');
       document.documentElement.classList.add('resume-modal-open');
       setChatbotVisibility(false);
+      // Run interval check to catch any late DOM injections
+      const interval = setInterval(() => setChatbotVisibility(false), 200);
+      return () => {
+        clearInterval(interval);
+        document.body.classList.remove('resume-modal-open');
+        document.documentElement.classList.remove('resume-modal-open');
+        setChatbotVisibility(true);
+      };
     } else {
       document.body.classList.remove('resume-modal-open');
       document.documentElement.classList.remove('resume-modal-open');
       setChatbotVisibility(true);
     }
+  }, [isOpen]);
+
+  // Handle system print events (Cmd+P / Ctrl+P / browser menu)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let originalTitle = document.title;
+
+    const handleBeforePrint = () => {
+      originalTitle = document.title;
+      document.title = '';
+      setChatbotVisibility(false);
+      Array.from(document.body.children).forEach((el) => {
+        if (el.id !== 'root' && el.tagName !== 'SCRIPT') {
+          el.style.setProperty('display', 'none', 'important');
+          el.style.setProperty('visibility', 'hidden', 'important');
+        }
+      });
+    };
+
+    const handleAfterPrint = () => {
+      document.title = originalTitle;
+      if (!isOpen) {
+        setChatbotVisibility(true);
+      }
+    };
+
+    window.addEventListener('beforeprint', handleBeforePrint);
+    window.addEventListener('afterprint', handleAfterPrint);
+
     return () => {
-      document.body.classList.remove('resume-modal-open');
-      document.documentElement.classList.remove('resume-modal-open');
-      setChatbotVisibility(true);
+      window.removeEventListener('beforeprint', handleBeforePrint);
+      window.removeEventListener('afterprint', handleAfterPrint);
     };
   }, [isOpen]);
 
@@ -85,19 +141,48 @@ export default function ResumeModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handlePrint = () => {
-    // 1. Temporarily blank document title to prevent browser print header (title, date)
+    // 1. Temporarily blank document title to remove browser print header (title, date)
     const originalTitle = document.title;
     document.title = '';
 
     // 2. Hide all chatbot and third party elements
     setChatbotVisibility(false);
 
-    // 3. Trigger print
+    // 3. Temporarily hide any direct children of body that are not #root
+    const nonRootElements = Array.from(document.body.children).filter(
+      (el) => el.id !== 'root' && el.tagName !== 'SCRIPT'
+    );
+    nonRootElements.forEach((el) => {
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+    });
+
+    // 4. Trigger print
     window.print();
 
-    // 4. Restore document title after print dialog closes
+    // 5. Restore after print dialog closes
     setTimeout(() => {
       document.title = originalTitle;
+      nonRootElements.forEach((el) => {
+        if (isOpen) {
+          if (
+            el.tagName.toLowerCase().includes('botpress') ||
+            el.className?.includes?.('bp') ||
+            el.id?.includes?.('bp')
+          ) {
+            el.style.setProperty('display', 'none', 'important');
+          } else {
+            el.style.removeProperty('display');
+            el.style.removeProperty('visibility');
+          }
+        } else {
+          el.style.removeProperty('display');
+          el.style.removeProperty('visibility');
+        }
+      });
+      if (!isOpen) {
+        setChatbotVisibility(true);
+      }
     }, 1500);
   };
 
