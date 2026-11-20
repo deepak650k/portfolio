@@ -164,104 +164,76 @@ export default function App() {
     let timerStarted = false;
     let autoHideTimer = null;
     let hideAnimationTimer = null;
+    let observer = null;
+    let intervalId = null;
 
     const cleanSecondsText = (el) => {
       if (!el?.textContent) return;
-
       const original = el.textContent;
       const cleaned = original
-        .replace(
-          /\s*[-–—]?\s*(in\s+)?\d+\s*sec(ond)?(s)?(\s*ago)?/gi,
-          ''
-        )
-        .replace(
-          /\s*[-–—]?\s*(in\s+a\s+few\s+seconds|just\s+now)/gi,
-          ''
-        )
+        .replace(/\s*[-–—]?\s*(in\s+)?\d+\s*sec(ond)?(s)?(\s*ago)?/gi, '')
+        .replace(/\s*[-–—]?\s*(in\s+a\s+few\s+seconds|just\s+now)/gi, '')
         .trim();
-
       if (original !== cleaned && cleaned.length > 0) {
         el.textContent = cleaned;
       }
     };
 
     const handlePreviewElement = (previewEl, root) => {
-      if (!previewEl) return;
+      if (!previewEl || previewEl.hasAttribute('data-timer-started')) return;
 
-      previewEl
-        .querySelectorAll('.bpMessagePreviewDescription, p')
-        .forEach(cleanSecondsText);
+      previewEl.querySelectorAll('.bpMessagePreviewDescription, p').forEach(cleanSecondsText);
 
-      if (
-        !previewEl.hasAttribute('data-timer-started') &&
-        !timerStarted
-      ) {
-        timerStarted = true;
-        previewEl.setAttribute('data-timer-started', 'true');
+      timerStarted = true;
+      previewEl.setAttribute('data-timer-started', 'true');
 
-        autoHideTimer = setTimeout(() => {
-          const closeBtn =
-            previewEl.querySelector('.bpMessagePreviewCloseButton') ||
-            root.querySelector('.bpMessagePreviewCloseButton');
-
-          if (closeBtn) {
-            closeBtn.dispatchEvent(
-              new MouseEvent('click', {
-                bubbles: true,
-                cancelable: true
-              })
-            );
-          }
-
-          previewEl.style.transition =
-            'opacity 0.6s ease, transform 0.6s ease';
-          previewEl.style.opacity = '0';
-          previewEl.style.transform =
-            'translateY(24px) scale(0.96)';
-          previewEl.style.pointerEvents = 'none';
-
-          hideAnimationTimer = setTimeout(() => {
-            previewEl.style.display = 'none';
-          }, 600);
-        }, 7000);
-      }
+      autoHideTimer = setTimeout(() => {
+        const closeBtn =
+          previewEl.querySelector('.bpMessagePreviewCloseButton') ||
+          root?.querySelector('.bpMessagePreviewCloseButton');
+        if (closeBtn) {
+          closeBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        }
+        previewEl.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        previewEl.style.opacity = '0';
+        previewEl.style.transform = 'translateY(24px) scale(0.96)';
+        previewEl.style.pointerEvents = 'none';
+        hideAnimationTimer = setTimeout(() => {
+          previewEl.style.display = 'none';
+          // Stop all observers/intervals once hidden
+          observer?.disconnect();
+          if (intervalId) { clearInterval(intervalId); intervalId = null; }
+        }, 600);
+      }, 7000);
     };
 
-    const inspectDOMAndShadowRoots = () => {
-      const hosts = Array.from(
-        document.querySelectorAll('*')
-      ).filter((el) => el.shadowRoot);
-
+    const scanForPreview = () => {
+      const hosts = Array.from(document.querySelectorAll('*')).filter((el) => el.shadowRoot);
       hosts.forEach((host) => {
         const root = host.shadowRoot;
         if (!root) return;
-
-        root
-          .querySelectorAll(
-            '.bpMessagePreview, [data-name="message-preview"], .bpMessagePreviewContainer, .bpFABMessagePreview'
-          )
-          .forEach((container) =>
-            handlePreviewElement(container, root)
-          );
-
-        root
-          .querySelectorAll('.bpMessagePreviewDescription')
-          .forEach(cleanSecondsText);
+        root.querySelectorAll('.bpMessagePreview, [data-name="message-preview"], .bpMessagePreviewContainer, .bpFABMessagePreview')
+          .forEach((el) => handlePreviewElement(el, root));
+        root.querySelectorAll('.bpMessagePreviewDescription').forEach(cleanSecondsText);
       });
-
-      document
-        .querySelectorAll(
-          '.bpMessagePreview, [data-name="message-preview"], .bpMessagePreviewContainer'
-        )
-        .forEach((container) =>
-          handlePreviewElement(container, document)
-        );
+      document.querySelectorAll('.bpMessagePreview, [data-name="message-preview"], .bpMessagePreviewContainer')
+        .forEach((el) => handlePreviewElement(el, document));
     };
 
-    const interval = setInterval(inspectDOMAndShadowRoots, 150);
+    // Use MutationObserver to react to DOM changes instead of constant polling
+    observer = new MutationObserver(scanForPreview);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // One short-lived interval as a fallback for Shadow DOM (stops after 10s)
+    intervalId = setInterval(scanForPreview, 300);
+    const stopFallback = setTimeout(() => {
+      if (intervalId) { clearInterval(intervalId); intervalId = null; }
+    }, 10000);
 
     return () => {
-      clearInterval(interval);
+      observer?.disconnect();
+      if (intervalId) clearInterval(intervalId);
+      clearTimeout(stopFallback);
       if (autoHideTimer) clearTimeout(autoHideTimer);
       if (hideAnimationTimer) clearTimeout(hideAnimationTimer);
     };

@@ -185,21 +185,11 @@ export default function Skills() {
                     </p>
                   </div>
 
-                  {/* Progress Indicator with Animation */}
+                  {/* Proficiency Label — no fake percentage bars */}
                   <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80">
-                    <div className="flex items-center justify-between text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
-                      <span>Proficiency</span>
-                      <span>{skill.percentage}%</span>
-                    </div>
-                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.percentage}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: 'easeOut' }}
-                        className={`h-full rounded-full bg-gradient-to-r ${style.accent}`}
-                      ></motion.div>
-                    </div>
+                    <span className={`text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border ${style.badge}`}>
+                      {skill.level}
+                    </span>
                   </div>
 
                   {/* Subtle hover backlight */}

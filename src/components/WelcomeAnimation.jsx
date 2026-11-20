@@ -21,7 +21,7 @@ export default function WelcomeAnimation({ onComplete }) {
       return;
     }
 
-    // Multilingual greeting cycle (~750ms each)
+    // Multilingual greeting cycle (~400ms each)
     const greetingInterval = setInterval(() => {
       setGreetingIndex((prev) => {
         if (prev < greetings.length - 1) {
@@ -32,12 +32,12 @@ export default function WelcomeAnimation({ onComplete }) {
           return prev;
         }
       });
-    }, 750);
+    }, 400);
 
-    // Auto-transition to portfolio (~5.2s total)
+    // Auto-transition to portfolio (~2.5s total)
     const exitTimer = setTimeout(() => {
       handleExit();
-    }, 5200);
+    }, 2500);
 
     // Keyboard support: Escape or Enter skips immediately
     const handleKeyDown = (e) => {

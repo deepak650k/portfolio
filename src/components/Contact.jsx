@@ -39,29 +39,36 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-      `[Portfolio Inquiry] ${formData.subject}`
-    )}&body=${encodeURIComponent(
-      `Hi Deepak,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
-    )}`;
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: 'YOUR_WEB3FORMS_KEY', // TODO(Deepak): replace with your Web3Forms access key
+          name: formData.name,
+          email: formData.email,
+          subject: `[Portfolio Inquiry] ${formData.subject}`,
+          message: formData.message,
+        }),
+      });
 
-    setLastSentDetails({
-      name: formData.name,
-      email: formData.email,
-      subject: formData.subject,
-      mailtoUrl: mailtoUrl
-    });
-
-    setTimeout(() => {
+      const result = await response.json();
+      if (result.success) {
+        setLastSentDetails({ name: formData.name, email: formData.email, subject: formData.subject });
+        setFormSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        alert('Something went wrong. Please email me directly at deepak650k@gmail.com');
+      }
+    } catch {
+      alert('Network error. Please email me directly at deepak650k@gmail.com');
+    } finally {
       setLoading(false);
-      setFormSubmitted(true);
-      window.open(mailtoUrl, '_blank');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 500);
+    }
   };
 
   return (
