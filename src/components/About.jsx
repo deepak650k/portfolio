@@ -80,17 +80,12 @@ export default function About() {
           >
             
             {/* Main Bio Card */}
-            <div className="rounded-2xl p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div className="rounded-2xl p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300">
 
               <div className="flex items-center gap-4 mb-6">
-                <motion.div 
-                  whileHover={{ scale: 1.08, rotate: 3 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-secondary flex items-center justify-center text-white font-bold text-xl shadow-md cursor-default"
-                >
+                <div className="w-14 h-14 rounded-2xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-md cursor-default">
                   DK
-                </motion.div>
+                </div>
                 <div>
                   <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white">
                     {personalInfo.name}
