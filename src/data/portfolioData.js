@@ -156,7 +156,7 @@ export const projectsData = [
     technologies: ["Python", "React", "Generative AI", "Tailwind CSS", "REST APIs"],
     featured: true,
     github: "https://github.com/deepak650k/AI-Website",
-    demo: "https://deepak-builds-26.vercel.app/#projects",
+    demo: null,
     metrics: "Real-time AI Responses • Prompt Optimization • Clean UI",
     features: [
       "Custom prompt engineering and context handling",
@@ -174,7 +174,7 @@ export const projectsData = [
     technologies: ["JavaScript", "React", "Tailwind CSS", "Local Storage", "CSS Grid"],
     featured: true,
     github: "https://github.com/deepak650k/student-productivity",
-    demo: "https://deepak-builds-26.vercel.app/#projects",
+    demo: null,
     metrics: "Zero Friction • Offline First • High Efficiency",
     features: [
       "Interactive Eisenhower matrix / priority task boards",
