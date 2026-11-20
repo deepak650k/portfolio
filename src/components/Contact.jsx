@@ -48,7 +48,7 @@ export default function Contact() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_KEY', // TODO(Deepak): replace with your Web3Forms access key
+          access_key: '4a5bea39-2c32-4120-afda-fda6ee04e34a',
           name: formData.name,
           email: formData.email,
           subject: `[Portfolio Inquiry] ${formData.subject}`,
