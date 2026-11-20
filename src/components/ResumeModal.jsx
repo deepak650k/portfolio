@@ -287,13 +287,13 @@ export default function ResumeModal({ isOpen, onClose }) {
               </div>
             </div>
 
-            {/* 2. Professional Summary */}
+            {/* 2. Professional Summary — from portfolioData */}
             <div className="print-avoid-break">
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-1.5 print:text-[10pt] print:text-black print:border-black">
                 PROFESSIONAL SUMMARY
               </h2>
               <p className="text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-300 print:text-[9pt] print:text-black print:leading-normal">
-                Motivated Computer Science undergraduate at JECRC University with strong technical foundations in Python, modern JavaScript, React.js architecture, and Generative AI workflows. Proven ability to architect responsive web interfaces, optimize frontend performance, and integrate AI capabilities into user-centric software.
+                {personalInfo.extendedBio}
               </p>
             </div>
 
@@ -346,102 +346,51 @@ export default function ResumeModal({ isOpen, onClose }) {
               </ul>
             </div>
 
-            {/* 5. Technical Projects */}
+            {/* 5. Technical Projects — rendered from portfolioData.js */}
             <div className="print-avoid-break">
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-2 print:text-[10pt] print:text-black print:border-black">
                 TECHNICAL PROJECTS
               </h2>
               <div className="space-y-3 print:space-y-1.5">
-                
-                {/* Project 1: Conversational AI Chatbot Assistant */}
-                <div className="space-y-0.5">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
-                      Conversational AI Chatbot Assistant | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">Botpress, React.js, Generative AI, Webhooks, REST APIs</span>
-                    </h3>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black flex items-center gap-1.5">
-                      <a href="https://deepak-builds-26.vercel.app" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">Demo</a>
-                      <span>•</span>
-                      <a href="https://github.com/deepak650k/AI-Chatbot" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
+                {projectsData.map((project) => (
+                  <div key={project.id} className="space-y-0.5">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                      <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
+                        {project.title} | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">{project.technologies?.join(', ')}</span>
+                      </h3>
+                      <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black flex items-center gap-1.5">
+                        {project.demo && !project.demo.includes('#') && (
+                          <>
+                            <a href={project.demo} target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">Demo</a>
+                            {project.github && <span>•</span>}
+                          </>
+                        )}
+                        {project.github && (
+                          <a href={project.github} target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
+                        )}
+                      </div>
                     </div>
+                    <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
+                      {project.features?.slice(0, 2).map((f, i) => (
+                        <li key={i}>{f}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
-                    <li>Architected and deployed an intelligent conversational chatbot featuring multi-turn natural language dialogue handling, intent classification, and context memory.</li>
-                    <li>Integrated dynamic webhook endpoints and custom knowledge base search delivering rapid automated responses with sub-second latency.</li>
-                  </ul>
-                </div>
-
-                {/* Project 2: Portfolio Platform */}
-                <div className="space-y-0.5">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
-                      Portfolio Platform | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">React.js, Tailwind CSS, Vite, Framer Motion</span>
-                    </h3>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black flex items-center gap-1.5">
-                      <a href="https://deepak-builds-26.vercel.app" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">Demo</a>
-                      <span>•</span>
-                      <a href="https://github.com/deepak650k/Portfolio" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
-                    </div>
-                  </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
-                    <li>Architected and deployed a production-grade personal portfolio platform featuring 12 dynamic themes, sub-second load times, and fluid 60fps animations.</li>
-                    <li>Engineered an ATS-compliant CV export engine with vector PDF generation and accessible mobile navigation drawer.</li>
-                  </ul>
-                </div>
-
-                {/* Project 3: Generative AI Web Application */}
-                <div className="space-y-0.5">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
-                      Generative AI Assistant Web Application | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">Python, React.js, Generative AI, REST APIs</span>
-                    </h3>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black">
-                      <a href="https://github.com/deepak650k/AI-Website" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
-                    </div>
-                  </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
-                    <li>Developed an interactive AI chat interface connecting user queries to LLM backend endpoints via structured few-shot prompt engineering.</li>
-                    <li>Implemented contextual prompt templates, asynchronous streaming query pipelines, and client-side error handling for reliable multi-turn interactions.</li>
-                  </ul>
-                </div>
-
-                {/* Project 4: Student Productivity System */}
-                <div className="space-y-0.5">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm print:text-[9.5pt] print:text-black">
-                      Student Productivity System (Workflow OS) | <span className="font-normal text-xs text-slate-600 dark:text-slate-400 print:text-black">JavaScript, React.js, Tailwind CSS, LocalStorage API</span>
-                    </h3>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 print:text-[8.5pt] print:text-black">
-                      <a href="https://github.com/deepak650k/student-productivity" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline print:text-black">GitHub</a>
-                    </div>
-                  </div>
-                  <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs text-slate-600 dark:text-slate-300 print:text-[8.5pt] print:text-black">
-                    <li>Built an offline-first academic management platform incorporating an Eisenhower priority task matrix and Pomodoro focus timers.</li>
-                    <li>Architected zero-friction client-side local persistence ensuring instantaneous task retrieval and reliable session logging without database latency.</li>
-                  </ul>
-                </div>
-
+                ))}
               </div>
             </div>
 
-            {/* 6. Certifications & Achievements */}
+            {/* 6. Certifications & Achievements — rendered from portfolioData.js */}
             <div className="print-avoid-break">
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-900 dark:border-slate-400 pb-0.5 mb-1.5 print:text-[10pt] print:text-black print:border-black">
                 CERTIFICATIONS & ACHIEVEMENTS
               </h2>
               <ul className="list-disc list-outside pl-4 space-y-0.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 print:text-[8.5pt] print:text-black">
-                <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">AI & Machine Learning Foundations</strong> — DeepLearning.AI & Coursera (2026)
-                </li>
-                <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Full-Stack Web Development Track</strong> — freeCodeCamp & Meta (2026)
-                </li>
-                <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Generative AI & Prompt Engineering Specialization</strong> — Google Cloud & DeepLearning.AI (2026)
-                </li>
-                <li>
-                  <strong className="text-slate-900 dark:text-white print:text-black font-semibold">Campus Tech & Innovation Hackathon Showcase</strong> — JECRC University Hackathon (2026)
-                </li>
+                {achievementsData.map((a) => (
+                  <li key={a.id}>
+                    <strong className="text-slate-900 dark:text-white print:text-black font-semibold">{a.title}</strong> — {a.issuer} ({a.year})
+                  </li>
+                ))}
               </ul>
             </div>
 
